@@ -1,0 +1,10 @@
+{
+  "name": "chuanhua-site-v3",
+  "version": "3.0.0",
+  "private": true,
+  "description": "川花 RIVER FLOWER 官網 v3(三層空間・V3 配色版)— 零依賴純靜態,雙擊 index.html 即可瀏覽",
+  "scripts": {
+    "start": "python -m http.server 8080",
+    "preview": "npx serve ."
+  }
+}

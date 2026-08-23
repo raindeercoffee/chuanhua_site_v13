@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>川花｜花店圖取景微調</title>
+  <style>
+    :root{--ink:#2f4e63;--ink-soft:#547084;--line:#dbe7ed;--blue:#d9e7ee;--pink:#d98ea3;--paper:#fbfaf7;--x:0px;--y:0px;--scale:1;--rotate:0deg}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif}main{width:min(1180px,calc(100% - 40px));margin:0 auto;padding:48px 0 72px}.kicker{color:var(--pink);font-size:12px;letter-spacing:.16em;margin:0 0 10px}h1{font-family:"Noto Serif TC","PMingLiU",serif;font-size:clamp(26px,4vw,42px);font-weight:600;margin:0 0 10px}.intro{margin:0 0 30px;color:var(--ink-soft);line-height:1.8}
+    .stage{min-height:540px;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;padding:52px clamp(28px,6vw,84px);background:linear-gradient(180deg,#d0e3f0,#d9e7ee);border-radius:24px;overflow:hidden}.copy h2{font-family:"Noto Serif TC","PMingLiU",serif;font-weight:600;font-size:clamp(28px,4vw,50px);line-height:1.45;margin:0 0 24px;letter-spacing:.02em}.copy h2 em{color:var(--pink);font-style:normal}.copy p{max-width:52ch;color:var(--ink-soft);line-height:2;margin:0 0 18px}
+    .art{position:relative;display:flex;justify-content:center;align-items:center;min-height:390px}.art::before{content:"";position:absolute;inset:-8% -6%;background:radial-gradient(ellipse 60% 55% at 50% 55%,rgba(214,232,241,.9),rgba(244,248,250,0) 75%);z-index:0}.art-window{width:min(360px,86vw);aspect-ratio:1/1;position:relative;z-index:1;overflow:hidden;-webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 50%,#000 48%,transparent 76%);mask-image:radial-gradient(ellipse 62% 58% at 50% 50%,#000 48%,transparent 76%)}.art-window img{width:100%;height:100%;object-fit:cover;transform:translate(var(--x),var(--y)) scale(var(--scale)) rotate(var(--rotate));transform-origin:center;filter:saturate(.88) contrast(.96);transition:transform .08s linear}
+    .panel{margin-top:28px;padding:26px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 8px 26px rgba(47,78,99,.07)}.panel h2{font-size:19px;margin:0 0 7px}.note{margin:0 0 18px;color:var(--ink-soft);font-size:14px;line-height:1.7}.control{display:grid;grid-template-columns:92px 1fr 80px;align-items:center;gap:14px;margin:14px 0}.control label{font-weight:700}.control input[type=range]{width:100%;accent-color:#d98ea3}.value{font-variant-numeric:tabular-nums;text-align:right;color:var(--ink-soft);font-size:14px}.readout{margin:22px 0 0;padding:16px 18px;border-radius:12px;background:#f6fafc;color:var(--ink-soft);line-height:1.8;word-break:break-word}.readout code{color:var(--ink);font-size:14px}.actions{display:flex;gap:10px;align-items:center;margin-top:20px}.button{border:1px solid #bfd1db;background:#fff;color:var(--ink);padding:10px 16px;border-radius:9px;font:inherit;cursor:pointer}.button:hover{border-color:var(--pink)}
+    @media(max-width:760px){main{width:min(100% - 24px,1180px);padding-top:28px}.stage{grid-template-columns:1fr;gap:10px;padding:36px 24px;min-height:0}.copy h2{font-size:34px}.art{min-height:300px;order:-1}.control{grid-template-columns:74px 1fr 72px;gap:10px}.panel{padding:20px}.art-window{width:min(320px,92vw)}}
+  </style>
+</head>
+<body>
+  <main>
+    <p class="kicker">RIVERFLOWER · IMAGE CROP TOOL</p>
+    <h1>花店照片取景微調</h1>
+    <p class="intro">外面的霧化圓形固定不動；下面的控制只會移動、縮放或微轉圓形裡面的照片。請把直桿調到視覺上端正、置中的位置。</p>
+    <section class="stage" aria-label="首頁區塊預覽">
+      <div class="copy"><h2>種下每一個品牌夢，<br>陪它安靜地<em>開花</em></h2><p>不同於許多行銷顧問公司的一次性販售，我們集結實戰電商、整合行銷、市場嗅覺、獨特美感，為你打造最符合商品靈魂的口碑。</p></div>
+      <div class="art"><div class="art-window"><img src="assets/flower-shop.png" alt="花店圖片取景預覽"></div></div>
+    </section>
+    <section class="panel" aria-label="照片取景控制">
+      <h2>只調整照片本身</h2><p class="note">左右／上下是照片在圓形框內的位移；縮放可微調取景。旋轉只建議小幅使用，若不需要可保持 0°。</p>
+      <div class="control"><label for="x">左右</label><input id="x" type="range" min="-100" max="100" value="0" step="1"><output class="value" id="xValue">0px</output></div>
+      <div class="control"><label for="y">上下</label><input id="y" type="range" min="-100" max="100" value="0" step="1"><output class="value" id="yValue">0px</output></div>
+      <div class="control"><label for="scale">縮放</label><input id="scale" type="range" min="0.85" max="1.35" value="1" step="0.01"><output class="value" id="scaleValue">100%</output></div>
+      <div class="control"><label for="rotate">旋轉</label><input id="rotate" type="range" min="-5" max="5" value="0" step="0.1"><output class="value" id="rotateValue">0°</output></div>
+      <div class="readout">調好後，把這行完整複製貼給我：<br><code id="css">--art-image-x: 0px; --art-image-y: 0px; --art-image-scale: 1; --art-image-rotate: 0deg;</code></div>
+      <div class="actions"><button class="button" type="button" id="reset">回到原始取景</button><button class="button" type="button" id="copy">複製數值</button></div>
+    </section>
+  </main>
+  <script>
+    const root=document.documentElement;const fields=['x','y','scale','rotate'].map(id=>document.querySelector(`#${id}`));const values=Object.fromEntries(fields.map(el=>[el.id,document.querySelector(`#${el.id}Value`)]));const css=document.querySelector('#css');
+    function update(){const [x,y,scale,rotate]=fields;root.style.setProperty('--x',`${x.value}px`);root.style.setProperty('--y',`${y.value}px`);root.style.setProperty('--scale',scale.value);root.style.setProperty('--rotate',`${rotate.value}deg`);values.x.textContent=`${x.value}px`;values.y.textContent=`${y.value}px`;values.scale.textContent=`${Math.round(Number(scale.value)*100)}%`;values.rotate.textContent=`${rotate.value}°`;css.textContent=`--art-image-x: ${x.value}px; --art-image-y: ${y.value}px; --art-image-scale: ${scale.value}; --art-image-rotate: ${rotate.value}deg;`}
+    fields.forEach(el=>el.addEventListener('input',update));document.querySelector('#reset').addEventListener('click',()=>{fields.forEach(el=>el.value=el.defaultValue);update()});document.querySelector('#copy').addEventListener('click',async()=>{const button=document.querySelector('#copy');try{await navigator.clipboard.writeText(css.textContent);button.textContent='已複製';setTimeout(()=>button.textContent='複製數值',1400)}catch{window.prompt('請複製這行數值：',css.textContent)}});update();
+  </script>
+</body>
+</html>

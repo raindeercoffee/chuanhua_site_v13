@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>川花 RIVER FLOWER｜川流不息，花開有時</title>
+<meta name="description" content="川花：從河川長出花。品牌行銷統籌、廣告投放與花藝教學——為你做好每一朵花，也陪你的品牌開花。">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="川花 RIVER FLOWER">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="川花 RIVER FLOWER｜川流不息，花開有時">
+<meta property="og:description" content="川花：從河川長出花。品牌行銷統籌、廣告投放與花藝教學——為你做好每一朵花，也陪你的品牌開花。">
+<meta property="og:url" content="https://raindeercoffee.github.io/chuanhua_site_v12/">
+<meta property="og:image" content="https://raindeercoffee.github.io/chuanhua_site_v12/assets/og-cover.jpg?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="川花 RIVER FLOWER｜川流不息，花開有時">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="川花 RIVER FLOWER｜川流不息，花開有時">
+<meta name="twitter:description" content="川花：從河川長出花。品牌行銷統籌、廣告投放與花藝教學——為你做好每一朵花，也陪你的品牌開花。">
+<meta name="twitter:image" content="https://raindeercoffee.github.io/chuanhua_site_v12/assets/og-cover.jpg?v=3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═════════ 川花 v3 ─ 三層空間 ═════════
+   L1 花園(選一朵花) → L2 河岸主頁 → L3 開花教室 */
+:root{
+  --river-deep:#4A5A7C; --river:#5B6790; --river-mid:#96A1C3; --river-light:#C8CEE2;
+  --night:#3A3934; --deep-night:#2A2925;
+  --sky:#F6F3EC; --mist:#EEEAE0; --card:#FFFEFB;
+  --blue:#96A1C3; --pink:#C99AA1; --pink-deep:#93323F; --pink-light:#E8D6D8;
+  --gold:#E3BE93; --gold-deep:#C4914F; --leaf:#8E9B84;
+  --ink:#4A4844; --ink-soft:#666259; --line:#E3DDD1;
+  --vis-navy:#4A5A7C; --vis-red:#A64B41;
+  --serif:"Noto Serif TC","Georgia",serif;
+  --sans:"Noto Sans TC","Segoe UI",system-ui,sans-serif;
+  --eng:"Cormorant Garamond","Georgia",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--sky);line-height:1.8;overflow-x:hidden}
+img{max-width:100%}
+a{color:inherit}
+body.lock{overflow:hidden}
+
+/* ── 自訂游標(承 v2 架構) ── */
+.cur{position:fixed;pointer-events:none;z-index:9998;border-radius:50%;transform:translate(-50%,-50%);display:none}
+#cur-dot{width:7px;height:7px;background:#D98EA3}
+#cur-ring{width:32px;height:32px;border:1px solid rgba(217,142,163,.45);transition:left .14s ease,top .14s ease,scale .25s}
+body.cur-on{cursor:none}
+body.cur-on .cur{display:block}
+body.cur-on a,body.cur-on button{cursor:none}
+@media(hover:none){.cur{display:none!important}body.cur-on{cursor:auto}}
+
+/* ── 通用 ── */
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:92px 0}
+.eyebrow{font-family:var(--eng);font-style:italic;font-size:13px;letter-spacing:5px;color:#5B6790;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:36px;height:1px;background:#5B6790}
+h2{font-family:var(--serif);font-size:clamp(26px,4vw,38px);color:var(--river-deep);font-weight:700;margin-bottom:18px;line-height:1.45}
+h2 em{font-style:normal;color:var(--pink-deep)}
+.lead{color:var(--ink-soft);max-width:660px;font-size:16px}
+.todo{display:inline-block;background:#FFF3E6;color:#B4690E;border:1px dashed var(--gold-deep);border-radius:6px;font-size:12px;padding:1px 8px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s cubic-bezier(.22,.8,.35,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}
+
+/* ═════════ L1 · 花園(入口)─ 淡水彩晨河 ═════════ */
+#garden{position:fixed;inset:0;z-index:900;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3vh 0 88px;
+  background:linear-gradient(180deg,#FBF9F5 0%,#F8F5EF 40%,#F6F3EC 68%,#F2EFE7 86%,#EEEAE0 100%);
+  transition:opacity 1.2s ease,visibility 1.2s}
+#garden.out{opacity:0;visibility:hidden;pointer-events:none}
+#garden::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:1;
+  background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 42%)}
+#garden::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 46% at 50% 26%,rgba(255,255,255,.45),transparent 72%);animation:g-glow 8s ease-in-out infinite alternate;pointer-events:none}
+@keyframes g-glow{from{opacity:.5}to{opacity:1}}
+.g-logo{width:min(92px,20vw);margin-bottom:.9rem;opacity:0;animation:g-fade 1.6s ease .3s forwards;position:relative;z-index:5;transform:translateY(-24px)}
+:root{--gk-size:12px;--gk-lh:1.8;--gk-ls:7px;--gk-color:#6E6A63;--gt-size:24px;--gt-lh:1.6;--gt-ls:0px;--gt-color:#4A5A7C}
+.g-kicker{font-family:var(--serif);font-size:var(--gk-size);line-height:var(--gk-lh);letter-spacing:var(--gk-ls);color:var(--gk-color);opacity:0;animation:g-fade 1.4s ease 1s forwards;position:relative;z-index:5;transform:translateY(-14px)}
+.g-title{font-family:var(--sans);font-size:var(--gt-size);line-height:var(--gt-lh);letter-spacing:var(--gt-ls);color:var(--gt-color);margin-top:16px;text-align:center;opacity:0;animation:g-fade 1.5s ease 1.5s forwards;position:relative;z-index:5;transform:translateY(16px)}
+@keyframes g-fade{to{opacity:1}}
+
+/* 五朵花圃 */
+#g-field{position:relative;z-index:6;display:flex;gap:clamp(6px,3.4vw,52px);align-items:flex-end;justify-content:center;margin-top:1.8rem;transform:translateY(30px)}
+.g-flower{position:relative;background:none;border:none;padding:0 4px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* 五朵花改用可替換的圖檔(assets/flower_1~5),之後手繪同檔名覆蓋即可 */
+/* g-imgwrap 負責搖曳(rotate)、g-img 負責浮現(opacity+translate/scale),分兩層避免搶同一個 transform 導致花消失 */
+.g-flower .g-imgwrap{display:block;transform-origin:bottom center}
+.g-flower.swaying .g-imgwrap{animation:g-sway 5.6s ease-in-out infinite alternate}
+.g-flower.swaying:nth-child(1) .g-imgwrap{animation-duration:5.0s;animation-delay:-1.3s}
+.g-flower.swaying:nth-child(2) .g-imgwrap{animation-duration:6.3s;animation-delay:-3.7s}
+.g-flower.swaying:nth-child(3) .g-imgwrap{animation-duration:5.6s;animation-delay:-0.5s}
+.g-flower.swaying:nth-child(4) .g-imgwrap{animation-duration:6.9s;animation-delay:-2.6s}
+@keyframes g-sway{from{transform:rotate(-3.4deg) translateX(-3px)}to{transform:rotate(3.4deg) translateX(3px)}}
+.g-flower .g-img{display:block;opacity:0;transform:translateY(16px) scale(.55);transform-origin:bottom center}
+.g-flower.bloomed .g-img{animation:g-rise 1.15s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes g-rise{0%{opacity:0;transform:translateY(16px) scale(.5)}55%{opacity:1}100%{opacity:1;transform:translateY(0) scale(1)}}
+.g-label{margin-top:12px;font-size:clamp(11px,1.4vw,14px);letter-spacing:2px;color:#4A4844;opacity:0;transition:opacity .8s ease .2s,color .3s;text-align:center;white-space:nowrap;text-shadow:0 1px 8px rgba(251,248,242,.9)}
+.g-label small{display:block;font-family:var(--eng);font-style:italic;font-size:10px;letter-spacing:2.5px;color:#6E6A63;margin-top:2px}
+.g-flower.bloomed .g-label{opacity:1}
+.g-flower:hover .g-imgwrap{animation-play-state:paused}
+.g-flower:hover .g-img{filter:drop-shadow(0 4px 14px rgba(147,50,63,.32))}
+.g-flower:hover .g-label{color:var(--pink-deep)}
+.g-flower.picked .g-img{animation:g-pick 1.4s linear forwards}
+.g-flower:nth-child(1) .g-img,.g-flower:nth-child(2) .g-img{--fly-x:-80px;--fly-rot:-20deg}
+.g-flower:nth-child(3) .g-img,.g-flower:nth-child(4) .g-img{--fly-x:80px;--fly-rot:20deg}
+@keyframes g-pick{0%{opacity:1;transform:translate(0px,0px) scale(1) rotate(0deg)}30%{opacity:1;transform:translate(calc(var(--fly-x,80px) * 0.25),-42px) scale(1.03) rotate(calc(var(--fly-rot,20deg) * 0.25))}100%{opacity:0;transform:translate(var(--fly-x,80px),-232px) scale(1.05) rotate(var(--fly-rot,20deg))}}
+/* 摘花後飄散的花瓣 */
+.fall-petal{position:fixed;z-index:950;width:15px;height:12px;border-radius:80% 0 80% 0;background:linear-gradient(135deg,var(--pink),rgba(201,154,161,.4));pointer-events:none;animation:petal-drift 1.5s ease-out forwards}
+@keyframes petal-drift{
+  0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}
+  100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.55)}
+}
+#g-skip{position:absolute;top:1.8rem;right:2.2rem;z-index:7;background:none;border:none;border-bottom:1px solid currentColor;color:rgba(74,72,68,.62);font-family:var(--sans);font-weight:300;font-size:12px;letter-spacing:3px;padding-bottom:3px;cursor:pointer;opacity:0;animation:g-fade 1.2s ease 3s forwards;transition:color .3s}
+#g-skip:hover{color:#93323F}
+.g-hint{position:relative;z-index:7;margin-top:26px;font-size:11px;letter-spacing:4px;color:#6E6A63;opacity:0;animation:g-fade 1.4s ease 4.2s forwards;text-shadow:0 1px 6px rgba(251,248,242,.9);transform:translateY(48px)}
+/* 花園波光 */
+.g-waves{position:absolute;bottom:-2px;left:0;width:100%;z-index:2;pointer-events:none}
+.g-wave{position:absolute;bottom:0;left:0;width:200%;height:90px;background-repeat:repeat-x;background-size:50% 100%;opacity:.5}
+.gw1{animation:drift 16s linear infinite}
+.gw2{animation:drift 9s linear infinite reverse;opacity:.4;height:64px}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═════════ L2 · 主頁 ═════════ */
+#main{opacity:0;transition:opacity 1.2s ease}
+#main.visible{opacity:1}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;backdrop-filter:blur(14px);background:rgba(246,242,233,.86);border-bottom:1px solid rgba(226,218,203,.6);transition:box-shadow .3s,transform .5s;transform:translateY(-100%)}
+nav.show{transform:none}
+nav.scrolled{box-shadow:0 4px 24px rgba(90,80,60,.08)}
+.nav-in{max-width:1100px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:40px;width:auto;display:block}
+.nav-links{display:flex;gap:24px;list-style:none;font-size:13.5px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--ink-soft);transition:color .25s;letter-spacing:1px}
+.nav-links a:hover{color:var(--pink-deep)}
+.nav-cta{background:var(--river-deep);color:#fff!important;padding:8px 18px;border-radius:99px;transition:background .25s}
+.nav-cta:hover{background:var(--pink-deep)}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:6px}
+.burger span{display:block;width:22px;height:2px;background:var(--river-deep);margin:5px 0}
+.nav-close-item{display:none}
+.nav-close{background:none;border:1.5px solid #4A5A7C;border-radius:22px;padding:9px 20px;color:#4A5A7C;font-size:14px;letter-spacing:1.5px;cursor:pointer;transition:all .25s;-webkit-tap-highlight-color:transparent}
+.nav-close:hover,.nav-close:focus{background:#4A5A7C;color:#fff;outline:none}
+
+/* 主頁 hero-lite:河岸開場 ─ 水彩晨光 */
+#shore{position:relative;min-height:100svh;display:flex;align-items:center;color:var(--river-deep);overflow:hidden;
+  background:linear-gradient(180deg,#FBF9F5 0%,#F3F0E8 42%,#DFE2EC 76%,#F5F2EA 100%);padding:150px 0 120px}
+/* 花朵落地目標:每個都撐一整屏、內容置中(一個欄目一頁) */
+#about,#cases{min-height:100svh;display:grid;align-content:center}
+#about>.wrap,#cases>.wrap{width:100%}
+#shore::before{content:"";position:absolute;inset:0;background:url('assets/watercolor.png') center/cover;opacity:.06;filter:sepia(.7) saturate(.35) brightness(1.14);pointer-events:none}
+#shore .wrap{position:relative;z-index:4}
+.shore-logo{width:min(104px,24vw);margin-bottom:1.8rem}
+#shore h1{font-family:var(--serif);font-size:clamp(26px,4.6vw,44px);font-weight:600;line-height:1.7;margin-bottom:1.2rem;color:var(--river-deep)}
+#shore h1 em{font-style:normal;color:var(--pink-deep)}
+#shore p{color:var(--ink-soft);max-width:520px;font-size:15px;font-weight:300}
+#shoreLogo{transform:translate(0px,0px)}
+#shoreHeadline{font-size:29px!important;transform:translate(-9px,29px)}
+#shoreIntro{font-family:var(--serif)!important;font-size:16px!important;transform:translate(-8px,-9px)}
+.shore-petal{position:absolute;top:-30px;z-index:2;width:13px;height:10px;border-radius:80% 0 80% 0;background:linear-gradient(135deg,var(--pink),rgba(147,50,63,.35));opacity:0;animation:fall linear infinite}
+@keyframes fall{0%{opacity:0;transform:translate(0,0) rotate(0)}8%{opacity:.85}100%{opacity:0;transform:translate(-80px,80vh) rotate(500deg)}}
+
+/* ═════════ v10 可調底色變數 + 文字自動明暗系統 ═════════ */
+:root{
+  --about-t:#F6F3EC;    --about-b:#F2EFE7;
+  --services-t:#F2EFE7; --services-b:#E9E9EA;
+  --cases-t:#E9E9EA;    --cases-b:#CFD4E2;
+  --courses-t:#CFD4E2;  --courses-b:#DCDFE9;
+  --flow-t:#DCDFE9;     --flow-b:#EDEBE4;
+  --team-t:#F0EEE7;     --team-b:#EDEBE4;
+  --policy-t:#EDEBE4;   --policy-b:#F3F0E9;
+  --resonance-t:#F3F0E9;--resonance-b:#EEEAE0;
+}
+/* .esec = 可調底色的區塊;.on-dark = 底色偏深時自動套用(文字轉淺) */
+.esec{--et-eb:#5B6790;--et-h:var(--river-deep);--et-lead:var(--ink-soft);--et-em:var(--pink-deep);--et-line:var(--mist)}
+.esec.on-dark{--et-eb:#F0F7FB;--et-h:#fff;--et-lead:#EAF4F9;--et-em:#FBD3DE;--et-line:rgba(255,255,255,.4)}
+.esec .eyebrow{color:var(--et-eb)}
+.esec .eyebrow::before{background:var(--et-eb)}
+.esec h2,.esec .res-title{color:var(--et-h)}
+.esec h2 em{color:var(--et-em)}
+.esec .lead,.esec .res-body,.esec .case-note{color:var(--et-lead)}
+.esec .step h4{color:var(--et-h)}
+.esec .step p{color:var(--et-lead)}
+.esec .step-line{background:var(--et-line)}
+
+/* identity 關於 */
+.about{background:linear-gradient(180deg,var(--about-t),var(--about-b))}
+
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.about-body p{color:var(--ink-soft);font-size:15px;margin-bottom:1.1rem;max-width:52ch}
+.about-body strong{color:var(--river-deep);font-weight:500}
+.kw-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.kw{background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 18px;font-size:13px;color:var(--river-deep);box-shadow:0 3px 12px rgba(90,80,60,.06);display:flex;align-items:center;gap:8px;transition:transform .3s,border-color .3s}
+.kw::before{content:"";width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--pink-deep),var(--gold))}
+.kw:hover{transform:translateY(-3px);border-color:var(--pink)}
+.about-art{--art-image-x:-15px;--art-image-y:-16px;--art-image-scale:1;--art-image-rotate:0deg;display:flex;justify-content:center;position:relative}
+.about-art::before{content:"";position:absolute;inset:-8% -6%;background:radial-gradient(ellipse 60% 55% at 50% 55%,rgba(235,228,214,.9),rgba(246,242,233,0) 75%);z-index:0}
+.about-art-crop{width:min(360px,86%);aspect-ratio:1;position:relative;z-index:1;overflow:hidden;
+  -webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 50%,#000 48%,transparent 76%);
+  mask-image:radial-gradient(ellipse 62% 58% at 50% 50%,#000 48%,transparent 76%)}
+.about-art-crop img{width:100%;height:100%;object-fit:cover;transform:translate(var(--art-image-x),var(--art-image-y)) scale(var(--art-image-scale)) rotate(var(--art-image-rotate));transform-origin:center;filter:saturate(.88) contrast(.96)}
+
+/* services 我們做的事 ─ 六種花 */
+.services{background:linear-gradient(180deg,var(--services-t),var(--services-b));color:var(--ink);position:relative;overflow:hidden}
+.services::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 50% 36% at 82% 8%,rgba(255,255,255,.28),transparent 70%)}
+.srv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:46px;position:relative;z-index:2}
+.srv{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 26px;box-shadow:0 8px 26px rgba(90,80,60,.07);transition:transform .35s,box-shadow .35s,border-color .35s}
+.srv:hover{transform:translateY(-7px);box-shadow:0 18px 40px rgba(90,80,60,.12);border-color:rgba(147,50,63,.32)}
+.srv h3{font-family:var(--serif);font-size:19px;color:var(--river-deep);margin:8px 0 4px;line-height:1.5}
+.srv h3 small{display:block;font-size:13px;color:var(--river);font-weight:400}
+.srv p{font-size:13.5px;color:var(--ink-soft);font-weight:300;margin-top:10px}
+.srv .fl-icon{position:absolute;top:-11px;right:18px;width:26px;height:26px;filter:drop-shadow(0 2px 5px rgba(90,80,60,.18))}
+
+/* cases 我們開過的花 */
+.cases{background:linear-gradient(180deg,var(--cases-t),var(--cases-b));position:relative}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;margin-top:46px}
+.case{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 24px 22px;overflow:hidden;transition:transform .35s,box-shadow .35s}
+.case::before{content:"";position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(147,50,63,.18),transparent 70%);opacity:0;transition:opacity .5s,scale .6s;scale:.6}
+.case:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(90,80,60,.12)}
+.case:hover::before{opacity:1;scale:1.4}
+.case .ind{font-size:11px;letter-spacing:2px;color:var(--ink-soft);margin-bottom:4px}
+.case h3{font-family:var(--serif);font-size:20px;color:var(--river-deep);margin-bottom:2px}
+.case .strat{font-size:12.5px;color:var(--pink-deep);margin-bottom:14px}
+.case .nums{display:flex;gap:20px}
+.case .num b{font-family:var(--eng);font-size:24px;font-weight:400;color:var(--river-deep);display:block;line-height:1.2}
+.case .num span{font-size:11px;color:var(--ink-soft)}
+.case-note{text-align:center;font-family:var(--eng);font-style:italic;font-size:13px;letter-spacing:3px;color:#6E6A63;margin-top:30px}
+.case-bullets{list-style:none;margin:14px 0 0;padding:12px 0 0;border-top:1px dashed var(--line);font-size:13px;line-height:2;color:var(--ink-soft)}
+.case-bullets li{position:relative;padding-left:14px}
+.case-bullets li::before{content:"·";position:absolute;left:2px;top:-1px;color:var(--pink-deep);font-weight:700;font-size:15px}
+
+/* courses(保留)+ 教室入口 ─ 山頂最深處 */
+.courses{background:linear-gradient(180deg,var(--courses-t),var(--courses-b))}
+.course-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:44px}
+.course{position:relative;background:var(--card);border-radius:22px;padding:40px 34px 34px;border:1px solid var(--line);box-shadow:0 10px 34px rgba(90,80,60,.07);transition:transform .35s cubic-bezier(.22,.8,.35,1),box-shadow .35s;overflow:hidden}
+.course:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(90,80,60,.13)}
+.course::after{content:"";position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;opacity:.16;transition:scale .5s}
+.course:hover::after{scale:1.35}
+.course.c-blue::after{background:var(--blue)}
+.course.c-pink::after{background:#93323F}
+.course-icon{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.c-blue .course-icon{background:linear-gradient(135deg,#F2F3F8,#DDE1EE)}
+.c-pink .course-icon{background:linear-gradient(135deg,#FAF0F0,#F0DEDF)}
+.course h3{font-family:var(--serif);font-size:23px;color:var(--river-deep);margin-bottom:6px}
+.course .cat{font-size:12px;letter-spacing:2px;color:var(--ink-soft);margin-bottom:16px}
+.pains{list-style:none;margin:0 0 22px}
+.pains li{font-size:14px;color:var(--ink-soft);padding:7px 0 7px 26px;position:relative;border-bottom:1px dashed var(--mist)}
+.pains li::before{content:"❀";position:absolute;left:2px;font-size:12px}
+.c-blue .pains li::before{color:var(--river)}
+.c-pink .pains li::before{color:#93323F}
+.btn{display:inline-block;padding:13px 32px;border-radius:99px;font-size:15px;text-decoration:none;border:none;cursor:pointer;font-family:var(--sans);transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-3px)}
+.course .btn{width:100%;text-align:center;font-weight:500}
+.c-blue .btn{background:linear-gradient(135deg,#5F6B94,#464F73);color:#fff;box-shadow:0 8px 20px rgba(79,90,128,.32)}
+.c-pink .btn{background:linear-gradient(135deg,#A4525E,#7A2733);color:#fff;box-shadow:0 8px 20px rgba(122,39,51,.30)}
+.pay-note{font-size:12px;color:var(--ink-soft);text-align:center;margin-top:10px}
+
+/* flow 四步(保留)─ 從山頂往下退 */
+.flow{background:linear-gradient(180deg,var(--flow-t),var(--flow-b))}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:52px;position:relative}
+.step{position:relative;text-align:center;padding:0 14px}
+.step-dot{width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:#fff;border:2px solid var(--river-light);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:22px;font-weight:700;color:var(--river);position:relative;z-index:2;transition:border-color .3s,box-shadow .3s}
+.step:hover .step-dot{border-color:var(--pink-deep);box-shadow:0 6px 18px rgba(147,50,63,.3)}
+.step h4{font-size:16px;color:var(--river-deep);margin-bottom:6px}
+.step p{font-size:13px;color:var(--ink-soft)}
+.step-line{position:absolute;top:32px;left:12.5%;width:75%;height:2px;background:var(--mist);z-index:1;overflow:hidden}
+.step-line::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--blue),var(--pink-deep));transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.4,0,.2,1)}
+.steps.in .step-line::after{transform:scaleX(1)}
+
+/* team 團隊精神 · 置中敘事(v13) */
+.team{background:linear-gradient(180deg,var(--team-t),var(--team-b))}
+.team .eyebrow{justify-content:center}
+.team .eyebrow::before{display:none}
+.team .eyebrow{margin-bottom:36px}
+.team-block{max-width:680px;margin:0 auto;text-align:center;font-family:var(--serif)}
+.team-sub{font-family:var(--serif);font-size:clamp(19px,2vw,23px);font-weight:600;color:var(--river-deep);letter-spacing:3px;margin:0 0 24px}
+.team-block p{font-size:clamp(14.5px,1.5vw,16px);line-height:2.15;color:var(--ink-soft);margin-bottom:14px;letter-spacing:.4px}
+.team-block p:last-child{margin-bottom:0}
+.team-block strong{color:var(--river-deep);font-weight:500}
+.team-block em{font-style:normal;color:var(--pink-deep);font-weight:500}
+.team-divider{width:64px;height:1px;background:var(--line);margin:56px auto}
+@media (max-width:640px){.team-sub{letter-spacing:2px}.team-divider{margin:44px auto}}
+
+/* policy(保留) */
+.policy{background:linear-gradient(180deg,var(--policy-t),var(--policy-b))}
+.policy-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
+.policy-card{background:var(--sky);border:1px solid var(--line);border-radius:18px;padding:30px 28px}
+.policy-card h4{font-family:var(--serif);font-size:18px;color:var(--river-deep);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.policy-card h4 .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-deep))}
+.policy-card ul{list-style:none}
+.policy-card li{font-size:14px;color:var(--ink-soft);padding:8px 0 8px 20px;position:relative}
+.policy-card li::before{content:"·";position:absolute;left:4px;color:var(--gold-deep);font-weight:700}
+
+/* resonance 共鳴(v2 原文) */
+.resonance{background:linear-gradient(180deg,var(--resonance-t),var(--resonance-b));text-align:center;padding:120px 0;position:relative;overflow:hidden}
+.res-side{position:absolute;top:50%;translate:0 -50%;width:110px;opacity:.5;pointer-events:none}
+.res-side.l{left:3vw}
+.res-side.r{right:3vw;scale:-1 1}
+@media (max-width:900px){.res-side{display:none}}
+.res-eyebrow{font-family:var(--eng);font-style:italic;font-size:13px;letter-spacing:6px;color:var(--pink-deep);text-transform:uppercase;margin-bottom:26px}
+.res-title{font-family:var(--serif);font-size:clamp(24px,4vw,36px);color:var(--river-deep);font-weight:600;line-height:1.9;margin-bottom:26px}
+.res-body{color:var(--ink-soft);font-size:15.5px;line-height:2.3;max-width:560px;margin:0 auto 40px}
+.btn-res{background:var(--river-deep);color:#fff;box-shadow:0 10px 26px rgba(90,80,60,.28)}
+.btn-res:hover{background:var(--pink-deep)}
+
+/* contact ─ 淺色,資訊瘦身(詳細資料併到頁尾一行) */
+.contact{background:linear-gradient(180deg,#EFEDE7 0%,#D5D9E5 100%);color:var(--ink);padding-bottom:0;padding-top:110px;position:relative}
+.contact .eyebrow{color:#5E6A8E}
+.contact .eyebrow::before{background:#5E6A8E}
+.contact .lead{color:#55534E}
+.contact-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:44px 40px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;margin-top:44px;box-shadow:0 14px 40px rgba(90,80,60,.09)}
+.contact-ways{display:flex;flex-direction:column;gap:14px}
+.way{display:flex;align-items:center;gap:14px;font-size:15px;color:var(--ink)}
+.way .k{min-width:84px;color:var(--river);font-size:12.5px;letter-spacing:2px}
+.way a{color:var(--river);text-underline-offset:3px}
+.line-box{text-align:center;background:linear-gradient(180deg,#F4FBF6,#EAF6EE);border:1px solid #D7EBDD;border-radius:18px;padding:28px 30px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.qr-ph{width:140px;height:140px;border-radius:14px;background:#fff;border:1px solid var(--line);display:block;padding:8px}
+.qr-ph img{display:block;width:100%;height:100%;object-fit:contain;border-radius:8px}
+.qr-ph:focus-visible{outline:3px solid rgba(6,199,85,.28);outline-offset:4px}
+.line-id{font-family:var(--eng);font-size:14px;letter-spacing:1px;color:var(--river)}
+.btn-line{background:#06C755;color:#fff;font-weight:500;box-shadow:0 8px 20px rgba(6,199,85,.3)}
+.terms{max-width:1100px;margin:64px auto 0;padding:0 24px 30px}
+.terms details{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:14px;color:var(--ink-soft)}
+.terms summary{cursor:pointer;padding:16px 22px;font-size:15px;font-weight:500;color:var(--river-deep);list-style:none;display:flex;justify-content:space-between;align-items:center}
+.terms summary::after{content:"+";font-size:20px;color:var(--river);transition:rotate .3s}
+.terms details[open] summary::after{rotate:45deg}
+.terms .t-body{padding:0 22px 20px;font-size:13px;line-height:1.9;color:var(--ink-soft)}
+.terms .t-body p{margin-bottom:8px}
+footer{background:#E6E2D8;color:#4A4844;text-align:center;padding:34px 24px 40px;font-size:12.5px;border-top:1px solid rgba(255,255,255,.35)}
+footer img{height:76px;width:auto;margin-bottom:14px}
+footer .co-line{letter-spacing:.5px}
+footer .back-garden{display:inline-block;margin-top:12px;color:#4A4844;font-size:12px;letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(110,106,99,.45);padding-bottom:2px}
+footer .back-garden:hover{color:var(--pink-deep)}
+
+/* ═════════ 開花轉場 FX ═════════ */
+#bloomfx{position:fixed;inset:0;z-index:1200;pointer-events:none;display:flex;align-items:center;justify-content:center;visibility:hidden}
+#bloomfx.on{visibility:visible;pointer-events:all}
+#bloomfx .fx-circle{position:absolute;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0%,#FDFAF4 34%,#F5EFE4 55%,#EFE9DC 76%,rgba(255,255,255,0) 100%);scale:0}
+#bloomfx.on .fx-circle{animation:fx-open 1.7s cubic-bezier(.55,0,.3,1) forwards}
+@keyframes fx-open{0%{scale:0;opacity:.9}70%{opacity:1}100%{scale:80;opacity:1}}
+#bloomfx .fx-text{position:relative;z-index:3;font-family:var(--serif);font-size:clamp(16px,2.4vw,22px);letter-spacing:6px;color:#93323F;opacity:0}
+#bloomfx.on .fx-text{animation:fx-text 1.7s ease forwards}
+@keyframes fx-text{0%{opacity:0;translate:0 16px}30%{opacity:1;translate:0 0}80%{opacity:1}100%{opacity:0;translate:0 -10px}}
+#bloomfx .fx-petal{position:absolute;width:16px;height:13px;border-radius:80% 0 80% 0;background:linear-gradient(135deg,#C08A92,#D9DCE8);opacity:0}
+#bloomfx .fx-petal:nth-child(even){background:linear-gradient(135deg,#D5D8E4,#DFC3C7)}
+#bloomfx.on .fx-petal{animation:fx-petal 1.6s ease-out forwards}
+@keyframes fx-petal{0%{opacity:0;transform:translate(0,0) rotate(0) scale(.4)}25%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1.1)}}
+
+/* ═════════ L3 · 開花教室 ═════════ */
+#studio{position:fixed;inset:0;z-index:1100;overflow-y:auto;visibility:hidden;opacity:0;transition:opacity .9s ease,visibility .9s;
+  background:linear-gradient(180deg,#FBF9F5 0%,#F7F4EE 34%,#F1EFE8 68%,#ECE9E1 100%)}
+#studio.open{visibility:visible;opacity:1}
+#studio::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 55% 40% at 50% 0%,rgba(147,50,63,.07),transparent 68%);pointer-events:none}
+.st-wrap{max-width:1100px;margin:0 auto;padding:60px 24px 90px;position:relative}
+.st-top{display:flex;justify-content:flex-end;align-items:center;margin-bottom:44px}
+.st-top img{height:44px;width:auto}
+.st-back{background:none;border:1px solid rgba(110,106,99,.42);border-radius:99px;color:#6E6A63;font-family:var(--sans);font-size:13px;letter-spacing:2px;padding:9px 22px;cursor:pointer;transition:background .3s,color .3s}
+.st-back:hover{background:rgba(147,50,63,.10);color:#4A5A7C}
+.st-head{text-align:center;margin-bottom:14px}
+.st-eyebrow{font-family:var(--eng);font-style:italic;font-size:13px;letter-spacing:6px;color:var(--gold-deep);text-transform:uppercase}
+.st-head h2{color:#4A5A7C;margin-top:10px}
+.st-head p{color:#6E6A63;font-size:15px;max-width:520px;margin:6px auto 0}
+#studio .course-grid{margin-top:40px;grid-template-columns:repeat(2,minmax(280px,1fr));gap:24px;max-width:900px;margin-left:auto;margin-right:auto}
+#studio .course{border-color:#E2DACB;box-shadow:0 12px 36px rgba(90,80,60,.14);display:flex;flex-direction:column}
+#studio .course .pains{flex:1}
+#studio .st-note{text-align:center;margin-top:38px;font-size:13px;color:#6E6A63}
+/* 第三種卡色：晨光金（在見面之前・行銷諮詢） */
+.course.c-gold::after{background:var(--gold)}
+.c-gold .course-icon{background:linear-gradient(135deg,#FDF6EA,#F7E6CB)}
+.c-gold .pains li::before{color:var(--gold-deep)}
+.c-gold .btn{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#fff;box-shadow:0 8px 20px rgba(217,154,99,.35)}
+/* 「填寫體質報告表單」按鈕：粉藍暈染(只此顆) */
+#csOpen{background:linear-gradient(135deg,#A4525E,#8B3B49,#6B77A0);box-shadow:0 8px 20px rgba(122,39,51,.35)}
+.price-line{font-family:var(--serif);font-size:26px;color:#4A5A7C;margin-bottom:18px}
+.price-line small{font-family:var(--sans);font-size:13px;color:#6E6A63;margin-left:4px;font-weight:400}
+@media (max-width:1080px){#studio .course-grid{grid-template-columns:1fr;max-width:520px;margin-left:auto;margin-right:auto}}
+
+/* 在見面之前・行銷諮詢・互動預約卡 */
+#consult{position:fixed;inset:0;z-index:1300;overflow-y:auto;visibility:hidden;opacity:0;transition:opacity .6s ease,visibility .6s;background:linear-gradient(180deg,#FBF9F5 0%,#F5F2EA 45%,#EEEBE3 100%)}
+#consult.open{visibility:visible;opacity:1}
+.cs-wrap{max-width:640px;margin:0 auto;padding:46px 20px 70px;min-height:100%;display:flex;flex-direction:column;justify-content:center}
+.cs-card{position:relative;background:#FFF;border:1px solid #E2DACB;border-radius:22px;box-shadow:0 18px 50px rgba(90,80,60,.16);padding:38px 36px 30px}
+.cs-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:18px;color:#6E6A63;cursor:pointer;line-height:1;padding:4px;z-index:2}
+.cs-close:hover{color:#4A5A7C}
+.cs-eyebrow{font-family:var(--eng);font-style:italic;font-size:12px;letter-spacing:4px;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px}
+.cs-card h3{font-family:var(--serif);font-size:22px;color:#4A5A7C;margin-bottom:6px}
+.cs-sub{font-size:13px;color:#6E6A63;margin-bottom:20px}
+.cs-page{display:none}
+.cs-page.on{display:block;animation:cs-in .45s ease}
+@keyframes cs-in{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.cs-check{display:flex;width:100%;gap:12px;align-items:flex-start;border:1px solid #E2DACB;border-radius:14px;padding:12px 16px;margin-bottom:10px;cursor:pointer;user-select:none;transition:border .25s,background .25s,transform .2s;background:#FFF;font:inherit;text-align:left}
+.cs-check:hover{transform:translateY(-1px);border-color:#C9A9AE}
+.cs-check .bx{width:20px;height:20px;min-width:20px;border-radius:6px;border:1.5px solid #DDD5C6;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;transition:background .25s,border .25s,color .25s}
+.cs-check.sel{border-color:#93323F;background:#FAF2F2}
+.cs-check.sel .bx{background:#93323F;border-color:#93323F;color:#fff}
+.cs-check .tx{font-size:14px;color:var(--ink-soft);line-height:1.6}
+.cs-slider{margin-bottom:24px}
+.cs-slider .lab{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:#4A5A7C;margin-bottom:10px}
+.cs-slider .val{font-family:var(--serif);font-size:21px;font-weight:700}
+.cs-slider .val small{font-size:11px;font-weight:400}
+.cs-range{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:99px;outline:none;background:#E8E2D5;cursor:pointer}
+.cs-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--c,#93323F);border:3px solid #fff;box-shadow:0 2px 8px rgba(51,50,47,.28);cursor:pointer}
+.cs-range::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--c,#93323F);border:3px solid #fff;box-shadow:0 2px 8px rgba(51,50,47,.28);cursor:pointer}
+.cs-range:focus-visible{box-shadow:0 0 0 4px rgba(122,39,51,.25)}
+.cs-ends{display:flex;justify-content:space-between;font-size:11px;color:#6E6A63;margin-top:7px}
+.cs-chips{margin:2px 0 4px}
+.cs-chip{display:inline-block;border:1px solid #DDD5C6;border-radius:99px;padding:8px 16px;font:inherit;font-size:13px;color:var(--ink-soft);margin:0 8px 10px 0;cursor:pointer;user-select:none;transition:background .25s,color .25s,border .25s;background:#FFF}
+.cs-chip.sel{background:linear-gradient(135deg,#B5636D,#93323F);color:#fff;border-color:transparent}
+.fm-field{margin-bottom:14px}
+.fm-field label{display:block;font-size:13px;color:#4A5A7C;letter-spacing:1px;margin-bottom:5px}
+.fm-field input,.fm-field select,.fm-field textarea{width:100%;border:1px solid #DDD5C6;border-radius:12px;background:#FFF;padding:10px 12px;font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;transition:border .25s,box-shadow .25s}
+.fm-field input:focus,.fm-field select:focus,.fm-field textarea:focus{border-color:#93323F;box-shadow:0 0 0 3px rgba(122,39,51,.18)}
+.fm-field textarea{resize:vertical;min-height:66px}
+.fm-row{display:grid;grid-template-columns:1fr 1.4fr;gap:10px}
+.fm-msg{font-size:13px;text-align:center;margin-top:12px;display:none}
+.fm-msg.err{display:block;color:#B4443E}
+.cs-nav{display:flex;align-items:center;justify-content:space-between;margin-top:24px}
+.cs-ghost{background:none;border:none;color:#6E6A63;font-family:var(--sans);font-size:13px;cursor:pointer;padding:10px 6px;transition:color .25s}
+.cs-ghost:hover{color:#4A5A7C}
+.cs-ghost.hide{visibility:hidden}
+.cs-dots{display:flex;gap:8px}
+.cs-dot{width:8px;height:8px;border-radius:99px;background:#E0DACD;transition:width .3s,background .3s}
+.cs-dot.on{width:22px;background:#93323F}
+.cs-btn{display:inline-block;border:none;cursor:pointer;font-family:var(--sans);font-size:14px;padding:12px 28px;border-radius:99px;color:#fff;background:linear-gradient(135deg,#A4525E,#8B3B49,#6B77A0);box-shadow:0 8px 20px rgba(122,39,51,.35);transition:transform .25s,box-shadow .25s}
+.cs-btn:hover{transform:translateY(-2px)}
+.cs-btn:disabled{opacity:.6;cursor:default;transform:none}
+.cs-ok{text-align:center;padding:14px 0 6px}
+.cs-ok .okflower{font-size:34px;color:#93323F}
+.cs-ok h4{font-family:var(--serif);font-size:20px;color:#4A5A7C;margin:10px 0 6px}
+.cs-ok p{font-size:14px;color:#6E6A63;margin-bottom:6px}
+.btn-line-cs{display:inline-block;margin-top:14px;padding:13px 30px;border-radius:99px;background:#06C755;color:#fff;font-size:15px;text-decoration:none;box-shadow:0 8px 20px rgba(6,199,85,.3);transition:transform .25s}
+.btn-line-cs:hover{transform:translateY(-2px)}
+@media(max-width:560px){.cs-wrap{justify-content:flex-start;padding-top:20px}.cs-card{padding:28px 20px 24px}.fm-row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){#consult,.cs-page.on{transition:none;animation:none}}
+/* 教室裡的緩慢花瓣 */
+.st-petal{position:fixed;top:-30px;width:14px;height:11px;border-radius:80% 0 80% 0;background:linear-gradient(135deg,#C08A92,rgba(226,218,203,.6));opacity:0;animation:fall linear infinite;pointer-events:none}
+
+/* ═════════ RWD ═════════ */
+@media (max-width:900px){
+  .about-grid,.contact-card,.policy-grid,.course-grid{grid-template-columns:1fr}
+  .srv-grid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:repeat(2,1fr);gap:34px 0}
+  .step-line{display:none}
+  section{padding:66px 0}
+  .about-art{order:-1}
+  #g-field{flex-wrap:wrap;gap:18px 16px;max-width:88vw;justify-content:center}
+  .g-flower{flex:0 0 calc(50% - 16px);max-width:calc(50% - 16px);display:flex;flex-direction:column;align-items:center}
+  .g-flower .g-imgwrap{max-width:100%}
+  .g-flower .g-img{max-width:min(160px,42vw);height:auto}
+}
+@media (max-width:940px){
+  .nav-links{position:fixed;top:61px;right:-100%;flex-direction:column;background:rgba(246,242,233,.97);width:min(320px,72%);height:100vh;padding:34px 30px;gap:20px;transition:right .35s;box-shadow:-8px 0 30px rgba(90,80,60,.12);align-items:flex-start}
+  .nav-links.open{right:0}
+  .burger{display:block}
+  .nav-close-item{display:block;margin-bottom:14px;align-self:flex-end}
+}
+@media (max-width:640px){
+  .srv-grid{grid-template-columns:1fr}
+  .contact-card{padding:34px 24px}
+  .g-label{white-space:normal;width:min(96px,26vw)}
+  #g-skip{top:1rem;right:1rem}
+  .g-hint{display:none}
+  #garden{padding:1.5vh 0 34px}
+  .g-logo{width:64px;margin-bottom:.5rem}
+  .g-kicker{font-size:calc(var(--gk-size) * .83);letter-spacing:calc(var(--gk-ls) * .71)}
+  .g-title{font-size:calc(var(--gt-size) * .625);margin-top:6px}
+  #g-field{margin-top:1rem;gap:22px 12px}
+}
+/* 視窗較矮時(高度不足):縮小花園上方 LOGO+標語區塊,把空間讓給五朵花,避免被裁掉
+   ↓ 字級/行距/字距一律用「面板變數 × 比例」,這樣文字樣式面板的滑桿在任何視窗尺寸都能生效 */
+@media (max-height:720px){
+  #garden{padding:1.2vh 0 60px}
+  .g-logo{width:min(56px,14vw);margin-bottom:.4rem}
+  .g-kicker{font-size:calc(var(--gk-size) * .83);letter-spacing:calc(var(--gk-ls) * .71)}
+  .g-title{font-size:clamp(13px,2vw,calc(var(--gt-size) * .667));margin-top:6px;line-height:calc(var(--gt-lh) * .97)}
+  #g-field{margin-top:.9rem}
+}
+@media (max-height:560px){
+  #garden{padding:.8vh 0 44px}
+  .g-logo{width:44px;margin-bottom:.25rem}
+  .g-kicker{display:none}
+  .g-title{font-size:calc(var(--gt-size) * .5);margin-top:4px;line-height:calc(var(--gt-lh) * .875)}
+  #g-field{margin-top:.6rem}
+  .g-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .g-flower .g-img,.g-label{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="lock">
+
+<!-- 自訂游標 -->
+<div class="cur" id="cur-dot"></div>
+<div class="cur" id="cur-ring"></div>
+
+<!-- ═════════ L1 · 花園 ═════════ -->
+<div id="garden">
+  <img class="g-logo" src="assets/logo-v-color.png" alt="川花 RIVER FLOWER">
+  <div class="g-kicker">從 河 川 長 出 花</div>
+  <div class="g-title">每朵花，都是一條路。選一朵，讓它帶著你走。</div>
+  <div id="g-field"></div>
+  <div class="g-hint">點 一 朵 花，飄 進 它 的 世 界</div>
+  <button id="g-skip">順流而下，直接進站</button>
+  <div class="g-waves">
+    <div class="g-wave gw1" style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 90%22 preserveAspectRatio=%22none%22><path d=%22M0,44 C220,80 420,8 620,44 C820,78 1020,10 1200,44 L1200,90 L0,90 Z%22 fill=%22%23829AD6%22/></svg>')"></div>
+    <div class="g-wave gw2" style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 64%22 preserveAspectRatio=%22none%22><path d=%22M0,30 C250,58 450,4 650,30 C850,56 1050,8 1200,30 L1200,64 L0,64 Z%22 fill=%22%238FA0CE%22/></svg>')"></div>
+  </div>
+</div>
+
+<!-- ═════════ 開花轉場 ═════════ -->
+<div id="bloomfx">
+  <div class="fx-circle"></div>
+  <div class="fx-text">正在為你，推開開花的門——</div>
+</div>
+
+<!-- ═════════ L2 · 主頁 ═════════ -->
+<nav id="nav">
+  <div class="nav-in">
+    <a class="nav-logo" href="#" id="navLogo"><img src="assets/logo-h-color.png" alt="川花 RIVER FLOWER"></a>
+    <button class="burger" id="burger" aria-label="選單"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li class="nav-close-item"><button class="nav-close" id="navClose" type="button" aria-label="摺疊選單">× 摺疊功能區</button></li>
+      <li><a href="#about">關於我們</a></li>
+      <li><a href="#services">我們做的事</a></li>
+      <li><a href="#cases">我們開過的花</a></li>
+      <li><a href="#" data-studio>開花教室</a></li>
+      <li><a href="#" id="navGarden">找川花說話</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="main">
+
+  <!-- 河岸開場 -->
+  <header id="shore">
+    <div class="wrap">
+      <img class="shore-logo" id="shoreLogo" src="assets/logo-v-color.png" alt="川花 RIVER FLOWER">
+      <div class="shore-textblock" id="shoreTextBlock">
+        <p id="shoreIntro">花，不會執著上一個季節。<br>
+河，也不會逆著時間流。<br>
+我們相信，每一次成長，都需要告別上一個自己。<br>
+川花是一條安靜的河。<br>
+我們把內容、行銷與美感，一瓢一瓢澆進你的品牌裡——直到它開出自己的樣子。<br>
+所以，我們不販售流量。<br>
+我們陪品牌完成一次又一次的蛻變。</p>
+        <h1 id="shoreHeadline">川流不息，<em>花</em>開有時。</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- 關於(v2 identity 融合) -->
+  <section class="about esec" id="about" data-label="關於我們">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-body">
+          <div class="eyebrow reveal">WHO WE ARE</div>
+          <h2 class="reveal">種下每一個品牌夢，<br>陪它安靜地<em>開花</em></h2>
+          <p class="reveal d1">不同於許多行銷顧問公司的一次性販售，我們集結<strong>實戰電商、整合行銷、市場嗅覺、獨特美感</strong>，為你打造最符合商品靈魂的口碑——讓每一次曝光都是一朵花，剛好開在對的人眼前。</p>
+          <p class="reveal d2">絕不做廣撒花冤枉錢的行銷。我們致力挖掘每一個品牌的<strong>蛋黃層</strong>，把最核心、最有共鳴的受眾，慢慢向外開展。讓品牌被記住、喜歡，然後愛上。</p>
+          <div class="kw-row reveal d3">
+            <span class="kw">行銷統籌</span><span class="kw">電商實戰</span><span class="kw">企業顧問</span>
+            <span class="kw">美學落地</span><span class="kw">活動策畫</span><span class="kw">品牌轉型</span>
+          </div>
+        </div>
+        <div class="about-art reveal d2">
+          <div class="about-art-crop"><img src="assets/flower-shop.jpg" alt="川花的花店一隅"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 我們做的事(v2 services 原文) -->
+  <section class="services esec" id="services" data-label="我們做的事">
+    <div class="wrap">
+      <div class="eyebrow reveal">WHAT WE DO</div>
+      <h2 class="reveal">我們做的事</h2>
+      <p class="lead reveal d1">把你的品牌，種進對的人心裡。</p>
+      <div class="srv-grid">
+        <article class="srv reveal">
+          <svg class="fl-icon" viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="7" cy="9" r="2.6" fill="#D6DAE7"/><circle cx="14" cy="5.6" r="2.2" fill="#E2E5EF"/><circle cx="19.6" cy="10" r="2.7" fill="#CBD1E2"/><circle cx="11" cy="14" r="2.4" fill="#DDE1EC"/><circle cx="18" cy="17" r="2.1" fill="#D6DAE7"/><circle cx="8.4" cy="19.6" r="2.5" fill="#E2E5EF"/><circle cx="7" cy="9" r=".8" fill="#EBD3A4"/><circle cx="19.6" cy="10" r=".8" fill="#EBD3A4"/><circle cx="8.4" cy="19.6" r=".8" fill="#EBD3A4"/></svg>
+          <h3>數位廣告投放<small>Meta·Google·LINE</small></h3><p>從預算配置、素材測試到 ROAS 與廣告占比管理，Meta、Google、LINE 廣告一起看。不是花錢買流量，是找到最對的那群人。</p></article>
+        <article class="srv reveal d1">
+          <svg class="fl-icon" viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M13 4 C17 3 21 6 20.6 10 C22 13 20 17 16.6 18 C14.6 21 10.6 21 8.6 18.6 C5 18 3.6 14 5 11 C4.6 7 8 4 11 4.6 Z" fill="#D9B0B5"/><path d="M13 7 C15.6 6.4 18 8.4 17.6 11 C18.6 13 17 15.6 14.6 16 C13 18 10 17.6 8.9 15.9 C6.6 15.6 5.6 13 6.6 11 C6.4 8.6 8.6 6.6 10.6 7.2 Z" fill="#C58F97"/><circle cx="12.8" cy="11.8" r="2.4" fill="#E6CBCE"/></svg>
+          <h3>整合行銷<small>打造品牌</small></h3><p>從策略到執行，我們最懂消費者心理。讓品牌的靈魂穿透每個觸點，長出自己的根，留下深刻印記。</p></article>
+        <article class="srv reveal d2">
+          <svg class="fl-icon" viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M13 23 C13 19 13 16 13 13" stroke="#9AA68F" stroke-width="1.4" stroke-linecap="round"/><path d="M13 14 C7 12 6.4 5.4 10 3.4 C12 2.4 15 3 16.4 5 C19.6 4.6 21 8 19.4 10.6 C17.8 13.2 15 14.4 13 14 Z" fill="#FDFBF6" stroke="#E6E2D8" stroke-width=".6"/><path d="M13 13.6 C13 10 13.6 7 15 5.4" stroke="#DFC08A" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <h3>品牌整合<small>行銷企劃</small></h3><p>從企業轉型、內容企劃到廣告轉換，串起每一個消費者的完美購物體驗。讓商品不只是被販售，而是品牌能被記住的完美記憶點。</p></article>
+        <article class="srv reveal d2">
+          <svg class="fl-icon" viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M13 21 C8 21 4.6 17 5.4 12.6 C6 9 9 6.4 13 6.4 C17 6.4 20 9 20.6 12.6 C21.4 17 18 21 13 21 Z" fill="#EBD5D7"/><path d="M13 20 C9.4 20 7 17 7.6 13.6 C8 11 10.4 9 13 9 C15.6 9 18 11 18.4 13.6 C19 17 16.6 20 13 20 Z" fill="#DFBEC2"/><path d="M13 19 C10.6 19 9 17 9.4 14.6 C9.8 13 11.4 11.6 13 11.6 C14.6 11.6 16.2 13 16.6 14.6 C17 17 15.4 19 13 19 Z" fill="#D2A7AD"/><circle cx="13" cy="15.4" r="1.6" fill="#EBD3A4"/></svg>
+          <h3>品牌重塑<small>內容策略</small></h3><p>重新梳理品牌靈魂、受眾與溝通語言，建立一致的內容矩陣。讓老品牌長出新樣貌，也讓新品牌站穩自己的位置。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 我們開過的花(v2 cases 原文) -->
+  <section class="cases esec" id="cases" data-label="我們開過的花">
+    <div class="wrap">
+      <div class="eyebrow reveal">WHAT WE BLOOMED</div>
+      <h2 class="reveal">我們開過的花</h2>
+      <p class="lead reveal d1">每一個品牌，都是我們聆聽完河聲，親手開出來的。</p>
+      <div class="case-grid">
+        <article class="case reveal d1"><div class="ind">個性女裝</div><h3>Mosdress</h3><div class="strat">品牌年輕化內容策略</div><div class="nums"><div class="num"><b>↑ 57%</b><span>新客佔比成長</span></div><div class="num"><b>×2.1</b><span>社群自然觸及</span></div></div></article>
+        <article class="case reveal d2"><div class="ind">質感服飾</div><h3>Harper</h3><div class="strat">品牌靈魂重塑 × 內容矩陣</div><div class="nums"><div class="num"><b>×3.0</b><span>內容留存率提升</span></div><div class="num"><b>重建</b><span>品牌識別體系</span></div></div></article>
+        <article class="case reveal"><div class="ind">募資操盤</div><h3>小刺蝟</h3><div class="strat">早鳥策略 × 廣告轉換 × 節奏管理</div><div class="nums"><div class="num"><b>499 萬</b><span>上線 15 天達標</span></div><div class="num"><b>0→100</b><span>從冷啟動到熱銷</span></div></div><ul class="case-bullets"><li>市場定位</li><li>早鳥設計</li><li>募資達標</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 課程(保留)→ 開花教室入口 -->
+  <section class="courses esec" id="courses" data-label="開花教室">
+    <div class="wrap">
+      <div class="eyebrow reveal">COURSES & SERVICE</div>
+      <h2 class="reveal">開花教室</h2>
+      <p class="lead reveal d1">走進教室，讓川花為你的品牌靈魂升級。</p>
+      <div class="course-grid">
+        <article class="course c-blue reveal d1">
+          <div class="course-icon"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M5 24 L5 14 M12 24 L12 8 M19 24 L19 12 M26 24 L26 5" stroke="#6B77A0" stroke-width="3" stroke-linecap="round"/><circle cx="26" cy="5" r="3" fill="#93323F"/></svg></div>
+          <h3>品牌行銷諮詢預約</h3>
+          <div class="cat">MARKETING CONSULTING・一對一</div>
+          <ul class="pains">
+            <li>品牌故事說不清楚，客人記不住你</li>
+            <li>內容、廣告、社群都做了，卻沒有好好整合</li>
+            <li>投了廣告，成效卻一直卡在原地</li>
+          </ul>
+          <button class="btn" data-studio>走進開花教室</button>
+        </article>
+        <article class="course c-pink reveal d2">
+          <div class="course-icon"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M15 26 C15 20 15 16 15 12" stroke="#93323F" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="15" cy="8" rx="3.4" ry="5" fill="#93323F"/><ellipse cx="10.6" cy="10.4" rx="3.2" ry="4.4" fill="#D8B4B8" transform="rotate(-40 10.6 10.4)"/><ellipse cx="19.4" cy="10.4" rx="3.2" ry="4.4" fill="#D8B4B8" transform="rotate(40 19.4 10.4)"/><circle cx="15" cy="10.4" r="2" fill="#E3BE93"/><path d="M15 19 C11 17 9 14 9 11" stroke="#8E9B84" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3>收聽開花的聲音</h3>
+          <div class="cat">川幫｜川花補料區</div>
+          <ul class="pains">
+            <li>想搞懂品牌行銷，卻不知道該如何開始</li>
+            <li>給自己留一段升級的體驗</li>
+            <li>跟著川花的腳步，讓更多的創意走入工作中</li>
+          </ul>
+          <button class="btn" type="button">聆聽川花</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 團隊精神 · 楚辭融合(v13) -->
+  <section class="team esec" id="team" data-label="關於團隊">
+    <div class="wrap">
+      <div class="eyebrow reveal">OUR TEAM · OUR SPIRIT</div>
+
+      <div class="team-block reveal d1">
+        <h3 class="team-sub">團隊介紹</h3>
+        <p><em>《楚辭》</em>中的香草、美人、蘭芷、杜衡，象徵的是<strong>品格、理想與志向</strong>；河流則常被寫成<strong>時間、旅程與求索</strong>。川花把「川」理解為流動，把「花」理解為生命力。</p>
+        <p>我們是一群相信「慢」的力量的人。有人沉靜如<strong>杜衡</strong>，深入地下把養分默默轉化；有人清亮如<strong>蘭芷</strong>，站在明處把品牌的樣子清楚說出；也有人柔韌如<strong>藤</strong>，纏繞在資料、策略與美學之間，替品牌找到支點。沒有一朵花為了搶眼而開，只為了成為自己該有的樣子——我們相信品牌也是。</p>
+      </div>
+
+      <div class="team-divider reveal d2"></div>
+
+      <div class="team-block reveal d2">
+        <h3 class="team-sub">創辦人介紹</h3>
+        <p>川花創辦人<strong>楊詠婷</strong>，喜歡用心閱讀數據背後的品牌意象，以多年經驗<em>呵護每一朵獨一無二的品牌之花</em>，映照每一家公司的靈魂核心。在紛亂的時代，她相信慢慢做好眼前的每一小步——讓花期綿延，川流不息。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 退款(保留) -->
+  <section class="policy esec" id="policy" data-label="退款規則">
+    <div class="wrap">
+      <div class="eyebrow reveal">POLICY</div>
+      <h2 class="reveal">退款與改期規則</h2>
+      <div class="policy-grid">
+        <div class="policy-card reveal d1">
+          <h4><span class="dot"></span>退款規則</h4>
+          <ul>
+            <li>課程 / 諮詢日 7 天前申請退款：全額退款</li>
+            <li>課程 / 諮詢日 3–6 天前申請：退款 50%</li>
+            <li>課程 / 諮詢日 2 天內(含當日)：恕不退款，可改期一次</li>
+            <li>退款將於申請成立後 7–14 個工作天內退回原付款方式</li>
+          </ul>
+        </div>
+        <div class="policy-card reveal d2">
+          <h4><span class="dot"></span>改期與其他</h4>
+          <ul>
+            <li>每筆訂單可免費改期一次，請於原時段 2 天前透過官方 LINE 提出</li>
+            <li>如遇天災或不可抗力因素停課，將主動通知並協助改期或全額退款</li>
+            <li>其他未盡事宜，請透過官方 LINE 與客服聯繫</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 共鳴(v2 resonance 原文) -->
+  <section class="resonance esec" id="resonance" data-label="品牌有了想法">
+    <svg class="res-side l" viewBox="0 0 110 220" fill="none" aria-hidden="true">
+      <path d="M30 210 C32 160 26 120 34 78" stroke="#9AA68F" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="34" cy="70" rx="7" ry="10" fill="#C79098"/>
+      <ellipse cx="25" cy="76" rx="6.4" ry="8.6" fill="#DDBCC0" transform="rotate(-38 25 76)"/>
+      <ellipse cx="43" cy="76" rx="6.4" ry="8.6" fill="#DDBCC0" transform="rotate(38 43 76)"/>
+      <circle cx="34" cy="77" r="3.6" fill="#DFC08A"/>
+      <path d="M72 214 C73 184 70 160 74 136" stroke="#A6AF97" stroke-width="1.7" stroke-linecap="round"/>
+      <circle cx="74" cy="128" r="5" fill="#CBD1E2"/><circle cx="67" cy="134" r="4" fill="#DDE1EC"/><circle cx="81" cy="134" r="4" fill="#D6DAE7"/>
+      <ellipse cx="52" cy="180" rx="5" ry="8" fill="#AFB8A2" transform="rotate(-30 52 180)"/>
+    </svg>
+    <svg class="res-side r" viewBox="0 0 110 220" fill="none" aria-hidden="true">
+      <path d="M30 210 C32 160 26 120 34 78" stroke="#9AA68F" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="34" cy="70" rx="7" ry="10" fill="#C79098"/>
+      <ellipse cx="25" cy="76" rx="6.4" ry="8.6" fill="#DDBCC0" transform="rotate(-38 25 76)"/>
+      <ellipse cx="43" cy="76" rx="6.4" ry="8.6" fill="#DDBCC0" transform="rotate(38 43 76)"/>
+      <circle cx="34" cy="77" r="3.6" fill="#EBD3A4"/>
+      <path d="M72 214 C73 184 70 160 74 136" stroke="#A6AF97" stroke-width="1.7" stroke-linecap="round"/>
+      <circle cx="74" cy="128" r="5" fill="#D9B0B5"/><circle cx="67" cy="134" r="4" fill="#EBD5D7"/><circle cx="81" cy="134" r="4" fill="#E6CBCE"/>
+      <ellipse cx="52" cy="180" rx="5" ry="8" fill="#AFB8A2" transform="rotate(-30 52 180)"/>
+    </svg>
+    <div class="wrap">
+      <div class="res-eyebrow reveal">ARE YOU THE ONE</div>
+      <div class="res-title reveal d1">品牌有了想法，<br>但還無法展翅飛翔嗎?</div>
+      <p class="res-body reveal d2">不管你是正在轉型的品牌，建立自己宇宙的創作者，<br>還是有靈魂、有美學，但還沒找到落地方式的人——<br>我們在找的，是靈魂最對的彼此。</p>
+      <a class="btn btn-res reveal d3" href="#contact">聯絡我們</a>
+    </div>
+  </section>
+
+  <!-- 聯絡(保留+Excel 實資料) -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="eyebrow reveal">CONTACT</div>
+      <h2 class="reveal">找川花，聊聊你的品牌</h2>
+      <p class="lead reveal d1">課程報名、諮詢預約、合作洽談，都歡迎透過官方 LINE 找我們。</p>
+      <div class="contact-card reveal d1">
+        <div class="contact-ways">
+          <div class="way"><span class="k">客服信箱</span><span>riverflower2025@gmail.com</span></div>
+          <div class="way"><span class="k">客服電話</span><span>02-2885-4268</span></div>
+          <div class="way"><span class="k">服務時間</span><span>週一至週五 10：00–18：00</span></div>
+          <div class="way"><span class="k">官方 LINE</span><span><a href="https://line.me/R/ti/p/@riverflower2025" target="_blank" rel="noopener">@riverflower2025</a>，信箱 1–2 個工作天內回覆</span></div>
+        </div>
+        <div class="line-box">
+          <a class="qr-ph" href="https://line.me/R/ti/p/@riverflower2025" target="_blank" rel="noopener" aria-label="掃描或開啟川花官方 LINE">
+            <img src="assets/line-qr-riverflower2025.png" alt="川花官方 LINE @riverflower2025 QR Code" width="320" height="320">
+          </a>
+          <div class="line-id">@riverflower2025</div>
+          <a class="btn btn-line" href="https://line.me/R/ti/p/@riverflower2025" target="_blank" rel="noopener">加入官方 LINE</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="terms">
+      <details>
+        <summary>服務條款(簡版)</summary>
+        <div class="t-body">
+          <p>1. 本網站由「川花有限公司」(以下稱本公司)經營，提供品牌行銷諮詢教學課程之銷售與預約服務。</p>
+          <p>2. 消費者於本網站完成付款，即視為同意本服務條款與退款改期規則。</p>
+          <p>3. 課程與諮詢時段採預約制，付款完成後由官方 LINE 專人與消費者確認時段。</p>
+          <p>4. 本公司保留調整課程內容、時段與價格之權利；已成立之訂單不受調價影響。</p>
+          <p>5. 條款未盡事宜，依中華民國相關法令辦理。</p>
+        </div>
+      </details>
+      <details>
+        <summary>隱私權政策(簡版)</summary>
+        <div class="t-body">
+          <p>1. 本公司於您報名課程或預約諮詢時，將蒐集姓名、電話、Email 等必要個人資料，僅用於訂單處理、課程通知與客服聯繫。</p>
+          <p>2. 您的個人資料不會提供予第三人，亦不會用於前述目的以外之用途；金流資料由合作之金流服務商依其資安標準處理，本公司不留存信用卡卡號。</p>
+          <p>3. 您可隨時透過客服信箱或官方 LINE 申請查詢、修改或刪除您的個人資料。</p>
+          <p>4. 本政策如有修訂，將公告於本網站。</p>
+        </div>
+      </details>
+    </div>
+
+    <footer>
+      <img src="assets/logo-v-color.png" alt="川花 RIVER FLOWER"><br>
+      <span class="co-line">© 2026 川花有限公司・統一編號 60605921・台北市信義區忠孝東路五段 508 號 2 樓之 11</span><br>
+      <span class="co-line">riverflower2025@gmail.com・02-2885-4268</span>
+      <br><a class="back-garden" href="#" id="reGarden">回到花園，再選一朵花</a>
+    </footer>
+  </section>
+</div>
+
+<!-- ═════════ L3 · 開花教室 ═════════ -->
+<div id="studio">
+  <div class="st-wrap">
+    <div class="st-top">
+      <button class="st-back" id="stBack">← 回到河邊</button>
+    </div>
+    <div class="st-head">
+      <div class="st-eyebrow">BLOOM STUDIO</div>
+      <h2>開花教室</h2>
+      <p>推開門，空氣就不一樣了。<br>聊完之後，讓你的品牌開花</p>
+    </div>
+    <div class="course-grid">
+      <article class="course c-gold">
+        <div class="course-icon"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M15 4 C8.4 4 3.5 8.2 3.5 13.4 C3.5 16.6 5.3 19.4 8.1 21.1 L7 26 L12.2 22.5 C13.1 22.7 14 22.8 15 22.8 C21.6 22.8 26.5 18.6 26.5 13.4 C26.5 8.2 21.6 4 15 4 Z" stroke="#C4914F" stroke-width="2.2" stroke-linejoin="round"/><circle cx="10.5" cy="13.4" r="1.6" fill="#93323F"/><circle cx="15" cy="13.4" r="1.6" fill="#E3BE93"/><circle cx="19.5" cy="13.4" r="1.6" fill="#8E9B84"/></svg></div>
+        <h3>在見面之前・行銷諮詢</h3>
+        <div class="cat">FIRST CHECK・體質檢驗</div>
+        <ul class="pains">
+          <li>歡迎線上填表，讓我們為您評估</li>
+          <li>梳理品牌的現況</li>
+          <li>看看有沒有能與您合作的地方</li>
+        </ul>
+        <button class="btn" id="csOpen" type="button">填寫體質報告表單</button>
+        <p class="pay-note">川花審核後若合適合作，將於 1–2 個工作天內與您聯繫</p>
+      </article>
+      <article class="course c-blue">
+        <div class="course-icon"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M5 24 L5 14 M12 24 L12 8 M19 24 L19 12 M26 24 L26 5" stroke="#6B77A0" stroke-width="3" stroke-linecap="round"/><circle cx="26" cy="5" r="3" fill="#93323F"/></svg></div>
+        <h3>老朋友行銷諮詢</h3>
+        <div class="cat">MARKETING CONSULTING・一對一</div>
+        <ul class="pains">
+          <li>1 小時，一對一線上或實體</li>
+          <li>聊過一次的老朋友，接著上次往下走</li>
+          <li>結束後附行動建議，不說空話</li>
+        </ul>
+        <div class="price-line">NT$ 3,600 <small>/ 1 小時</small></div>
+        <a class="btn" href="https://line.me/R/ti/p/@riverflower2025" target="_blank" rel="noopener">立即付款</a>
+        <p class="pay-note">付款完成後，請透過官方 LINE 與專人確認時段</p>
+      </article>
+    </div>
+  </div>
+
+  <section class="flow esec" id="flow" data-label="開花的流程">
+    <div class="wrap">
+      <div class="eyebrow reveal">HOW IT WORKS</div>
+      <h2 class="reveal">從付款到開花，只要四步</h2>
+      <p class="lead reveal d1">線上完成付款後，由川花官方 LINE 與你聯繫</p>
+      <div class="steps reveal" id="steps">
+        <div class="step-line"></div>
+        <div class="step"><div class="step-dot">1</div><h4>點選預約並付款</h4></div>
+        <div class="step"><div class="step-dot">2</div><h4>看見付款成功頁</h4></div>
+        <div class="step"><div class="step-dot">3</div><h4>加入官方 LINE</h4></div>
+        <div class="step"><div class="step-dot">4</div><h4>專人確認時段</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 在見面之前・行銷諮詢・互動預約卡 -->
+  <div id="consult" role="dialog" aria-modal="true" aria-labelledby="csTitle" aria-hidden="true">
+    <div class="cs-wrap">
+      <div class="cs-card">
+        <button class="cs-close" type="button" data-csclose aria-label="關閉預約視窗">✕</button>
+
+        <div class="cs-page on" data-page="1">
+          <div class="cs-eyebrow">First Bloom・Step 1 / 3</div>
+          <h3 id="csTitle">現在的品牌，卡在哪裡？</h3>
+          <p class="cs-sub">勾起來的，就是第一次見面我們優先聊的。可複選，憑直覺就好。</p>
+          <div id="csPains">
+            <button class="cs-check" type="button" aria-pressed="false"><span class="bx">✓</span><span class="tx">品牌長什麼樣子，連自己都說不太清楚</span></button>
+            <button class="cs-check" type="button" aria-pressed="false"><span class="bx">✓</span><span class="tx">想轉型，但不知道第一步從哪裡開始</span></button>
+            <button class="cs-check" type="button" aria-pressed="false"><span class="bx">✓</span><span class="tx">東西是好的，營業額卻一直上不去</span></button>
+            <button class="cs-check" type="button" aria-pressed="false"><span class="bx">✓</span><span class="tx">廣告、社群、內容各做各的，力氣散掉了</span></button>
+            <button class="cs-check" type="button" aria-pressed="false"><span class="bx">✓</span><span class="tx">還沒開始做行銷，想知道第一步怎麼走</span></button>
+            <button class="cs-check" type="button" aria-pressed="false"><span class="bx">✓</span><span class="tx">想開一間店，或長出一個新品牌</span></button>
+          </div>
+        </div>
+
+        <div class="cs-page" data-page="2">
+          <div class="cs-eyebrow">First Bloom・Step 2 / 3</div>
+          <h3>這一次，你想往哪裡開？</h3>
+          <p class="cs-sub">沒有標準答案，把每一條拉到心裡的位置就好。</p>
+          <div class="cs-slider">
+            <div class="lab"><span>這次想要的改變</span><span class="val" style="color:var(--blue)" id="csV-change">50<small>%</small></span></div>
+            <input type="range" class="cs-range" min="0" max="100" value="50" data-k="change" style="--c:#6B77A0" aria-label="這次想要的改變程度">
+            <div class="cs-ends"><span>小幅調整就好</span><span>大膽轉型</span></div>
+          </div>
+          <div class="cs-slider">
+            <div class="lab"><span>現階段更在意</span><span class="val" style="color:#7E8C6C" id="csV-focus">50<small>%</small></span></div>
+            <input type="range" class="cs-range" min="0" max="100" value="50" data-k="focus" style="--c:#8E9B84" aria-label="現階段在意營收或品牌的程度">
+            <div class="cs-ends"><span>先衝營收</span><span>先養品牌</span></div>
+          </div>
+          <div class="cs-slider">
+            <div class="lab"><span>期待的節奏</span><span class="val" style="color:#93323F" id="csV-pace">50<small>%</small></span></div>
+            <input type="range" class="cs-range" min="0" max="100" value="50" data-k="pace" style="--c:#93323F" aria-label="期待的進行節奏">
+            <div class="cs-ends"><span>慢慢來，穩穩開</span><span>越快越好</span></div>
+          </div>
+        </div>
+
+        <div class="cs-page" data-page="3">
+          <div class="cs-eyebrow">First Bloom・Step 3 / 3</div>
+          <h3>好了，讓川花來找你</h3>
+          <p class="cs-sub">我們會在 1–2 個工作天內與你聯繫。</p>
+          <div class="fm-field">
+            <label for="csName">怎麼稱呼你 *</label>
+            <input type="text" id="csName" maxlength="30" autocomplete="name" placeholder="例：陳小花">
+          </div>
+          <div class="fm-field fm-row">
+            <div>
+              <label for="csCtype">聯絡方式 *</label>
+              <select id="csCtype">
+                <option value="LINE">LINE</option>
+                <option value="電話">電話</option>
+                <option value="Email">Email</option>
+              </select>
+            </div>
+            <div>
+              <label for="csCval">ID / 號碼 / 信箱 *</label>
+              <input type="text" id="csCval" maxlength="60" placeholder="方便聯絡到你的">
+            </div>
+          </div>
+          <div class="fm-field">
+            <span class="cs-sub" id="csTimeLabel">方便的時段</span>
+            <div class="cs-chips" id="csChips" role="group" aria-labelledby="csTimeLabel">
+              <button class="cs-chip" type="button" aria-pressed="false">平日白天</button>
+              <button class="cs-chip" type="button" aria-pressed="false">平日晚上</button>
+              <button class="cs-chip" type="button" aria-pressed="false">週末</button>
+              <button class="cs-chip sel" type="button" aria-pressed="true">都可以，配合安排</button>
+            </div>
+          </div>
+          <div class="fm-field">
+            <label for="csNote">想先讓我們知道的事（選填）</label>
+            <textarea id="csNote" maxlength="400" placeholder="品牌名字、現在的狀況、或任何想說的"></textarea>
+          </div>
+          <p class="fm-msg" id="csMsg" aria-live="polite"></p>
+        </div>
+
+        <div class="cs-page" data-page="ok">
+          <div class="cs-ok">
+            <div class="okflower" aria-hidden="true">❀</div>
+            <h4>預約單已送出</h4>
+            <p>川花收到了，會在 1–2 個工作天內與你聯繫，<br>約好第一次聊天的時間。</p>
+            <p style="margin-top:10px">想更快約到？加入官方 LINE，跟我們說聲「我填好了」——</p>
+            <a class="btn-line-cs" href="https://line.me/R/ti/p/@riverflower2025" target="_blank" rel="noopener">加入官方 LINE&nbsp;&nbsp;@riverflower2025</a>
+          </div>
+        </div>
+
+        <div class="cs-nav" id="csNav">
+          <button class="cs-ghost hide" type="button" id="csPrev">← 上一步</button>
+          <div class="cs-dots" aria-hidden="true"><span class="cs-dot on"></span><span class="cs-dot"></span><span class="cs-dot"></span></div>
+          <button class="cs-btn" type="button" id="csNext">下一步 →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═════════ 共用工具 ═════════ */
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+history.scrollRestoration='manual';
+scrollTo(0,0);
+
+/* ═════════ 自訂游標(v2 架構) ═════════ */
+if(matchMedia('(hover:hover)').matches && !reduced){
+  document.body.classList.add('cur-on');
+  const dot=$('#cur-dot'),ring=$('#cur-ring');
+  addEventListener('mousemove',e=>{
+    dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+    ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';
+  },{passive:true});
+  addEventListener('mouseover',e=>{
+    ring.style.scale=e.target.closest('a,button,.g-flower,.case,.srv')?'1.6':'1';
+  },{passive:true});
+}
+
+/* ═════════ L1 花園:五朵花逐朵綻放 ═════════ */
+/* img = 花朵圖檔名(從左到右 1~5),之後手繪同檔名覆蓋 assets/ 即可替換 */
+const FLOWERS=[
+  {label:"關於我們",  en:"WHO WE ARE",  target:"#shore",  img:"flower_1_farLeft.png",  petal:"#93323F", h:118, s:1.0},
+  {label:"如何開花",  en:"HOW IT WORKS",target:"#about",  img:"flower_2_left.png",     petal:"#B5636D", h:138, s:1.1},
+  {label:"我們開過的花",en:"CASES",     target:"#cases",  img:"flower_4_right.png",    petal:"#93323F", h:132, s:1.06},
+  {label:"找川花說話",en:"CONTACT",     target:"#contact",img:"flower_5_farRight.png", petal:"#B5636D", h:112, s:.94},
+];
+const field=$('#g-field');
+const MB = innerWidth<640;           /* 手機:花整體縮小,2-2-1 排進一屏 */
+FLOWERS.forEach((f,i)=>{
+  const s=f.s*(MB?0.78:1);
+  const imgW=(MB?74:82)*s;           /* 顯示寬度依每朵縮放,底部對齊自然錯落(整體再縮小、變矮) */
+  const btn=document.createElement('button');
+  btn.className='g-flower'; btn.dataset.target=f.target;
+  btn.setAttribute('aria-label',f.label);
+  btn.innerHTML=`
+  <span class="g-imgwrap"><img class="g-img" src="assets/${f.img}" alt="${f.label}" style="width:${imgW}px"></span>
+  <div class="g-label">${f.label}<small>${f.en}</small></div>`;
+  field.appendChild(btn);
+  /* 一朵一朵出現:間隔綻放 */
+  const delay = reduced ? 0 : 2000 + i*950;
+  setTimeout(()=>{
+    btn.classList.add('bloomed');
+    setTimeout(()=>btn.classList.add('swaying'), 1400);
+  }, delay);
+});
+
+/* 摘花 → 花瓣飄散 → 進入對應區 */
+let entered=false;
+function scatterPetals(x,y,color){
+  for(let i=0;i<12;i++){
+    const p=document.createElement('div');
+    p.className='fall-petal';
+    p.style.left=x+'px'; p.style.top=y+'px';
+    p.style.background=`linear-gradient(135deg,${color},rgba(255,255,255,.25))`;
+    p.style.setProperty('--dx',(Math.random()*260-130)+'px');
+    p.style.setProperty('--dy',-(90+Math.random()*300)+'px');
+    p.style.setProperty('--rot',(Math.random()*640-320)+'deg');
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),1600);
+  }
+}
+function enterMain(scrollTarget){
+  if(entered) return; entered=true;
+  $('#garden').classList.add('out');
+  document.body.classList.remove('lock');
+  document.body.classList.add('site-open');
+  /* 蓋掉瀏覽器解鎖後才套用的延遲捲動還原 */
+  scrollTo(0,0);
+  requestAnimationFrame(()=>scrollTo(0,0));
+  const main=$('#main'); main.classList.add('visible');
+  $('#nav').classList.add('show');
+  const go=()=>{
+    if(scrollTarget && scrollTarget!=='studio'){
+      const el=$(scrollTarget);
+      if(el) el.scrollIntoView({behavior: reduced?'auto':'smooth'});
+    } else {
+      scrollTo({top:0,behavior:'auto'});
+    }
+  };
+  setTimeout(go,420);
+  setTimeout(go,1100);
+}
+field.addEventListener('click',e=>{
+  const btn=e.target.closest('.g-flower');
+  if(!btn || !btn.classList.contains('bloomed') || btn.classList.contains('picked')) return;
+  btn.classList.add('picked');
+  setTimeout(()=>{
+    if(btn.dataset.target==='studio' || btn.dataset.target==='studio-flow'){ enterMain(null); openStudio(btn.dataset.target==='studio-flow'?'#flow':null); }
+    else enterMain(btn.dataset.target);
+  }, reduced?0:1100);
+});
+$('#g-skip').addEventListener('click',()=>enterMain(null));
+
+/* 回到花園 */
+$('#reGarden').addEventListener('click',e=>{
+  e.preventDefault();
+  entered=false;
+  const g=$('#garden'); g.classList.remove('out');
+  document.body.classList.add('lock');
+  document.body.classList.remove('site-open');
+  $('#nav').classList.remove('show');
+  scrollTo({top:0,behavior:'auto'});
+  /* 花重新開 */
+  $$('.g-flower').forEach((b,i)=>{
+    b.classList.remove('picked','bloomed','swaying');
+    void b.offsetWidth;
+    setTimeout(()=>{b.classList.add('bloomed');setTimeout(()=>b.classList.add('swaying'),1400)}, reduced?0:400+i*700);
+  });
+});
+
+/* ═════════ 開花轉場 → L3 教室 ═════════ */
+let fxBusy=false;
+function bloomTransition(cb){
+  if(reduced){cb();return}
+  if(fxBusy) return; fxBusy=true;
+  const fx=$('#bloomfx');
+  /* 灑一圈花瓣 */
+  fx.querySelectorAll('.fx-petal').forEach(p=>p.remove());
+  for(let i=0;i<16;i++){
+    const p=document.createElement('div');
+    p.className='fx-petal';
+    const ang=Math.PI*2*i/16, dist=180+Math.random()*260;
+    p.style.setProperty('--dx',Math.cos(ang)*dist+'px');
+    p.style.setProperty('--dy',Math.sin(ang)*dist+'px');
+    p.style.setProperty('--rot',(Math.random()*720-360)+'deg');
+    fx.appendChild(p);
+  }
+  fx.classList.add('on');
+  setTimeout(cb, 1150);
+  setTimeout(()=>{fx.classList.remove('on');fxBusy=false}, 1900);
+}
+function openStudio(scrollTarget){
+  bloomTransition(()=>{
+    $('#studio').classList.add('open');
+    document.body.classList.add('studio-open');
+    $('#studio').scrollTop=0;
+    if(scrollTarget) setTimeout(()=>{const el=$(scrollTarget); if(el) el.scrollIntoView({behavior:'auto',block:'start'})},40);
+    document.body.classList.add('lock');
+    /* 教室花瓣 */
+    const st=$('#studio');
+    if(!st.dataset.petals && !reduced){
+      st.dataset.petals=1;
+      for(let i=0;i<8;i++){
+        const p=document.createElement('div');
+        p.className='st-petal';
+        p.style.left=(5+Math.random()*90)+'%';
+        p.style.animationDuration=(11+Math.random()*9)+'s';
+        p.style.animationDelay=(Math.random()*10)+'s';
+        st.appendChild(p);
+      }
+    }
+  });
+}
+function closeStudio(scrollTo_){
+  $('#studio').classList.remove('open');
+  document.body.classList.remove('studio-open');
+  document.body.classList.remove('lock');
+  if(scrollTo_){const el=$(scrollTo_); if(el) el.scrollIntoView({behavior: reduced?'auto':'smooth'})}
+}
+$$('[data-studio]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openStudio();$('#navLinks').classList.remove('open')}));
+$('#stBack').addEventListener('click',()=>closeStudio('#courses'));
+$('#navGarden').addEventListener('click',e=>{e.preventDefault();if($('#studio').classList.contains('open')) closeStudio();$('#reGarden').click()});
+$('#navLogo').addEventListener('click',e=>{e.preventDefault();if($('#studio').classList.contains('open')) closeStudio();$('#reGarden').click()});
+const stFlowLink=$('#stFlowLink');
+if(stFlowLink) stFlowLink.addEventListener('click',e=>{e.preventDefault();closeStudio('#flow')});
+
+/* ═════════ 主頁互動 ═════════ */
+const nav=$('#nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+$('#burger').addEventListener('click',()=>$('#navLinks').classList.toggle('open'));
+$('#navClose').addEventListener('click',()=>$('#navLinks').classList.remove('open'));
+$$('#navLinks a').forEach(a=>a.addEventListener('click',()=>$('#navLinks').classList.remove('open')));
+$$('#navLinks a').forEach(a=>a.addEventListener('click',()=>$('#navLinks').classList.remove('open')));
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.16});
+$$('.reveal,#steps').forEach(el=>io.observe(el));
+
+/* 河岸飄瓣 */
+if(!reduced){
+  const shore=$('#shore');
+  for(let i=0;i<10;i++){
+    const p=document.createElement('div');
+    p.className='shore-petal';
+    p.style.left=(4+Math.random()*92)+'%';
+    p.style.animationDuration=(9+Math.random()*8)+'s';
+    p.style.animationDelay=(Math.random()*11)+'s';
+    shore.appendChild(p);
+  }
+}
+</script>
+
+<!-- ═════════ v10 專屬調色工具(只調 7 個內容區塊的底色,花園/河岸/教室/聯絡不含) ═════════ -->
+<style>
+#cc-panel{position:fixed;top:16px;right:16px;z-index:99999;width:290px;max-height:92vh;overflow:auto;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border:1px solid #E2DACB;border-radius:16px;
+  box-shadow:0 18px 50px rgba(90,80,60,.25);font-family:"Noto Sans TC",system-ui,sans-serif;color:#4A4844}
+#cc-panel .cc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;font-weight:700;font-size:15px;color:#4A5A7C}
+#cc-panel .cc-x{background:none;border:none;font-size:20px;line-height:1;color:#6E6A63;cursor:pointer;padding:0 4px}
+#cc-panel .cc-tip{padding:0 16px 10px;font-size:11.5px;color:#6E6A63;line-height:1.6}
+#cc-panel .cc-row{display:flex;align-items:center;gap:8px;padding:7px 16px}
+#cc-panel .cc-row:nth-child(odd){background:rgba(241,236,223,.55)}
+#cc-panel .cc-row .cc-name{flex:1;font-size:13px}
+#cc-panel .cc-row input[type=color]{width:34px;height:26px;border:1px solid #E2DACB;border-radius:6px;background:none;cursor:pointer;padding:0}
+#cc-panel .cc-lbl{font-size:9px;color:#A8A399;width:10px;text-align:center}
+#cc-panel .cc-foot{display:flex;gap:8px;padding:12px 16px}
+#cc-panel .cc-foot button{flex:1;border:none;border-radius:8px;padding:9px 0;font-size:12.5px;font-family:inherit;cursor:pointer}
+#cc-panel #cc-export{background:#4A5A7C;color:#fff}
+#cc-panel #cc-reset{background:#F1ECDF;color:#6E6A63}
+#cc-panel #cc-out{display:none;width:calc(100% - 32px);margin:0 16px 14px;height:150px;font-family:ui-monospace,monospace;font-size:11px;border:1px solid #E2DACB;border-radius:8px;padding:8px;resize:vertical;color:#4A4844;background:#FBF8F2}
+#cc-fab{position:fixed;bottom:18px;right:18px;z-index:99998;width:auto;padding:10px 16px;border:none;border-radius:99px;
+  background:#4A5A7C;color:#fff;font-family:"Noto Sans TC",sans-serif;font-size:13px;cursor:pointer;box-shadow:0 8px 24px rgba(90,80,60,.3)}
+</style>
+<script>
+(function(){
+  const SECS=[
+    {k:'about',    label:'關於我們'},
+    {k:'services', label:'我們做的事'},
+    {k:'cases',    label:'我們開過的花'},
+    {k:'courses',  label:'兩種開花的方式'},
+    {k:'flow',     label:'開花的流程'},
+    {k:'policy',   label:'退款規則'},
+    {k:'resonance',label:'品牌有了想法'},
+  ];
+  const LS='chuanhua_v10_colors';
+  const rootStyle=document.documentElement.style;
+  const DARK_THRESHOLD=0.74;   // 底色平均亮度低於此值→文字自動轉淺
+
+  function lum(hex){
+    hex=(hex||'').trim().replace('#','');
+    if(hex.length<6) return 1;
+    const r=parseInt(hex.slice(0,2),16),g=parseInt(hex.slice(2,4),16),b=parseInt(hex.slice(4,6),16);
+    return (0.299*r+0.587*g+0.114*b)/255;
+  }
+  function curVar(k,p){
+    return getComputedStyle(document.documentElement).getPropertyValue('--'+k+'-'+p).trim();
+  }
+  function refreshDark(k){
+    const el=document.querySelector('.'+k+'.esec');
+    if(!el) return;
+    const avg=(lum(curVar(k,'t'))+lum(curVar(k,'b')))/2;
+    el.classList.toggle('on-dark', avg<DARK_THRESHOLD);
+  }
+  function readSaved(){ try{return JSON.parse(localStorage.getItem(LS)||'{}')}catch(e){return {}} }
+  function save(){
+    const data={};
+    SECS.forEach(s=>{ data[s.k]={t:curVar(s.k,'t'),b:curVar(s.k,'b')} });
+    localStorage.setItem(LS, JSON.stringify(data));
+  }
+  // 一律先套用已存的顏色(即使不是編輯模式,正常瀏覽也要生效)
+  const saved=readSaved();
+  SECS.forEach(s=>{
+    if(saved[s.k]){
+      if(saved[s.k].t) rootStyle.setProperty('--'+s.k+'-t', saved[s.k].t);
+      if(saved[s.k].b) rootStyle.setProperty('--'+s.k+'-b', saved[s.k].b);
+    }
+    refreshDark(s.k);
+  });
+
+  function toHex(v){ v=(v||'').trim(); return /^#[0-9a-fA-F]{6}$/.test(v)? v.toLowerCase() : '#000000'; }
+
+  let built=false;
+  function buildPanel(){
+    if(built){ const p=document.getElementById('cc-panel'); p.style.display = p.style.display==='none'?'block':'none'; return; }
+    built=true;
+    const fab=document.getElementById('cc-fab'); if(fab) fab.remove();
+    const p=document.createElement('div'); p.id='cc-panel';
+    p.innerHTML='<div class="cc-head"><span>🎨 底色調色盤</span><button class="cc-x" title="關閉">×</button></div>'
+      +'<div class="cc-tip">拖動色塊即時改每一頁的漸層底色(左=頂部色、右=底部色),文字深淺會自動跟著。改動即存,重開還在。</div>';
+    SECS.forEach(s=>{
+      const row=document.createElement('div'); row.className='cc-row';
+      row.innerHTML='<span class="cc-name">'+s.label+'</span>'
+        +'<span class="cc-lbl">頂</span><input type="color" data-k="'+s.k+'" data-p="t" value="'+toHex(curVar(s.k,'t'))+'">'
+        +'<span class="cc-lbl">底</span><input type="color" data-k="'+s.k+'" data-p="b" value="'+toHex(curVar(s.k,'b'))+'">';
+      p.appendChild(row);
+    });
+    const foot=document.createElement('div'); foot.className='cc-foot';
+    foot.innerHTML='<button id="cc-export">匯出色碼</button><button id="cc-reset">重設全部</button>';
+    p.appendChild(foot);
+    const out=document.createElement('textarea'); out.id='cc-out'; out.readOnly=true; p.appendChild(out);
+    document.body.appendChild(p);
+
+    p.querySelectorAll('input[type=color]').forEach(inp=>{
+      inp.addEventListener('input',()=>{
+        rootStyle.setProperty('--'+inp.dataset.k+'-'+inp.dataset.p, inp.value);
+        refreshDark(inp.dataset.k);
+        save();
+      });
+    });
+    p.querySelector('.cc-x').addEventListener('click',()=>{ p.style.display='none'; });
+    p.querySelector('#cc-reset').addEventListener('click',()=>{
+      if(confirm('確定要清除所有調過的顏色、回到預設嗎?')){ localStorage.removeItem(LS); location.reload(); }
+    });
+    p.querySelector('#cc-export').addEventListener('click',()=>{
+      let css=':root{\n';
+      SECS.forEach(s=>{ css+='  --'+s.k+'-t:'+curVar(s.k,'t')+'; --'+s.k+'-b:'+curVar(s.k,'b')+';\n'; });
+      css+='}';
+      out.style.display='block'; out.value=css; out.select();
+      try{ navigator.clipboard.writeText(css); }catch(e){}
+    });
+  }
+
+  // 進入方式:網址加 ?edit,或按 Ctrl+Shift+E
+  if(/[?&]edit\b/.test(location.search)) buildPanel();
+  addEventListener('keydown',e=>{
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='E'||e.key==='e')){ e.preventDefault(); buildPanel(); }
+  });
+})();
+</script>
+
+<!-- ═════════ v10 文字樣式面板(副標/標語:字級、行距、字距、白/藍二選一) ═════════ -->
+<style>
+#ts-panel{position:fixed;top:16px;left:16px;z-index:99999;width:280px;max-height:92vh;overflow:auto;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border:1px solid #E2DACB;border-radius:16px;
+  box-shadow:0 18px 50px rgba(90,80,60,.25);font-family:"Noto Sans TC",system-ui,sans-serif;color:#4A4844}
+#ts-panel .ts-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;font-weight:700;font-size:15px;color:#4A5A7C}
+#ts-panel .ts-x{background:none;border:none;font-size:20px;line-height:1;color:#6E6A63;cursor:pointer;padding:0 4px}
+#ts-panel .ts-tip{padding:0 16px 10px;font-size:11.5px;color:#6E6A63;line-height:1.6}
+#ts-panel .ts-group{padding:8px 16px 14px;border-top:1px solid #e6edf2}
+#ts-panel .ts-group-title{font-size:13px;font-weight:700;color:#4A5A7C;margin-bottom:8px}
+#ts-panel .ts-row{margin-bottom:8px}
+#ts-panel .ts-row-top{display:flex;justify-content:space-between;font-size:12px;color:#6E6A63;margin-bottom:3px}
+#ts-panel .ts-val{color:#A8A399;font-family:ui-monospace,monospace;font-size:11px}
+#ts-panel input[type=range]{width:100%}
+#ts-panel .ts-colors{display:flex;gap:8px;margin-top:6px}
+#ts-panel .ts-colorbtn{flex:1;padding:7px 0;border-radius:8px;font-size:12px;cursor:pointer;border:2px solid transparent}
+#ts-panel .ts-colorbtn.white{background:#4A5A7C;color:#F6F2E9;border-color:#ddd}
+#ts-panel .ts-colorbtn.blue{background:#5B6790;color:#fff;border-color:#6B77A0}
+#ts-panel .ts-colorbtn.active{border-color:#4A5A7C;box-shadow:0 0 0 1px #4A5A7C inset}
+#ts-panel .ts-foot{display:flex;gap:8px;padding:12px 16px}
+#ts-panel .ts-foot button{flex:1;border:none;border-radius:8px;padding:9px 0;font-size:12.5px;font-family:inherit;cursor:pointer}
+#ts-panel #ts-export{background:#4A5A7C;color:#fff}
+#ts-panel #ts-reset{background:#F1ECDF;color:#6E6A63}
+#ts-panel #ts-out{display:none;width:calc(100% - 32px);margin:0 16px 14px;height:110px;font-family:ui-monospace,monospace;font-size:11px;border:1px solid #E2DACB;border-radius:8px;padding:8px;resize:vertical;color:#4A4844;background:#FBF8F2}
+</style>
+<script>
+(function(){
+  const WHITE='#4A5A7C', BLUE='#5B6790';
+  const GROUPS=[
+    {key:'gk', label:'副標「從河川長出花」', sizeMin:8,sizeMax:22, lsMax:14},
+    {key:'gt', label:'標語(每朵花，都是一條路...)', sizeMin:12,sizeMax:40, lsMax:10},
+  ];
+  const LS='chuanhua_v10_textstyle';
+  const rootStyle=document.documentElement.style;
+
+  function cur(key,prop){ return getComputedStyle(document.documentElement).getPropertyValue('--'+key+'-'+prop).trim(); }
+  function curNum(key,prop){ return parseFloat(cur(key,prop))||0; }
+  function readSaved(){ try{return JSON.parse(localStorage.getItem(LS)||'{}')}catch(e){return {}} }
+  function save(){
+    const data={};
+    GROUPS.forEach(g=>{ data[g.key]={size:cur(g.key,'size'),lh:cur(g.key,'lh'),ls:cur(g.key,'ls'),color:cur(g.key,'color')}; });
+    localStorage.setItem(LS, JSON.stringify(data));
+  }
+  const saved=readSaved();
+  GROUPS.forEach(g=>{
+    const s=saved[g.key]; if(!s) return;
+    if(s.size) rootStyle.setProperty('--'+g.key+'-size', s.size);
+    if(s.lh)   rootStyle.setProperty('--'+g.key+'-lh', s.lh);
+    if(s.ls)   rootStyle.setProperty('--'+g.key+'-ls', s.ls);
+    if(s.color)rootStyle.setProperty('--'+g.key+'-color', s.color);
+  });
+
+  let built=false;
+  function buildPanel(){
+    if(built){ const p=document.getElementById('ts-panel'); p.style.display = p.style.display==='none'?'block':'none'; return; }
+    built=true;
+    const p=document.createElement('div'); p.id='ts-panel';
+    p.innerHTML='<div class="ts-head"><span>🔤 文字樣式</span><button class="ts-x" title="關閉">×</button></div>'
+      +'<div class="ts-tip">調整字級、行距、字距,顏色只能在白/藍之間切換。改動即存,重開還在。</div>';
+    GROUPS.forEach(g=>{
+      const wrap=document.createElement('div'); wrap.className='ts-group';
+      const sizeV=curNum(g.key,'size'), lhV=curNum(g.key,'lh'), lsV=curNum(g.key,'ls');
+      const colorV=cur(g.key,'color').toUpperCase();
+      const isWhite = colorV===WHITE.toUpperCase();
+      wrap.innerHTML=
+        '<div class="ts-group-title">'+g.label+'</div>'
+        +'<div class="ts-row"><div class="ts-row-top"><span>字級</span><span class="ts-val" data-out="'+g.key+'-size">'+sizeV+'px</span></div>'
+        +'<input type="range" min="'+g.sizeMin+'" max="'+g.sizeMax+'" step="1" value="'+sizeV+'" data-k="'+g.key+'" data-p="size" data-unit="px"></div>'
+        +'<div class="ts-row"><div class="ts-row-top"><span>行距</span><span class="ts-val" data-out="'+g.key+'-lh">'+lhV+'</span></div>'
+        +'<input type="range" min="1" max="3.2" step="0.05" value="'+lhV+'" data-k="'+g.key+'" data-p="lh" data-unit=""></div>'
+        +'<div class="ts-row"><div class="ts-row-top"><span>字距(讓字多分開)</span><span class="ts-val" data-out="'+g.key+'-ls">'+lsV+'px</span></div>'
+        +'<input type="range" min="0" max="'+g.lsMax+'" step="0.5" value="'+lsV+'" data-k="'+g.key+'" data-p="ls" data-unit="px"></div>'
+        +'<div class="ts-colors">'
+        +'<button class="ts-colorbtn white'+(isWhite?' active':'')+'" data-k="'+g.key+'" data-color="'+WHITE+'">白</button>'
+        +'<button class="ts-colorbtn blue'+(!isWhite?' active':'')+'" data-k="'+g.key+'" data-color="'+BLUE+'">藍</button>'
+        +'</div>';
+      p.appendChild(wrap);
+    });
+    const foot=document.createElement('div'); foot.className='ts-foot';
+    foot.innerHTML='<button id="ts-export">匯出數值</button><button id="ts-reset">重設全部</button>';
+    p.appendChild(foot);
+    const out=document.createElement('textarea'); out.id='ts-out'; out.readOnly=true; p.appendChild(out);
+    document.body.appendChild(p);
+
+    p.querySelectorAll('input[type=range]').forEach(inp=>{
+      inp.addEventListener('input',()=>{
+        const val=inp.value+inp.dataset.unit;
+        rootStyle.setProperty('--'+inp.dataset.k+'-'+inp.dataset.p, val);
+        p.querySelector('[data-out="'+inp.dataset.k+'-'+inp.dataset.p+'"]').textContent=val;
+        save();
+      });
+    });
+    p.querySelectorAll('.ts-colorbtn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        rootStyle.setProperty('--'+btn.dataset.k+'-color', btn.dataset.color);
+        p.querySelectorAll('.ts-colorbtn[data-k="'+btn.dataset.k+'"]').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        save();
+      });
+    });
+    p.querySelector('.ts-x').addEventListener('click',()=>{ p.style.display='none'; });
+    p.querySelector('#ts-reset').addEventListener('click',()=>{
+      if(confirm('確定要清除文字樣式的調整、回到預設嗎?')){ localStorage.removeItem(LS); location.reload(); }
+    });
+    p.querySelector('#ts-export').addEventListener('click',()=>{
+      let css=':root{\n';
+      GROUPS.forEach(g=>{ css+='  --'+g.key+'-size:'+cur(g.key,'size')+'; --'+g.key+'-lh:'+cur(g.key,'lh')+'; --'+g.key+'-ls:'+cur(g.key,'ls')+'; --'+g.key+'-color:'+cur(g.key,'color')+';\n'; });
+      css+='}';
+      out.style.display='block'; out.value=css; out.select();
+      try{ navigator.clipboard.writeText(css); }catch(e){}
+    });
+  }
+
+  // 跟色彩面板同一個進入方式:網址加 ?edit,或按 Ctrl+Shift+E
+  if(/[?&]edit\b/.test(location.search)) buildPanel();
+  addEventListener('keydown',e=>{
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='E'||e.key==='e')){ e.preventDefault(); buildPanel(); }
+  });
+})();
+</script>
+
+<!-- 在見面之前・行銷諮詢・互動預約卡：Firebase + Google 試算表 -->
+<script type="module">
+const firebaseConfig = {
+  apiKey:            "AIzaSyDm38xIAhr21bdccmcatjZOwViQ5LRxWOc",
+  authDomain:        "website-card-338d4.firebaseapp.com",
+  projectId:         "website-card-338d4",
+  storageBucket:     "website-card-338d4.firebasestorage.app",
+  messagingSenderId: "177083574219",
+  appId:             "1:177083574219:web:3d598c21998e89fae5384e"
+};
+const SHEETS_SYNC_URL = "https://script.google.com/macros/s/AKfycbyOHQOcH9pe7ctE8JHkrWQxRQMLU-6NaH__ThIdLla25nFOR2v1vc6X9FPKwQ8uKZ8b/exec";
+
+const $id = s => document.getElementById(s);
+const consult = $id('consult');
+const pages = [...consult.querySelectorAll('.cs-page')];
+const openButton = $id('csOpen');
+let page = 1;
+let submitted = false;
+let lastFocus = null;
+const vibes = {change:50,focus:50,pace:50};
+
+function show(p){
+  page=p;
+  pages.forEach(s=>s.classList.toggle('on',s.dataset.page===String(p)));
+  const nav=$id('csNav');
+  if(p==='ok'){nav.style.display='none';return}
+  nav.style.display='flex';
+  $id('csPrev').classList.toggle('hide',p===1);
+  $id('csNext').textContent=p===3?'送出預約':'下一步 →';
+  [...consult.querySelectorAll('.cs-dot')].forEach((d,i)=>d.classList.toggle('on',i===p-1));
+}
+
+function setOpen(open){
+  consult.classList.toggle('open',open);
+  consult.setAttribute('aria-hidden',String(!open));
+  if(open){
+    lastFocus=document.activeElement;
+    setTimeout(()=>consult.querySelector('.cs-close').focus(),50);
+  }else if(lastFocus instanceof HTMLElement){
+    lastFocus.focus();
+  }
+}
+
+function paint(r){
+  const c=r.style.getPropertyValue('--c')||'#93323F';
+  r.style.background=`linear-gradient(90deg,${c} ${r.value}%,#E8E2D5 ${r.value}%)`;
+}
+
+function resetCard(){
+  consult.querySelectorAll('.cs-check').forEach(c=>{c.classList.remove('sel');c.setAttribute('aria-pressed','false')});
+  consult.querySelectorAll('.cs-range').forEach(r=>{r.value=50;paint(r)});
+  Object.keys(vibes).forEach(k=>{vibes[k]=50;$id('csV-'+k).innerHTML='50<small>%</small>'});
+  ['csName','csCval','csNote'].forEach(i=>$id(i).value='');
+  $id('csCtype').value='LINE';
+  consult.querySelectorAll('#csChips .cs-chip').forEach(c=>{
+    const selected=c.textContent==='都可以，配合安排';
+    c.classList.toggle('sel',selected);
+    c.setAttribute('aria-pressed',String(selected));
+  });
+  $id('csMsg').className='fm-msg';
+  show(1);
+}
+
+openButton.addEventListener('click',()=>{
+  if(submitted){resetCard();submitted=false}
+  setOpen(true);
+});
+consult.querySelectorAll('[data-csclose]').forEach(el=>el.addEventListener('click',()=>setOpen(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&consult.classList.contains('open'))setOpen(false)});
+
+consult.querySelectorAll('#csPains .cs-check').forEach(c=>c.addEventListener('click',()=>{
+  const selected=!c.classList.contains('sel');
+  c.classList.toggle('sel',selected);
+  c.setAttribute('aria-pressed',String(selected));
+}));
+
+consult.querySelectorAll('.cs-range').forEach(r=>{
+  paint(r);
+  r.addEventListener('input',()=>{
+    vibes[r.dataset.k]=+r.value;
+    $id('csV-'+r.dataset.k).innerHTML=r.value+'<small>%</small>';
+    paint(r);
+  });
+});
+
+consult.querySelectorAll('#csChips .cs-chip').forEach(ch=>ch.addEventListener('click',()=>{
+  consult.querySelectorAll('#csChips .cs-chip').forEach(x=>{x.classList.remove('sel');x.setAttribute('aria-pressed','false')});
+  ch.classList.add('sel');
+  ch.setAttribute('aria-pressed','true');
+}));
+
+$id('csPrev').addEventListener('click',()=>{if(page>1)show(page-1)});
+$id('csNext').addEventListener('click',()=>{page<3?show(page+1):submit()});
+
+let firebasePromise=null;
+function ensureFirebase(){
+  if(!firebasePromise){
+    firebasePromise=Promise.all([
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js'),
+      import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js')
+    ]).then(([appApi,storeApi])=>({
+      db:storeApi.getFirestore(appApi.initializeApp(firebaseConfig)),
+      addDoc:storeApi.addDoc,
+      collection:storeApi.collection,
+      serverTimestamp:storeApi.serverTimestamp
+    }));
+  }
+  return firebasePromise;
+}
+
+async function submit(){
+  const msg=$id('csMsg');
+  const name=$id('csName').value.trim();
+  const contactValue=$id('csCval').value.trim();
+  msg.className='fm-msg';
+  if(!name||!contactValue){
+    msg.textContent='「稱呼」和「聯絡方式」要填，我們才找得到你。';
+    msg.className='fm-msg err';
+    return;
+  }
+
+  const btn=$id('csNext');
+  btn.disabled=true;
+  btn.textContent='送出中…';
+  const pains=[...consult.querySelectorAll('#csPains .cs-check.sel .tx')].map(t=>t.textContent);
+  const contactType=$id('csCtype').value;
+  const chip=consult.querySelector('#csChips .cs-chip.sel');
+  const timeslot=chip?chip.textContent:'都可以，配合安排';
+  const note=$id('csNote').value.trim();
+
+  try{
+    const api=await ensureFirebase();
+    await api.addDoc(api.collection(api.db,'free_consultations'),{
+      name,contactType,contactValue,timeslot,note,pains,vibes:{...vibes},
+      status:'new',createdAt:api.serverTimestamp(),source:'studio-free-consult'
+    });
+    fetch(SHEETS_SYNC_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({
+      name,contactType,contactValue,
+      topic:pains.length?pains.join('、'):'（未勾選）',
+      timeslot,
+      note:(note?note+'\n':'')+`[方向] 改變幅度 ${vibes.change}%｜營收↔品牌 ${vibes.focus}%｜節奏 ${vibes.pace}%`
+    })}).catch(()=>{});
+    submitted=true;
+    show('ok');
+  }catch(err){
+    msg.textContent='送出失敗，請稍後再試，或直接透過官方 LINE 聯繫川花。';
+    msg.className='fm-msg err';
+  }finally{
+    btn.disabled=false;
+    btn.textContent='送出預約';
+  }
+}
+</script>
+</body>
+</html>
