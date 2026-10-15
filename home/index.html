@@ -2402,10 +2402,14 @@ async function submit(){
       else if (m.section){ const el=document.querySelector(m.section); if (el) el.scrollIntoView({behavior:'auto', block:'start'}); }
       if (m.layer!=='quiz') return;
 
+      // 送出過後按返回：直接收起預約卡回到教室，不再顯示填好的表單（避免重複送出）
+      if (step!==null && step!=='ok' && submitted){
+        if (consult.classList.contains('open')) setOpen(false);
+        return;
+      }
       if (!consult.classList.contains('open')) setOpen(true);
       if (step!==null){
         if (step==='ok' && !submitted) step = 2;
-        if (submitted && step!=='ok') step = 'ok';   // 送出過就停在「完成」，避免返回後又送一次
         show(step);
       } else if (plant){
         if (!quizState.result || quizState.result.plantId!==plant.id)
