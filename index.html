@@ -5,15 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>川花 RIVER FLOWER｜川流不息，花開有時</title>
 <meta name="description" content="川花：從河川長出花。品牌行銷統籌、廣告投放與花藝教學——為你做好每一朵花，也陪你的品牌開花。">
-<link rel="icon" href="assets/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="川花 RIVER FLOWER">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:title" content="川花 RIVER FLOWER｜川流不息，花開有時">
 <meta property="og:description" content="川花：從河川長出花。品牌行銷統籌、廣告投放與花藝教學——為你做好每一朵花，也陪你的品牌開花。">
 <meta property="og:url" content="https://riverflower2025.com/">
+<link rel="canonical" href="https://riverflower2025.com/">
 <meta property="og:image" content="https://riverflower2025.com/assets/og-cover.jpg?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -46,6 +47,25 @@
   "areaServed": "TW",
   "founder": { "@type": "Person", "name": "楊詠婷" },
   "sameAs": ["https://line.me/R/ti/p/@riverflower2025"]
+}
+</script>
+<!-- 每個畫面的網址與名稱（網址管理員和 tools/build_routes.py 共用這一份；畫面上看不到）
+     section＝主頁要捲到的區塊；layer＝要打開的布幕。改完首頁記得跑：python tools/build_routes.py -->
+<script type="application/json" id="route-meta">
+{
+  "/":           {"layer":"garden",  "title":"川花 RIVER FLOWER｜川流不息，花開有時", "desc":"川花：從河川長出花。品牌行銷統籌、廣告投放與花藝教學——為你做好每一朵花，也陪你的品牌開花。"},
+  "/home/":      {"layer":"main", "section":"#shore",     "title":"首頁｜川花 RIVER FLOWER", "desc":"川花是一條安靜的河。我們把內容、行銷與美感澆進你的品牌裡，陪品牌完成一次又一次的蛻變。"},
+  "/about/":     {"layer":"main", "section":"#about",     "title":"關於我們｜川花 RIVER FLOWER", "desc":"認識川花：台北的品牌行銷團隊，從河川長出花，陪品牌開出自己的樣子。"},
+  "/services/":  {"layer":"main", "section":"#services",  "title":"我們做的事｜數位廣告投放・整合行銷｜川花 RIVER FLOWER", "desc":"數位廣告投放（Meta、Google、LINE）、整合行銷、品牌整合與品牌重塑。"},
+  "/cases/":     {"layer":"main", "section":"#cases",     "title":"我們開過的花｜品牌案例｜川花 RIVER FLOWER", "desc":"川花的品牌案例：Mosdress、Harper、小刺蝟。"},
+  "/courses/":   {"layer":"main", "section":"#courses",   "title":"開花教室｜品牌行銷諮詢預約｜川花 RIVER FLOWER", "desc":"走進開花教室：品牌行銷諮詢預約。"},
+  "/team/":      {"layer":"main", "section":"#team",      "title":"關於團隊｜川花 RIVER FLOWER", "desc":"認識川花團隊與創辦人楊詠婷。"},
+  "/policy/":    {"layer":"main", "section":"#policy",    "title":"退款規則｜川花 RIVER FLOWER", "desc":"川花課程與諮詢的退款與改期規則。"},
+  "/resonance/": {"layer":"main", "section":"#resonance", "title":"品牌有了想法｜川花 RIVER FLOWER", "desc":"品牌有了想法？和川花一起把它種下去。"},
+  "/contact/":   {"layer":"main", "section":"#contact",   "title":"找川花說話｜聯絡我們｜川花 RIVER FLOWER", "desc":"課程報名、諮詢預約、合作洽談，都歡迎透過官方 LINE、電話或 Email 找川花。"},
+  "/studio/":    {"layer":"studio", "title":"開花教室 BLOOM STUDIO｜川花 RIVER FLOWER", "desc":"推開門，空氣就不一樣了。行銷諮詢、老朋友一對一諮詢，聊完之後，讓你的品牌開花。"},
+  "/studio/flow/": {"layer":"studio", "section":"#flow", "title":"開花的流程｜開花教室｜川花 RIVER FLOWER", "desc":"從付款到開花，只要四步：預約付款、付款成功、加入官方 LINE、專人確認時段。"},
+  "/quiz/":      {"layer":"quiz", "title":"企業生長體質測驗｜16 種植物看你的品牌體質｜川花 RIVER FLOWER", "desc":"16 種植物，對應公司的經營體質與生長狀態。做完測驗，看看你的品牌是哪一種植物。"}
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -113,7 +133,7 @@ h2 em{font-style:normal;color:var(--pink-deep)}
 /* 五朵花圃 */
 #g-field{position:relative;z-index:6;display:flex;gap:clamp(6px,3.4vw,52px);align-items:flex-end;justify-content:center;margin-top:1.8rem;transform:translateY(30px)}
 .g-flower{position:relative;background:none;border:none;padding:0 4px;cursor:pointer;-webkit-tap-highlight-color:transparent}
-/* 五朵花改用可替換的圖檔(assets/flower_1~5),之後手繪同檔名覆蓋即可 */
+/* 五朵花改用可替換的圖檔(/assets/flower_1~5),之後手繪同檔名覆蓋即可 */
 /* g-imgwrap 負責搖曳(rotate)、g-img 負責浮現(opacity+translate/scale),分兩層避免搶同一個 transform 導致花消失 */
 .g-flower .g-imgwrap{display:block;transform-origin:bottom center}
 .g-flower.swaying .g-imgwrap{animation:g-sway 5.6s ease-in-out infinite alternate}
@@ -179,7 +199,7 @@ nav.scrolled{box-shadow:0 4px 24px rgba(90,80,60,.08)}
 /* 花朵落地目標:每個都撐一整屏、內容置中(一個欄目一頁) */
 #about,#cases{min-height:100svh;display:grid;align-content:center}
 #about>.wrap,#cases>.wrap{width:100%}
-#shore::before{content:"";position:absolute;inset:0;background:url('assets/watercolor.png') center/cover;opacity:.06;filter:sepia(.7) saturate(.35) brightness(1.14);pointer-events:none}
+#shore::before{content:"";position:absolute;inset:0;background:url('/assets/watercolor.png') center/cover;opacity:.06;filter:sepia(.7) saturate(.35) brightness(1.14);pointer-events:none}
 #shore .wrap{position:relative;z-index:4}
 .shore-logo{width:min(104px,24vw);margin-bottom:1.8rem}
 #shore h1{font-family:var(--serif);font-size:clamp(26px,4.6vw,44px);font-weight:600;line-height:1.7;margin-bottom:1.2rem;color:var(--river-deep)}
@@ -603,7 +623,7 @@ footer .back-garden:hover{color:var(--pink-deep)}
 
 <!-- ═════════ L1 · 花園 ═════════ -->
 <div id="garden">
-  <img class="g-logo" src="assets/logo-v-color.png" alt="川花 RIVER FLOWER">
+  <img class="g-logo" src="/assets/logo-v-color.png" alt="川花 RIVER FLOWER">
   <div class="g-kicker">從 河 川 長 出 花</div>
   <div class="g-title">每朵花，都是一條路。選一朵，讓它帶著你走。</div>
   <div id="g-field"></div>
@@ -624,7 +644,7 @@ footer .back-garden:hover{color:var(--pink-deep)}
 <!-- ═════════ L2 · 主頁 ═════════ -->
 <nav id="nav">
   <div class="nav-in">
-    <a class="nav-logo" href="#" id="navLogo"><img src="assets/logo-h-color.png" alt="川花 RIVER FLOWER"></a>
+    <a class="nav-logo" href="#" id="navLogo"><img src="/assets/logo-h-color.png" alt="川花 RIVER FLOWER"></a>
     <button class="burger" id="burger" aria-label="選單"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
       <li class="nav-close-item"><button class="nav-close" id="navClose" type="button" aria-label="摺疊選單">× 摺疊功能區</button></li>
@@ -642,7 +662,7 @@ footer .back-garden:hover{color:var(--pink-deep)}
   <!-- 河岸開場 -->
   <header id="shore">
     <div class="wrap">
-      <img class="shore-logo" id="shoreLogo" src="assets/logo-v-color.png" alt="川花 RIVER FLOWER">
+      <img class="shore-logo" id="shoreLogo" src="/assets/logo-v-color.png" alt="川花 RIVER FLOWER">
       <div class="shore-textblock" id="shoreTextBlock">
         <p id="shoreIntro">花，不會執著上一個季節。<br>
 河，也不會逆著時間流。<br>
@@ -671,7 +691,7 @@ footer .back-garden:hover{color:var(--pink-deep)}
           </div>
         </div>
         <div class="about-art reveal d2">
-          <div class="about-art-crop"><img src="assets/flower-shop.jpg" alt="川花的花店一隅"></div>
+          <div class="about-art-crop"><img src="/assets/flower-shop.jpg" alt="川花的花店一隅"></div>
         </div>
       </div>
     </div>
@@ -840,7 +860,7 @@ footer .back-garden:hover{color:var(--pink-deep)}
         </div>
         <div class="line-box">
           <a class="qr-ph" href="https://line.me/R/ti/p/@riverflower2025" target="_blank" rel="noopener" aria-label="掃描或開啟川花官方 LINE">
-            <img src="assets/line-qr-riverflower2025.png" alt="川花官方 LINE @riverflower2025 QR Code" width="320" height="320">
+            <img src="/assets/line-qr-riverflower2025.png" alt="川花官方 LINE @riverflower2025 QR Code" width="320" height="320">
           </a>
           <div class="line-id">@riverflower2025</div>
           <a class="btn btn-line" href="https://line.me/R/ti/p/@riverflower2025" target="_blank" rel="noopener">加入官方 LINE</a>
@@ -871,7 +891,7 @@ footer .back-garden:hover{color:var(--pink-deep)}
     </div>
 
     <footer>
-      <img src="assets/logo-v-color.png" alt="川花 RIVER FLOWER"><br>
+      <img src="/assets/logo-v-color.png" alt="川花 RIVER FLOWER"><br>
       <span class="co-line">© 2026 川花有限公司・統一編號 60605921・台北市信義區忠孝東路五段 508 號 2 樓之 11</span><br>
       <span class="co-line">riverflower2025@gmail.com・02-2885-4268</span>
       <br><a class="back-garden" href="#" id="reGarden">回到花園，再選一朵花</a>
@@ -1096,7 +1116,7 @@ if(matchMedia('(hover:hover)').matches && !reduced){
 }
 
 /* ═════════ L1 花園:五朵花逐朵綻放 ═════════ */
-/* img = 花朵圖檔名(從左到右 1~5),之後手繪同檔名覆蓋 assets/ 即可替換 */
+/* img = 花朵圖檔名(從左到右 1~5),之後手繪同檔名覆蓋 /assets/ 即可替換 */
 const FLOWERS=[
   {label:"關於我們",  en:"WHO WE ARE",  target:"#shore",  img:"flower_1_farLeft.png",  petal:"#93323F", h:118, s:1.0},
   {label:"如何開花",  en:"HOW IT WORKS",target:"#about",  img:"flower_2_left.png",     petal:"#B5636D", h:138, s:1.1},
@@ -1112,7 +1132,7 @@ FLOWERS.forEach((f,i)=>{
   btn.className='g-flower'; btn.dataset.target=f.target;
   btn.setAttribute('aria-label',f.label);
   btn.innerHTML=`
-  <span class="g-imgwrap"><img class="g-img" src="assets/${f.img}" alt="${f.label}" style="width:${imgW}px"></span>
+  <span class="g-imgwrap"><img class="g-img" src="/assets/${f.img}" alt="${f.label}" style="width:${imgW}px"></span>
   <div class="g-label">${f.label}<small>${f.en}</small></div>`;
   field.appendChild(btn);
   /* 一朵一朵出現:間隔綻放 */
@@ -1543,7 +1563,7 @@ const CARE_META = [
 const QUIZ_DATA = {
   plants: [
     {
-      id:'agarwood', name:'沉香木', en:'Agarwood', img:'assets/quiz/01_Agarwood.png',
+      id:'agarwood', name:'沉香木', en:'Agarwood', img:'/assets/quiz/01_Agarwood.png',
       school:'堅忍派', schoolDesc:'明明累了還在扛的人',
       traits:['堅忍','扎根','內化','深植'],
       tagline:'把每一次壓力都內化成獨特的香氣',
@@ -1558,7 +1578,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'rose', name:'玫瑰', en:'Rose', img:'assets/quiz/02_Rose.png',
+      id:'rose', name:'玫瑰', en:'Rose', img:'/assets/quiz/02_Rose.png',
       school:'風格派', schoolDesc:'有自己的美感，也不急著討好所有人',
       traits:['風格','品味','界線','一致'],
       tagline:'有明確的品味、清楚的自我，客人來就是為了你的風格',
@@ -1573,7 +1593,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'cactus', name:'仙人掌', en:'Cactus', img:'assets/quiz/03_Cactus.png',
+      id:'cactus', name:'仙人掌', en:'Cactus', img:'/assets/quiz/03_Cactus.png',
       school:'自律派', schoolDesc:'資源再少，也會想辦法把事情做完的人',
       traits:['自律','耐壓','效率','精簡'],
       tagline:'在最乾的地方也能開花——紀律是你的美學',
@@ -1588,7 +1608,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'bamboo', name:'竹子', en:'Bamboo', img:'assets/quiz/04_Bamboo.png',
+      id:'bamboo', name:'竹子', en:'Bamboo', img:'/assets/quiz/04_Bamboo.png',
       school:'穩向派', schoolDesc:'外面再吵，還是知道自己要往哪裡走的人',
       traits:['穩向','韌性','彈性','節奏'],
       tagline:'彎而不折，在變動中保持自己的節奏',
@@ -1603,7 +1623,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'sunflower', name:'向日葵', en:'Sunflower', img:'assets/quiz/05_Sunflower.png',
+      id:'sunflower', name:'向日葵', en:'Sunflower', img:'/assets/quiz/05_Sunflower.png',
       school:'使命派', schoolDesc:'有一個相信的方向，就會想把所有人一起帶過去的人',
       traits:['使命','熱情','感染力','速度'],
       tagline:'光是你的天賦——當花開遍之時，你就是最耀眼的',
@@ -1618,7 +1638,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'vine', name:'藤蔓', en:'Vine', img:'assets/quiz/06_Vine.png',
+      id:'vine', name:'藤蔓', en:'Vine', img:'/assets/quiz/06_Vine.png',
       school:'領航派', schoolDesc:'看到空間就會開始佈局的人',
       traits:['領航','布局','連結','延伸'],
       tagline:'爬過牆、爬過樹——走到哪都佔一席之地',
@@ -1633,7 +1653,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'cedar', name:'雪松', en:'Cedar', img:'assets/quiz/07_Cedar.png',
+      id:'cedar', name:'雪松', en:'Cedar', img:'/assets/quiz/07_Cedar.png',
       school:'擔當派', schoolDesc:'大家一有事就會先想到你的人',
       traits:['擔當','可信','專業','地標'],
       tagline:'市場的地標——很多人靠你決定行業走向',
@@ -1648,7 +1668,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'tea', name:'茶樹', en:'Tea', img:'assets/quiz/08_Tea.png',
+      id:'tea', name:'茶樹', en:'Tea', img:'/assets/quiz/08_Tea.png',
       school:'夢想派', schoolDesc:'在別人沒注意的地方，默默把一件事做到很美的人',
       traits:['夢想','細節','回甘','深耕'],
       tagline:'不靠喧嘩搶鏡，回甘才是你真正的辨識度',
@@ -1663,7 +1683,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'olive', name:'橄欖', en:'Olive', img:'assets/quiz/09_Olive.png',
+      id:'olive', name:'橄欖', en:'Olive', img:'/assets/quiz/09_Olive.png',
       school:'耐力派', schoolDesc:'不是衝最快，但能一直做下去的人',
       traits:['耐力','長期','複利','穩健'],
       tagline:'時間是你的朋友——你做的是「做得久」的生意',
@@ -1678,7 +1698,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'pine', name:'黑松', en:'Pine', img:'assets/quiz/10_JapaneseBlackPine.png',
+      id:'pine', name:'黑松', en:'Pine', img:'/assets/quiz/10_JapaneseBlackPine.png',
       school:'原則派', schoolDesc:'寧可慢，也不想把標準做低的人',
       traits:['原則','標準','質地','經典'],
       tagline:'老饕會找到你——姿態是幾十年風雨煉出來的',
@@ -1693,7 +1713,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'cinnamon', name:'肉桂', en:'Cinnamon', img:'assets/quiz/11_Cinnamon.png',
+      id:'cinnamon', name:'肉桂', en:'Cinnamon', img:'/assets/quiz/11_Cinnamon.png',
       school:'多才派', schoolDesc:'很多事情都做得不錯，所以反而難選主角的人',
       traits:['多才','靈活','延伸','可塑'],
       tagline:'一種香氣，可以進入很多場景——但你仍需要一個主味',
@@ -1708,7 +1728,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'jasmine', name:'茉莉', en:'Jasmine', img:'assets/quiz/12_Jasmine.png',
+      id:'jasmine', name:'茉莉', en:'Jasmine', img:'/assets/quiz/12_Jasmine.png',
       school:'關懷派', schoolDesc:'會記得每個客人細節，也希望每個人都被照顧好的人',
       traits:['關懷','溫度','信任','黏著'],
       tagline:'香氣會鑽進客人心裡——你跟每個客人都很近',
@@ -1723,7 +1743,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'mint', name:'薄荷', en:'Mint', img:'assets/quiz/13_Mint.png',
+      id:'mint', name:'薄荷', en:'Mint', img:'/assets/quiz/13_Mint.png',
       school:'效率派', schoolDesc:'看到問題就想立刻處理，不喜歡繞路的人',
       traits:['效率','俐落','清楚','擴散'],
       tagline:'一種下去，整片園子都是薄荷',
@@ -1738,7 +1758,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'lavender', name:'薰衣草', en:'Lavender', img:'assets/quiz/14_Lavender.png',
+      id:'lavender', name:'薰衣草', en:'Lavender', img:'/assets/quiz/14_Lavender.png',
       school:'療癒派', schoolDesc:'很會感受氣氛，也知道怎麼讓人慢下來的人',
       traits:['療癒','體驗','安全感','節奏'],
       tagline:'你的品牌是一種節奏，不是一個產品',
@@ -1753,7 +1773,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'ivy', name:'常春藤', en:'Ivy', img:'assets/quiz/15_Ivy.png',
+      id:'ivy', name:'常春藤', en:'Ivy', img:'/assets/quiz/15_Ivy.png',
       school:'連結派', schoolDesc:'走到哪裡都能和人搭上線的人',
       traits:['連結','社群','合作','共創'],
       tagline:'你的社群是資產——認識的人多，喜歡你的人多',
@@ -1768,7 +1788,7 @@ const QUIZ_DATA = {
       }
     },
     {
-      id:'lemon', name:'檸檬', en:'Lemon', img:'assets/quiz/16_Lemon.png',
+      id:'lemon', name:'檸檬', en:'Lemon', img:'/assets/quiz/16_Lemon.png',
       school:'重啟派', schoolDesc:'有高低起伏，但總能再開一次的人',
       traits:['重啟','爆發','恢復','週期'],
       tagline:'一輪開花、一輪結果，修枝之後再長新芽',
@@ -2041,7 +2061,7 @@ function renderResult(){
           </div>
         </div>`).join('')}
     </div>
-    <div class="r-picked">你在暖身裡選的是：${r.flowers.join('、')}</div>
+    ${r.flowers.length ? `<div class="r-picked">你在暖身裡選的是：${r.flowers.join('、')}</div>` : ''}
   `;
 }
 
@@ -2202,7 +2222,8 @@ async function submit(){
   const timeslot=chip?chip.textContent:'都可以，配合安排';
   const note=$id('csNote').value.trim();
   // 測驗結果（測驗流走完才有；沒做測驗就沿用原 pains，確保回相容）
-  const quizRes = quizState.result;
+  // 從別人分享的結果網址打開的（fromUrl），不算自己測出來的結果
+  const quizRes = quizState.result && !quizState.result.fromUrl ? quizState.result : null;
   const flowers = quizRes ? quizRes.flowers  : [];
   const plant   = quizRes ? quizRes.plant    : '';
   const plantEn = quizRes ? quizRes.plantEn  : '';
@@ -2254,6 +2275,164 @@ async function submit(){
   btn.disabled=false;
   btn.textContent='送出預約';
 }
+
+/* ═════════ 網址管理員 ═════════
+   每拉開／收起一塊布幕、測驗每走一步，網址就跟著換；手機按「返回」回到上一步。
+   直接打開某個網址（例：/quiz/result/cactus/）會自動擺好那個畫面。
+   網址清單在 <head> 的 #route-meta；改完首頁要跑 python tools/build_routes.py 產生各網址的頁面。 */
+(()=>{
+  const META = JSON.parse($id('route-meta').textContent);
+  const SECTION_ROUTE = {};
+  Object.entries(META).forEach(([p,m])=>{ if(m.layer==='main' && m.section) SECTION_ROUTE[m.section]=p; });
+  const studio = $id('studio');
+  const plantById = id => QUIZ_DATA.plants.find(p=>p.id===id);
+  const wait = ms => new Promise(r=>setTimeout(r,ms));
+  let applying = false;   // 正在照網址擺畫面時，不要再多記一筆足跡
+  let section = null;     // 主頁目前停在哪一區
+
+  function current(){
+    if (consult.classList.contains('open')){
+      if (page==='quiz'){
+        if (quizState.stage==='questions') return `/quiz/q${Math.min(quizState.quizAnswers.length, QUIZ_DATA.questions.length-1)+1}/`;
+        if (quizState.stage==='result' && quizState.result) return `/quiz/result/${quizState.result.plantId}/`;
+        return '/quiz/';
+      }
+      return page==='ok' ? '/consult/done/' : `/consult/step${page}/`;
+    }
+    if (studio.classList.contains('open')) return section==='#flow' ? '/studio/flow/' : '/studio/';
+    if (document.body.classList.contains('site-open')) return SECTION_ROUTE[section] || '/home/';
+    return '/';
+  }
+
+  function titleFor(path){
+    if (META[path]) return META[path].title;
+    let m;
+    if ((m=path.match(/^\/quiz\/result\/([a-z]+)\/$/)) && plantById(m[1])) return `${plantById(m[1]).name}型企業｜企業生長體質測驗｜川花 RIVER FLOWER`;
+    if ((m=path.match(/^\/quiz\/q(\d+)\/$/))) return `企業生長體質測驗・第 ${m[1]} 題｜川花 RIVER FLOWER`;
+    if (path==='/consult/done/') return '預約完成｜川花 RIVER FLOWER';
+    if (path.startsWith('/consult/')) return '預約諮詢｜川花 RIVER FLOWER';
+    return META['/'].title;
+  }
+
+  let answerMemo = [];    // 測驗答過的題目：按返回再按下一頁時拿來接回去
+  function record(){
+    if (applying) return;
+    const a = quizState.quizAnswers;
+    if (a.length >= answerMemo.length || a.some((x,i)=>answerMemo[i]!==x)) answerMemo = a.slice();
+    const p = current();
+    if (p !== location.pathname) history.pushState({p}, '', p);
+    document.title = titleFor(p);
+  }
+  let timer = null;
+  const soon = () => { clearTimeout(timer); timer = setTimeout(record, 80); };
+  const mo = new MutationObserver(soon);
+  const watchClass = el => el && mo.observe(el, {attributes:true, attributeFilter:['class']});
+  [document.body, studio, consult, ...pages, ...consult.querySelectorAll('.cs-qstage')].forEach(watchClass);
+  mo.observe($id('qPos'), {childList:true, characterData:true, subtree:true});
+  mo.observe($id('qResult'), {childList:true});
+
+  /* 記下使用者要去哪一區；選單的 #about 這類連結改成換網址＋捲過去 */
+  document.addEventListener('click', e=>{
+    const a = e.target.closest('a[href^="#"]');
+    if (a && SECTION_ROUTE[a.getAttribute('href')]){
+      e.preventDefault();
+      section = a.getAttribute('href');
+      const el = document.querySelector(section);
+      if (el) el.scrollIntoView({behavior: reduced?'auto':'smooth'});
+      record();
+      return;
+    }
+    const flower = e.target.closest('.g-flower');
+    if (flower) section = flower.dataset.target;
+    if (e.target.closest('#reGarden,#navGarden,#navLogo,#g-skip,[data-studio],#stFlowLink')) section = null;
+    if (e.target.closest('#stBack')) section = '#courses';
+  }, true);
+
+  /* 在主頁上下捲動時，網址跟著停在眼前那一區（不多記足跡） */
+  const io = new IntersectionObserver(es=>{
+    if (applying || !document.body.classList.contains('site-open') || studio.classList.contains('open')) return;
+    const hit = es.filter(x=>x.isIntersecting).pop();
+    if (!hit) return;
+    section = '#' + hit.target.id;
+    const p = current();
+    if (p !== location.pathname){ history.replaceState({p}, '', p); document.title = titleFor(p); }
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  Object.keys(SECTION_ROUTE).forEach(s=>{ const el=document.querySelector(s); if (el) io.observe(el); });
+
+  /* 照網址擺好畫面（第一次打開，或按了返回／下一頁）
+     連按返回時只聽最新那一次：每次編號 gen，舊的那次醒來發現不是最新就停手 */
+  let gen = 0;
+  async function apply(path, initial){
+    const my = ++gen;
+    const stale = () => my !== gen;
+    const pause = async ms => { await wait(ms); return stale(); };
+    applying = true;
+    try{
+      let m = META[path] ? {...META[path]} : null, plant = null, qn = 0, step = null, r;
+      if (!m){
+        if ((r=path.match(/^\/quiz\/result\/([a-z]+)\/$/)) && (plant=plantById(r[1]))) m = {layer:'quiz'};
+        else if ((r=path.match(/^\/quiz\/q(\d+)\/$/))){ qn = +r[1]; m = {layer:'quiz'}; }
+        else if ((r=path.match(/^\/consult\/(?:step([123])|done)\/$/))){ step = r[1] ? +r[1] : 'ok'; m = {layer:'quiz'}; }
+        else m = META['/'];   // 不認得的網址 → 回花園
+      }
+      if (m.layer!=='quiz' && consult.classList.contains('open')) setOpen(false);
+      if (m.layer!=='studio' && m.layer!=='quiz' && studio.classList.contains('open')){
+        closeStudio();
+        if (document.activeElement && studio.contains(document.activeElement)) document.activeElement.blur();
+      }
+
+      if (m.layer==='garden'){
+        section = null;
+        if (entered) $id('reGarden').click();
+        return;
+      }
+      if (!entered) enterMain(m.layer==='main' ? m.section : null);
+      if (m.layer==='main'){
+        section = m.section;
+        if (!initial){ const el=document.querySelector(m.section); if (el) el.scrollIntoView({behavior: reduced?'auto':'smooth'}); }
+        await pause(initial ? 1200 : 700);
+        return;
+      }
+      section = m.section || null;
+      if (!studio.classList.contains('open')){
+        while (fxBusy){ if (await pause(100)) return; }   // 上一次開花動畫還在跑，等它跑完，不然會被吞掉
+        openStudio(m.section||null);
+        if (await pause(reduced?60:1300)) return;
+      }
+      else if (m.section){ const el=document.querySelector(m.section); if (el) el.scrollIntoView({behavior:'auto', block:'start'}); }
+      if (m.layer!=='quiz') return;
+
+      if (!consult.classList.contains('open')) setOpen(true);
+      if (step!==null){
+        if (step==='ok' && !submitted) step = 2;
+        if (submitted && step!=='ok') step = 'ok';   // 送出過就停在「完成」，避免返回後又送一次
+        show(step);
+      } else if (plant){
+        if (!quizState.result || quizState.result.plantId!==plant.id)
+          quizState.result = {plantId:plant.id, plant:plant.name, plantEn:plant.en, flowers:[], scores:{}, fromUrl:true};
+        renderResult(); show('quiz'); setQStage('result');
+      } else if (qn>0 && quizState.warmupPicks.length===3){
+        const want = Math.min(qn-1, QUIZ_DATA.questions.length-1);
+        const answers = quizState.quizAnswers;
+        if (want <= answers.length) quizState.quizAnswers = answers.slice(0, want);
+        else if (answerMemo.length >= want && answers.every((a,i)=>answerMemo[i]===a)) quizState.quizAnswers = answerMemo.slice(0, want);
+        renderQuestion(); show('quiz'); setQStage('questions');
+      } else {
+        renderWarmup(); show('quiz'); setQStage('warmup');
+      }
+    } finally {
+      await wait(150);
+      if (stale()) return;
+      applying = false;
+      const p = current();
+      if (p !== location.pathname) history.replaceState({p}, '', p);
+      document.title = titleFor(p);
+    }
+  }
+
+  addEventListener('popstate', ()=>apply(location.pathname, false));
+  if (location.pathname !== '/') apply(location.pathname, true);
+})();
 </script>
 </body>
 </html>

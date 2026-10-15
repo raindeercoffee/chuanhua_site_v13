@@ -1,0 +1,12 @@
+about/index.html
+cases/index.html
+contact/index.html
+courses/index.html
+home/index.html
+policy/index.html
+quiz/index.html
+resonance/index.html
+services/index.html
+studio/flow/index.html
+studio/index.html
+team/index.html
