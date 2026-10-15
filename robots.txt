@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /position-editor.html
+
+Sitemap: https://riverflower2025.com/sitemap.xml
