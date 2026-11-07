@@ -1,0 +1,10 @@
+/* 測驗手繪圖：每株一張透明圖，等比例縮放，不拉寬植物。 */
+.quiz-plant-art{display:grid;place-items:center}
+.cs-qcell .quiz-plant-art{width:100%;aspect-ratio:1;transition:transform .3s}
+.quiz-plant-art .quiz-plant-sprite{display:block;width:100%;height:100%;background-repeat:no-repeat;background-position:center;background-size:contain}
+.cs-qcell:hover .quiz-plant-art{transform:scale(1.05)}
+.quiz-plant-art.r-img{display:grid;place-items:center}
+@media(prefers-reduced-motion:reduce){
+  .cs-qcell .quiz-plant-art{transition:none}
+  .cs-qcell:hover .quiz-plant-art{transform:none}
+}

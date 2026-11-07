@@ -1,3 +1,32 @@
+<!-- V13-PRODUCTION:START -->
+# 川花官網 V13 正式站（https://riverflower2025.com/）
+
+這個倉庫就是**正式網站**（GitHub Pages＋自訂網域）。內容整包來自 12_1 測試站，
+再由搬家腳本換成正式網址、打開 Google 收錄、裝回 GA4 等正式站設定。
+
+## 12_1 改完之後，怎麼更新正式站
+1. 在 12_1 資料夾先 `git fetch`，確定測試站最終版已經推上去。
+2. 跑搬家腳本（不在任何倉庫裡）：
+   `python C:\Users\Riva\Desktop\C槽川花\01_網站\官網改版_1107_V13搬家\port_v12_to_v13.py --out <這個資料夾>`
+   （可以重跑，跑兩次結果一樣；它只改這個資料夾，不碰 12_1。）
+3. 在這個資料夾跑 `python tools/build_routes.py`，產生各網址頁、404.html、sitemap.xml。
+4. 本機檢查：在這個資料夾跑 `python -m http.server 8080 --bind 127.0.0.1`（網站在根目錄），
+   再跑小考，例：`TEST_BASE=http://127.0.0.1:8080 node tools/test_1107M_port.cjs`。
+5. 推上 master 前先打 git 標籤備份；推上去後 GitHub 小幫手會自動再產生一次網址頁並重新發布。
+
+## 正式站專用設定（搬家腳本會保留或補回，不要拿掉）
+- `CNAME`：riverflower2025.com
+- `.github/workflows/build-routes.yml`：改了 index.html、content/、tools/build_routes.py 或 tools/build_services.py 就自動重新產生網址頁
+- GA4 追蹤碼 `G-HQS0EMVEEE`：每頁都有（內部工具 position-editor.html 除外）
+- 每頁 canonical、og:url、公司結構化資料都指向 https://riverflower2025.com
+- 全站可被 Google 收錄；只有 404.html 是 noindex
+- robots.txt 的 Sitemap 指向 https://riverflower2025.com/sitemap.xml；llms.txt 用正式網址
+- 不要動 Firebase 設定（和測試站共用同一個專案）
+
+---
+以下是沿用的舊版說明。
+<!-- V13-PRODUCTION:END -->
+
 # 川花官網 v10(三層空間版・內建底色調色工具・目前最新)
 > 資料夾編號依製作時間連續排列,無空格:v3 審核頁 → v4 原始夜河版 → v5 修改說明版 → v6 深淺交錯配色 → v7 單一大弧線配色 → v8 五朵花改可替換圖檔 → v9 修復花朵消失 → **v10(本版,最新)**
 

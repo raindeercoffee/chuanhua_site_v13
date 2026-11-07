@@ -1,0 +1,57 @@
+/* 川花｜「把花種回它的位置」真人確認小拼圖 */
+.fc-wrap{margin:16px 0 6px;padding:14px 14px 12px;border:1px solid #E2DACB;border-radius:16px;background:linear-gradient(180deg,#FCF9F4,#F6F0E6);user-select:none;-webkit-user-select:none}
+.fc-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+.fc-title{font-size:13.5px;color:var(--ink,#4A4844);letter-spacing:.04em}
+.fc-refresh{border:none;background:none;color:var(--ink-soft,#666259);font-size:12px;cursor:pointer;padding:2px 4px;border-radius:6px}
+.fc-refresh:hover{color:var(--pink-deep,#93323F)}
+.fc-refresh:focus-visible,.fc-knob:focus-visible{outline:2px solid var(--blue,#96A1C3);outline-offset:2px}
+
+.fc-stage{position:relative;height:124px;border-radius:12px;overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 85% 0%,rgba(150,161,195,.22),transparent 60%),
+    radial-gradient(90% 80% at 10% 10%,rgba(232,214,216,.55),transparent 65%),
+    linear-gradient(180deg,#FBF8F2 0%,#F3ECE0 100%)}
+.fc-stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22px;
+  background:linear-gradient(180deg,rgba(142,155,132,.10),rgba(142,155,132,.30));
+  border-top:1px dashed rgba(142,155,132,.45)}
+.fc-spot{position:absolute;bottom:12px;width:58px;height:12px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(110,95,70,.28),rgba(110,95,70,0));z-index:1}
+.fc-hole{position:absolute;bottom:14px;width:62px;height:100px;z-index:1;
+  background:rgba(74,72,68,.20);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:center bottom;mask-position:center bottom;
+  -webkit-mask-size:contain;mask-size:contain;
+  transition:opacity .5s}
+.fc-piece{position:absolute;bottom:14px;left:0;width:62px;height:100px;object-fit:contain;object-position:center bottom;z-index:2;
+  cursor:grab;touch-action:none;-webkit-user-drag:none;
+  filter:drop-shadow(0 6px 6px rgba(90,80,60,.22));will-change:left}
+.fc-piece.fc-back{transition:left .5s cubic-bezier(.3,1.35,.5,1)}
+.fc-piece.fc-drag{cursor:grabbing;filter:drop-shadow(0 8px 8px rgba(90,80,60,.28))}
+
+.fc-track{position:relative;height:42px;margin-top:10px;border-radius:99px;background:#fff;border:1px solid #E2DACB;overflow:hidden}
+.fc-fill{position:absolute;left:0;top:0;bottom:0;width:42px;border-radius:99px;background:linear-gradient(90deg,#F1E3E5,#E2C1C6)}
+.fc-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:40px;font-size:12.5px;color:var(--ink-soft,#666259);pointer-events:none;transition:opacity .3s}
+.fc-knob{position:absolute;top:2px;left:2px;width:36px;height:36px;border-radius:50%;border:none;padding:0;
+  display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1;color:#fff;cursor:grab;touch-action:none;
+  background:linear-gradient(135deg,#A4525E,#8B3B49);box-shadow:0 4px 10px rgba(122,39,51,.32);z-index:2}
+.fc-knob.fc-back,.fc-fill.fc-back{transition:left .5s cubic-bezier(.3,1.35,.5,1),width .5s cubic-bezier(.3,1.35,.5,1)}
+.fc-status{min-height:18px;margin:8px 0 0;font-size:12.5px;text-align:center;color:var(--ink-soft,#666259)}
+
+.fc-wrap.fc-shake .fc-stage{animation:fc-shake .4s}
+.fc-wrap.fc-ok .fc-hole{opacity:0}
+.fc-wrap.fc-ok .fc-piece{cursor:default;transform-origin:center bottom;animation:fc-bloom .7s ease-out}
+.fc-wrap.fc-ok .fc-knob{cursor:default;background:linear-gradient(135deg,#A9B99A,#7E8C6C);box-shadow:0 4px 10px rgba(94,112,80,.3)}
+.fc-wrap.fc-ok .fc-fill{background:linear-gradient(90deg,#E4EADC,#C7D3BA)}
+.fc-wrap.fc-ok .fc-hint{opacity:0}
+.fc-wrap.fc-ok .fc-status{color:#5E7050}
+.fc-petal{position:absolute;z-index:3;font-size:14px;color:#C99AA1;pointer-events:none;animation:fc-petal 1.1s ease-out forwards}
+
+.fc-hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+
+@keyframes fc-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+@keyframes fc-bloom{0%{transform:scale(1)}45%{transform:scale(1.1)}100%{transform:scale(1)}}
+@keyframes fc-petal{0%{opacity:0;transform:translate(0,0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-46px) rotate(140deg) scale(1)}}
+@media (prefers-reduced-motion:reduce){
+  .fc-piece.fc-back,.fc-knob.fc-back,.fc-fill.fc-back{transition:none}
+  .fc-wrap.fc-shake .fc-stage,.fc-wrap.fc-ok .fc-piece,.fc-petal{animation:none}
+}

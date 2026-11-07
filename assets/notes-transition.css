@@ -1,0 +1,6 @@
+.notes-opening{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse 70% 65% at 72% 70%,rgba(197,208,230,.64),transparent 72%),linear-gradient(160deg,#fbf9f5 0%,#f3f0e9 58%,#dce3ef 100%);cursor:pointer;isolation:isolate;animation:notes-stage 2.40s ease both}
+.notes-opening-ring{position:absolute;width:min(83vw,66vh,530px);aspect-ratio:1;border:1px solid rgba(194,165,120,.23);border-radius:50%;box-shadow:0 0 35px rgba(217,142,163,.12);animation:notes-ring 2.40s ease both}
+.notes-opening-ring img{position:absolute;left:50%;top:50%;height:16%;width:12%;object-fit:contain;transform:translate(-50%,-50%) rotate(var(--angle)) translateY(-260%) rotate(calc(-1 * var(--angle)));transform-origin:center}
+@keyframes notes-stage{0%,77%{opacity:1}100%{opacity:0}}
+@keyframes notes-ring{0%{opacity:0;transform:rotate(0) scale(.8)}35%{opacity:.9}100%{opacity:0;transform:rotate(22deg) scale(1.2)}}
+@media(prefers-reduced-motion:reduce){.notes-opening,.notes-opening-ring{animation:none}}

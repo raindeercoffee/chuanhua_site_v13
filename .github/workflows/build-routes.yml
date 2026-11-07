@@ -1,4 +1,4 @@
-# 自動產生網址頁：有人改了 index.html 送上來，就自動跑 tools/build_routes.py，
+# 自動產生網址頁：有人改了 index.html、content/（筆記、服務資料）或產生程式送上來，就自動跑 tools/build_routes.py，
 # 把各網址頁（/about/、/quiz/…）、404.html、sitemap.xml 一起更新，不用任何人記得。
 name: 自動產生網址頁
 
@@ -8,6 +8,8 @@ on:
     paths:
       - index.html
       - tools/build_routes.py
+      - tools/build_services.py
+      - content/**
   workflow_dispatch:
 
 permissions:

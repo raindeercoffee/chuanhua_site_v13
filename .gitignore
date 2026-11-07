@@ -7,3 +7,5 @@ node_modules/
 
 # GPT 花圖預覽佔位 (0 KB)
 assets/preview_burgundy_flowers*
+
+tools/__pycache__/

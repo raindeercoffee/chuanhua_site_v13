@@ -1,0 +1,184 @@
+/* 三層服務頁，沿用川花的色票與手繪小花。 */
+#feature[data-page^="service"]{background:radial-gradient(ellipse 85% 40% at 84% 24%,rgba(205,216,231,.48),transparent 72%),linear-gradient(180deg,#fbf9f5 0%,#f6f3ec 38%,#e8ecf2 100%)}
+.svc-page{max-width:1100px;color:var(--ink);font-size:15px;line-height:2}
+/* 隔開主選單的全域 nav 規則，頁內導覽留在自己的版面。 */
+.svc-page nav{position:static;inset:auto;z-index:auto;backdrop-filter:none;background:none;border-bottom:0;transform:none;transition:none;box-shadow:none}
+.svc-page .st-top{margin-bottom:30px}
+.svc-page h2{font:400 clamp(23px,3vw,29px)/1.65 var(--serif);color:var(--river-deep);letter-spacing:1px}
+.svc-page h3{font:500 18px/1.7 var(--serif);color:var(--river-deep)}
+.svc-head{text-align:center;margin:24px auto 64px;max-width:760px}
+.svc-head h1{margin:8px 0 18px}
+.svc-head>p:not(.svc-kicker){max-width:640px;margin:auto;color:var(--ink-soft);font-weight:300}
+.svc-head-flower{display:block;width:48px;height:70px;object-fit:contain;margin:0 auto 16px}
+.svc-kicker{font-size:12px;color:var(--pink-deep);letter-spacing:3px;margin-bottom:10px}
+.svc-breadcrumb{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 10px;font-size:12px;color:var(--ink-soft)}
+.svc-breadcrumb a{color:var(--river-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+.svc-breadcrumb [aria-current]{color:var(--ink-soft)}
+.svc-head-detail{text-align:left;max-width:none;margin:36px 0 52px}
+.svc-head-detail>p:not(.svc-kicker){margin:0;max-width:760px}
+.svc-head-detail .svc-head-flower{margin:0 0 18px;width:76px;height:90px}
+.svc-group{margin-top:64px}
+.svc-group>h2{padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:28px}
+/* 「我們做的事」總覽頁：開頭收緊，讓第一排服務卡片一進來就看得到（不然會以為整頁空白、不知道要往下滑） */
+#feature .feature-page.svc-overview{padding-top:28px}
+.svc-overview .st-top{margin-bottom:6px}
+.svc-overview .svc-head{margin:0 auto 28px}
+.svc-overview .svc-head-flower{width:40px;height:54px;margin-bottom:8px}
+.svc-overview .svc-head h1{margin:2px 0 10px}
+.svc-overview .svc-head>p:not(.svc-kicker){line-height:1.8}
+.svc-overview .svc-group{padding-top:0;margin-top:80px;scroll-margin-top:92px}
+.svc-overview>.svc-group:first-of-type{margin-top:0}
+.svc-overview .svc-group>h2{padding-bottom:12px;margin-bottom:18px}
+/* 每組：大標 → 小標 → 約 100 字說明 → 服務卡 */
+.svc-group-subtitle{font:500 17px/1.7 var(--serif);color:var(--pink-deep);letter-spacing:1px;margin:0 0 8px}
+.svc-group-intro{max-width:760px;font-size:14px;line-height:2;color:var(--ink-soft);font-weight:300;margin:0 0 28px}
+/* 服務卡：電腦 4 張一排（總覽每組剛好一排）、平板 2 張、手機 1 張；服務頁底部「其他服務」3 張一排。 */
+.svc-card-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.svc-related .svc-card-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.svc-card{display:flex;flex-direction:column;align-items:flex-start;position:relative;padding:28px 22px 24px;background:var(--card);border:1px solid var(--line);border-radius:20px;text-decoration:none;color:var(--ink);transition:transform .25s cubic-bezier(.22,.61,.36,1),border-color .25s ease,box-shadow .25s ease;min-width:0}
+@media (hover:hover) and (pointer:fine){.svc-card:hover{transform:translateY(-7px);border-color:var(--leaf);box-shadow:0 18px 40px rgba(74,90,124,.16)}.svc-card:hover .svc-flower{transform:scale(1.08) rotate(3deg)}}
+@media (hover:none), (pointer:coarse){.svc-card:active{transform:translateY(-4px);box-shadow:0 14px 32px rgba(74,90,124,.16)}.svc-card:active .svc-flower{transform:scale(1.05)}}
+/* 卡片小花：縮小放右上角當點綴，標題右邊留位置不讓花壓到字。 */
+.svc-flower{position:absolute;top:16px;right:16px;width:34px;height:42px;object-fit:contain;object-position:center top;margin:0;transform-origin:center bottom;transition:transform .25s cubic-bezier(.22,.61,.36,1)}
+.svc-card h3{margin:0 0 4px;padding-right:40px;font-size:17px}
+.svc-card-subtitle{display:block;font-size:12px;color:var(--pink-deep);letter-spacing:1px;margin:0 0 8px}
+.svc-card p{font-size:13px;line-height:1.95;color:var(--ink-soft);margin:10px 0 22px}
+.svc-card-more{margin-top:auto;padding:9px 20px;font-size:13px;color:var(--river-deep);border:1px solid rgba(110,106,99,.32);border-radius:99px;background:#fffcf8;transition:background .25s,border-color .25s}
+.svc-card:hover .svc-card-more{background:#f4eef0;border-color:#c7a8ae}
+.svc-card:focus-visible,.svc-child-link:focus-visible,.svc-toc a:focus-visible,.svc-button:focus-visible,.svc-faq summary:focus-visible{outline:2px solid var(--pink-deep);outline-offset:5px}
+.svc-layout{display:block;max-width:900px;margin:0 auto}
+.svc-page .svc-toc{position:sticky;top:28px;border-left:1px solid var(--line);padding-left:22px}
+.svc-toc p{color:var(--pink-deep);font-size:11px;letter-spacing:2px;margin-bottom:13px}
+.svc-toc a{display:block;text-decoration:none;color:var(--ink-soft);font-size:13px;padding:8px 0;transition:color .25s}
+.svc-toc a:hover{color:var(--pink-deep)}
+.svc-body{min-width:0}
+.svc-section{padding:0 0 54px;margin:0 0 50px;border-bottom:1px solid var(--line);scroll-margin-top:28px}
+.svc-section:focus{outline:none}
+.svc-section>h2{margin-bottom:24px}
+.svc-section:last-child{margin-bottom:0;border-bottom:0;padding-bottom:0}
+.svc-intro{color:var(--ink-soft);font-size:15px;margin-bottom:30px}
+.svc-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.svc-intro-grid h3{font-size:16px;margin-bottom:10px}
+.svc-intro-grid ul,.svc-pricing ul{padding-left:20px;color:var(--ink-soft);font-size:14px}
+.svc-intro-grid li+li,.svc-pricing li+li{margin-top:9px}
+.svc-intro-grid li::marker,.svc-pricing li::marker{color:var(--leaf)}
+.svc-items{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:24px 30px;padding:0}
+.svc-items li{border-top:1px solid var(--line);padding-top:20px}
+.svc-items h3{font-size:17px;margin-bottom:10px}
+.svc-items p,.svc-steps p{font-size:14px;color:var(--ink-soft)}
+.svc-child-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.svc-child-link{display:inline-block;padding:11px 22px;border:1px solid rgba(110,106,99,.35);border-radius:99px;color:var(--river-deep);text-decoration:none;font-size:13px;background:var(--card);transition:border-color .25s,background .25s}
+.svc-child-link:hover{border-color:#b88992;background:#f8f0ef}
+.svc-steps{padding:0;list-style:none;display:grid;gap:28px}
+.svc-steps li{display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start}
+.svc-step-flower{width:52px;height:62px;object-fit:contain;margin-top:4px}
+.svc-steps .svc-step-duration{color:var(--pink-deep);margin-top:8px;font-size:13px}
+.svc-step-number{font:400 12px/1.5 var(--eng);color:var(--pink-deep);letter-spacing:2px}
+.svc-steps h3{margin:2px 0 8px;font-size:18px}
+.svc-pricing{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px}
+.svc-price{font:400 clamp(24px,3vw,32px)/1.6 var(--serif);color:var(--river-deep);margin-bottom:20px}
+.svc-pricing>p:not(.svc-price){font-size:14px;color:var(--ink-soft)}
+.svc-pricing ul{margin:22px 0}
+.svc-pricing .svc-price-note{padding-top:18px;border-top:1px solid var(--line);color:var(--pink-deep)}
+.svc-faq details{border-top:1px solid var(--line)}
+.svc-faq details:last-child{border-bottom:1px solid var(--line)}
+.svc-faq summary{cursor:pointer;position:relative;list-style:none;padding:22px 34px 22px 0;color:var(--river-deep);font-size:15px}
+.svc-faq summary::-webkit-details-marker{display:none}
+.svc-faq summary::after{content:"＋";position:absolute;right:2px;top:22px;color:var(--pink-deep);font-size:17px}
+.svc-faq details[open] summary::after{content:"−"}
+.svc-faq details>p{font-size:14px;color:var(--ink-soft);padding:0 28px 24px 0}
+.svc-estimator{padding:26px;border:1px dashed var(--leaf);border-radius:16px;background:var(--card);color:var(--river-deep);margin-top:24px;text-align:center}
+.svc-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+.svc-button{background:linear-gradient(135deg,#5f6b94,#464f73);color:var(--card);font-size:14px;text-align:center}
+.svc-button-soft{background:var(--card);color:var(--river-deep);border:1px solid var(--line)}
+.svc-button:hover{transform:translateY(-2px)}
+.svc-related{margin-top:84px;padding-top:42px;border-top:1px solid var(--line)}
+.svc-related>h2{margin-bottom:28px}
+.svc-child{max-width:940px}
+.svc-child .svc-head{margin-top:44px;margin-bottom:38px}
+.svc-construction{padding:50px 28px 46px;text-align:center;border:1px solid var(--line);border-radius:28px;background:var(--card);position:relative;overflow:hidden}
+.svc-construction>*{position:relative}
+.svc-construction-flower{width:120px;height:130px;object-fit:contain;display:block;margin:0 auto 22px;animation:svc-flower-sway 6s ease-in-out infinite;transform-origin:bottom center}
+.svc-construction h2{margin:10px 0 18px}
+.svc-construction>p:not(.svc-kicker){font-size:14px;color:var(--ink-soft);margin-bottom:30px}
+@keyframes svc-flower-sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@media(max-width:960px){.svc-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.svc-layout{grid-template-columns:150px minmax(0,1fr);gap:32px}.svc-related .svc-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.svc-related .svc-card{padding:24px 18px}}
+@media(max-width:760px){.svc-head{margin-bottom:42px}.svc-head-detail{margin-top:26px}.svc-group{margin-top:46px}.svc-layout{grid-template-columns:1fr;gap:36px}.svc-page .svc-toc{position:static;top:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px 12px;border:1px solid var(--line);padding:18px;border-radius:16px;background:var(--card)}.svc-toc p{grid-column:1/-1;margin-bottom:4px}.svc-toc a{padding:7px 0;font-size:12px}.svc-section{padding-bottom:38px;margin-bottom:38px;scroll-margin-top:18px}.svc-intro-grid{gap:22px}.svc-related{margin-top:52px}.svc-related .svc-card-grid{grid-template-columns:1fr}.svc-related .svc-card{padding:26px 22px 24px}.svc-pricing{padding:24px}.svc-construction{padding:38px 20px}.svc-construction h2{font-size:23px}}
+@media(max-width:520px){.svc-card-grid,.svc-items,.svc-intro-grid{grid-template-columns:1fr}.svc-card{padding:26px 22px 24px}.svc-card-grid{gap:20px}.svc-group>h2{font-size:24px}.svc-head h1{font-size:30px}.svc-page .svc-toc{gap:3px 6px;padding:16px 12px}.svc-toc a{font-size:11.5px}.svc-actions{flex-direction:column}.svc-actions .btn{width:100%}.svc-steps li{gap:14px}.svc-breadcrumb{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.svc-construction-flower{animation:none}.svc-card,.svc-button,.svc-child-link,.svc-toc a{transition:none}.svc-card:hover,.svc-button:hover{transform:none}}
+
+/* 服務內頁：延續開花教室的白卡、淡色圓角與植物標記。 */
+#feature[data-page^="service"]{background:radial-gradient(ellipse 75% 23% at 85% 16%,rgba(213,224,238,.72),transparent 72%),radial-gradient(ellipse 70% 25% at 6% 54%,rgba(237,216,221,.53),transparent 72%),radial-gradient(ellipse 72% 25% at 85% 84%,rgba(211,222,237,.65),transparent 72%),linear-gradient(180deg,#fbf9f5,#f5f1ec 48%,#e7edf4)}
+.svc-body .svc-section{position:relative;isolation:isolate;overflow:hidden;padding:36px;margin:0 0 30px;border:1px solid #e5ddcf;border-radius:24px;background:rgba(255,254,252,.96);box-shadow:0 12px 32px rgba(80,70,62,.08)}
+.svc-body .svc-section:last-child{padding:36px;margin:0;border:1px solid #e5ddcf}
+.svc-body .svc-section:nth-child(even){background:rgba(251,252,255,.97)}
+.svc-body .svc-section::before,.svc-construction::before{content:"";position:absolute;right:-28px;top:-35px;width:112px;height:112px;border-radius:50%;background:rgba(212,220,235,.43);pointer-events:none;z-index:-1}
+.svc-body .svc-section:nth-child(even)::before{background:rgba(239,218,222,.5)}
+.svc-section-mark,.svc-step-mark{display:grid;place-items:center;width:54px;height:54px;border-radius:16px;background:#edf0f7;margin-bottom:20px}
+.svc-section:nth-child(even) .svc-section-mark{background:#f9ecec}
+.svc-section-mark img,.svc-step-mark img{display:block;width:35px;height:46px;object-fit:contain}
+.svc-intro-grid h3{color:#93323f}
+.svc-intro-grid>div:nth-child(even) h3{color:#4a5a7c}
+.svc-intro-grid ul{list-style:none;padding:0;display:grid;gap:8px}
+.svc-intro-grid li,.svc-intro-grid li+li{margin:0;padding:9px 13px;border-radius:12px;background:#f9eff0;color:#6d5556;line-height:1.8}
+.svc-intro-grid>div:nth-child(even) li{background:#eef1f8;color:#4a5a7c}
+.svc-steps{position:relative;gap:14px}
+.svc-steps::before{content:"";position:absolute;left:26px;top:28px;bottom:28px;width:1px;background:#c7cfdf}
+.svc-steps li{position:relative;display:grid;grid-template-columns:54px minmax(0,1fr);gap:20px;padding:18px;border:1px solid #e8e1d8;border-radius:18px;background:#fcfbf8}
+.svc-steps li:nth-child(even){background:#f8f9fc}
+.svc-steps .svc-step-mark{position:relative;margin:0;background:#edf0f7}
+.svc-steps li:nth-child(even) .svc-step-mark{background:#f9ecec}
+.svc-steps li:not(:last-child)::after{content:"↓";position:absolute;left:37px;bottom:-18px;z-index:1;color:#a17b82;background:#fffefa;font-size:15px;line-height:20px}
+/* 聯絡按鈕：主按鈕（填寫需求詢價）＋柔和按鈕（找川花聊聊）一起置中，柔和按鈕依字寬、淡色外框。 */
+.svc-actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px}
+.svc-page .svc-actions .svc-button,.svc-page .ie-contact,.svc-construction .svc-button{display:block;width:100%;padding:15px 22px;border:0;border-radius:99px;color:#fff;text-align:center;font-weight:600;letter-spacing:.04em;background:linear-gradient(135deg,#a24d5b,#75658a);box-shadow:0 8px 18px rgba(119,72,86,.18)}
+.svc-page .svc-actions .svc-button:not(.svc-button-soft){flex:none;width:min(100%,320px)}
+.svc-page .svc-actions .svc-button-soft{display:inline-block;flex:none;width:auto;padding:11px 26px;background:#fffdf9;color:var(--river-deep);border:1px solid #d6cbbd;box-shadow:none;font-weight:500}
+.svc-page .svc-actions .svc-button-soft:hover{background:#fff;border-color:#c9a9ae}
+.svc-page .ie-contact{margin-top:16px;cursor:pointer;background:linear-gradient(135deg,#5f6b94,#464f73)}
+.svc-page .ie-contact:focus-visible{outline:2px solid #93323f;outline-offset:4px}
+.svc-construction{isolation:isolate;box-shadow:0 12px 32px rgba(80,70,62,.08);background:rgba(255,254,252,.96)}
+.svc-construction .svc-construction-flower{width:78px;height:90px;padding:10px;border-radius:18px;background:#eef1f8}
+.svc-construction .svc-button{max-width:360px;margin:auto}
+@media(max-width:760px){.svc-body .svc-section,.svc-body .svc-section:last-child{padding:26px 22px;border-radius:22px}.svc-body .svc-section{margin-bottom:22px}.svc-actions{grid-template-columns:1fr}.svc-steps li{gap:14px;padding:15px}.svc-steps li:not(:last-child)::after{left:34px}}
+
+@media (prefers-reduced-motion:reduce){
+  .svc-card:hover,.svc-card:active{transform:none;border-color:var(--line);box-shadow:0 18px 40px rgba(74,90,124,.16)}
+  .svc-card:hover .svc-flower,.svc-card:active .svc-flower{transform:none}
+  .svc-card:hover .svc-card-more,.svc-card:active .svc-card-more{background:#fffcf8;border-color:rgba(110,106,99,.32)}
+}
+
+@media (pointer:coarse){.svc-card.is-touch-pressed{transform:translateY(-4px);box-shadow:0 14px 32px rgba(74,90,124,.16)}.svc-card.is-touch-pressed .svc-flower{transform:scale(1.05)}}
+@media (prefers-reduced-motion:reduce){.svc-card.is-touch-pressed{transform:none;border-color:var(--line);box-shadow:0 18px 40px rgba(74,90,124,.16)}.svc-card.is-touch-pressed .svc-flower{transform:none}}
+
+/* T2 月維護方案比較表（基本／進階）：放在「報價與試算」區，手機上三欄縮窄、字自動換行，不必左右滑。 */
+.svc-maint{margin-top:28px;padding:30px;border:1px solid var(--line);border-radius:20px;background:var(--card)}
+.svc-maint h3{font:400 clamp(20px,2.4vw,24px)/1.6 var(--serif);color:var(--river-deep);margin:0 0 6px}
+.svc-maint>p{margin:0 0 20px;font-size:14px;line-height:1.85;color:var(--ink-soft)}
+.svc-maint-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.svc-maint-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;line-height:1.7;color:var(--ink)}
+.svc-maint-table caption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.svc-maint-table th,.svc-maint-table td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.svc-maint-table tbody th{text-align:left;font-weight:500;color:var(--ink)}
+.svc-maint-table td{width:22%;text-align:center;color:var(--river-deep);white-space:nowrap}
+.svc-maint-table thead th{border-bottom:0;text-align:center;font:500 15px/1.5 var(--serif);color:var(--river-deep);letter-spacing:.06em}
+.svc-maint-table thead th:first-child{text-align:left;font-family:inherit;font-size:13px;color:var(--ink-soft);letter-spacing:.1em}
+.svc-maint-table thead th small{display:block;margin-top:2px;font-family:var(--sans,inherit);font-weight:400;font-size:12.5px;letter-spacing:.02em;color:var(--ink-soft)}
+.svc-maint-table thead th:nth-child(2){background:#eef1f8;border-radius:14px 14px 0 0}
+.svc-maint-table thead th:nth-child(3){background:#f9eff0;border-radius:14px 14px 0 0;color:var(--pink-deep)}
+.svc-maint-table td:nth-child(2){background:#f8f9fc}
+.svc-maint-table td:nth-child(3){background:#fdf7f7}
+.svc-maint-table tbody tr:last-child>*{border-bottom:0}
+.svc-maint-table tbody tr:last-child td{border-radius:0 0 14px 14px}
+.svc-maint-yes{color:var(--leaf);font-weight:700;font-size:16px}
+.svc-maint-no{color:#b9b3a8}
+@media(max-width:760px){
+  .svc-maint{margin-top:22px;padding:20px 12px;border-radius:18px}
+  .svc-maint h3,.svc-maint>p{padding:0 4px}
+  .svc-maint-table{font-size:13.5px}
+  .svc-maint-table th,.svc-maint-table td{padding:11px 6px}
+  .svc-maint-table tbody th{padding-left:4px}
+  .svc-maint-table td{width:72px;white-space:normal}
+  .svc-maint-table thead th small{font-size:11.5px}
+  .svc-maint-table thead th{font-size:14px;letter-spacing:.02em}
+}
