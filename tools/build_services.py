@@ -102,6 +102,22 @@ def load_services() -> list[dict]:
             if any(not isinstance(v, dict) or any(not isinstance(v.get(k), str) or not v[k].strip() for k in keys) for v in values):
                 raise ValueError(f"{label}.{field} 欄位錯誤")
         check_maintenance(service)
+        if "applications" in service:
+            applications = service["applications"]
+            if label != "tools" or not isinstance(applications, list) or len(applications) != 2:
+                raise ValueError("工具服務必須有兩張功能示意卡")
+            if {app.get("id") for app in applications} != {"photo-report", "trade-documents"}:
+                raise ValueError("功能示意卡代稱錯誤或重複")
+            for app in applications:
+                if set(app) != {"id", "name", "eyebrow", "summary", "features", "note"}:
+                    raise ValueError("功能示意卡欄位錯誤")
+                if any(not isinstance(app.get(key), str) or not app[key].strip()
+                       for key in ("name", "eyebrow", "summary", "note")):
+                    raise ValueError("功能示意卡缺少文字")
+                if not isinstance(app["features"], list) or len(app["features"]) != 3 or any(
+                    not isinstance(item, str) or not item.strip() for item in app["features"]
+                ):
+                    raise ValueError("功能示意卡必須有三項功能說明")
         child_slugs = [c["slug"] for c in service["children"]]
         if len(set(child_slugs)) != len(child_slugs) or any(not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug) for slug in child_slugs):
             raise ValueError(f"{label} 的子頁代稱不安全或重複")
@@ -207,6 +223,30 @@ def overview(services: list[dict]) -> str:
             + '</div></section></section>')
 
 
+def application_cards(service: dict) -> str:
+    if not service.get("applications"):
+        return ""
+    cards = []
+    for app in service["applications"]:
+        goal = app["id"]
+        features = "".join(f'<li>{esc(item)}</li>' for item in app["features"])
+        quote = link(f"/ai/quote/?kind=custom&goal={goal}", "帶一份範例，聊聊你的需求 →",
+                     "svc-app-quote", f' data-quote-kind="custom" data-quote-goal="{goal}"')
+        cards.append(
+            f'<article class="svc-app" id="svc-app-{goal}">'
+            f'<div class="svc-app-cover"><img src="/assets/tool-{goal}.svg" '
+            f'alt="{esc(app["name"])}操作畫面示意，使用虛構資料" width="900" height="600" loading="lazy"></div>'
+            '<div class="svc-app-body"><span class="svc-app-label">功能示意</span>'
+            f'<p class="svc-app-eyebrow">{esc(app["eyebrow"])}</p><h3>{esc(app["name"])}</h3>'
+            f'<p>{esc(app["summary"])}</p><details><summary>看看可以做什麼</summary>'
+            f'<ul>{features}</ul><p class="svc-app-note">{esc(app["note"])}</p></details>'
+            f'{quote}</div></article>')
+    return ('<section class="svc-section svc-applications" aria-labelledby="svc-applications-title">'
+            '<h2 id="svc-applications-title">照片報告與文件整理工具</h2>'
+            '<p class="svc-app-lead">把照片整理好，把文件資料填清楚，讓每天重複的工作少一點。</p>'
+            '<div class="svc-app-grid">' + "".join(cards) + '</div></section>')
+
+
 def detail(service: dict, services: list[dict]) -> str:
     slug = service["slug"]
     feature = "service-" + slug
@@ -249,7 +289,7 @@ def detail(service: dict, services: list[dict]) -> str:
             '<div class="st-top">' + link("/services/", "← 回到服務項目", "st-back") + '</div>'
             + breadcrumb(service) + '<header class="svc-head svc-head-detail">' + flower(service, "svc-head-flower") + subtitle
             + f'<h1 id="feature-{feature}-title" tabindex="-1">{esc(service["name"])}</h1><p>{esc(service["summary"])}</p></header>'
-            f'<div class="svc-layout"><div class="svc-body">{sections}</div></div>'
+            f'<div class="svc-layout"><div class="svc-body">{application_cards(service)}{sections}</div></div>'
             '<nav class="svc-related" aria-label="其他服務"><h2>其他服務</h2><div class="svc-card-grid">'
             + "".join(card(other) for other in related) + '</div></nav></section>')
 

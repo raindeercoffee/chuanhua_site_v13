@@ -107,6 +107,30 @@
 @media(max-width:520px){.svc-card-grid,.svc-items,.svc-intro-grid{grid-template-columns:1fr}.svc-card{padding:26px 22px 24px}.svc-card-grid{gap:20px}.svc-group>h2{font-size:24px}.svc-head h1{font-size:30px}.svc-page .svc-toc{gap:3px 6px;padding:16px 12px}.svc-toc a{font-size:11.5px}.svc-actions{flex-direction:column}.svc-actions .btn{width:100%}.svc-steps li{gap:14px}.svc-breadcrumb{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.svc-construction-flower{animation:none}.svc-card,.svc-button,.svc-child-link,.svc-toc a{transition:none}.svc-card:hover,.svc-button:hover{transform:none}}
 
+/* 客製工具情境：封面皆為虛構操作畫面，不作已完成案例宣稱。 */
+.svc-app-lead{color:var(--ink-soft);font-size:15px;margin:-6px 0 26px}
+.svc-app-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.svc-app{min-width:0;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--card)}
+.svc-app-cover{background:#eeeaf1;overflow:hidden}
+.svc-app-cover img{width:100%;height:auto;display:block;aspect-ratio:3/2}
+.svc-app-body{padding:26px}
+.svc-app-label{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--ink-soft);margin-bottom:16px}
+.svc-app-eyebrow{color:var(--pink-deep);font-size:12px;letter-spacing:1px;margin-bottom:8px}
+.svc-app h3{font:400 23px/1.6 var(--serif);color:var(--river-deep);margin-bottom:12px}
+.svc-app-body>p:not(.svc-app-eyebrow){color:var(--ink-soft);font-size:14px;line-height:1.95;min-height:82px}
+.svc-app details{border-top:1px solid var(--line);margin-top:22px}
+.svc-app summary{position:relative;list-style:none;cursor:pointer;min-height:48px;padding:14px 24px 14px 0;font-size:14px;color:var(--river-deep)}
+.svc-app summary::-webkit-details-marker{display:none}
+.svc-app summary::after{content:'＋';position:absolute;right:0;top:14px;color:var(--pink-deep)}
+.svc-app details[open] summary::after{content:'−'}
+.svc-app ul{padding-left:20px;color:var(--ink-soft);font-size:14px;line-height:1.95;margin:2px 0 12px}
+.svc-app li+li{margin-top:6px}
+.svc-app .svc-app-note{color:var(--pink-deep);font-size:13px;line-height:1.9;margin:12px 0 20px}
+.svc-app-quote{display:flex;align-items:center;min-height:48px;padding:13px 0;color:var(--river-deep);font-size:13px;line-height:1.8;text-decoration:none;border-top:1px solid var(--line)}
+.svc-app-quote:hover{text-decoration:underline;text-underline-offset:4px}
+.svc-app summary:focus-visible,.svc-app-quote:focus-visible{outline:2px solid var(--pink-deep);outline-offset:4px}
+@media(max-width:640px){.svc-app-grid{grid-template-columns:minmax(0,1fr);gap:22px}.svc-app-body{padding:22px}.svc-app h3{font-size:22px}.svc-app-body>p:not(.svc-app-eyebrow){min-height:0}}
+
 /* 服務內頁：延續開花教室的白卡、淡色圓角與植物標記。 */
 #feature[data-page^="service"]{background:radial-gradient(ellipse 75% 23% at 85% 16%,rgba(213,224,238,.72),transparent 72%),radial-gradient(ellipse 70% 25% at 6% 54%,rgba(237,216,221,.53),transparent 72%),radial-gradient(ellipse 72% 25% at 85% 84%,rgba(211,222,237,.65),transparent 72%),linear-gradient(180deg,#fbf9f5,#f5f1ec 48%,#e7edf4)}
 .svc-body .svc-section{position:relative;isolation:isolate;overflow:hidden;padding:36px;margin:0 0 30px;border:1px solid #e5ddcf;border-radius:24px;background:rgba(255,254,252,.96);box-shadow:0 12px 32px rgba(80,70,62,.08)}

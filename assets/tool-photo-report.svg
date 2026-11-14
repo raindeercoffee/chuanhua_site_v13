@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+<title id="title">照片驗貨報告功能示意</title><desc id="desc">照片依品項整理，填寫人工檢查紀錄後，匯出固定格式報告。所有畫面均為虛構資料。</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#e6e8f1"/><stop offset="1" stop-color="#f4e4e7"/></linearGradient><linearGradient id="fruit" x2=".9" y2="1"><stop stop-color="#f9cc6a"/><stop offset="1" stop-color="#e99143"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dy="12" stdDeviation="18" flood-color="#667089" flood-opacity=".16"/></filter></defs>
+<rect width="900" height="600" fill="url(#bg)"/>
+<g font-family="Microsoft JhengHei,Noto Sans TC,sans-serif" fill="#455368"><text x="48" y="63" font-size="25">照片 → 清楚的報告</text><rect x="711" y="31" width="142" height="43" rx="22" fill="#fff" fill-opacity=".8"/><text x="782" y="60" font-size="20" text-anchor="middle" fill="#976874">功能示意</text></g>
+<g transform="translate(78 120) rotate(-3 370 220)" filter="url(#shadow)">
+<rect width="744" height="440" rx="18" fill="#fff"/>
+<path d="M0 42H744" stroke="#e2e5eb"/><g fill="#c5c9d1"><circle cx="23" cy="22" r="4"/><circle cx="38" cy="22" r="4"/><circle cx="53" cy="22" r="4"/></g>
+<g font-family="Microsoft JhengHei,Noto Sans TC,sans-serif" fill="#455368"><text x="28" y="91" font-size="29">水果驗貨報告</text><text x="28" y="121" font-size="16" fill="#8c95a2">範例資料・固定報告版型</text></g>
+<g transform="translate(28 145)">
+<g fill="#f1f1f5"><rect width="154" height="105" rx="8"/><rect x="167" width="154" height="105" rx="8"/><rect y="118" width="154" height="105" rx="8"/><rect x="167" y="118" width="154" height="105" rx="8"/></g>
+<g fill="url(#fruit)"><circle cx="77" cy="56" r="30"/><circle cx="244" cy="56" r="30"/><circle cx="77" cy="174" r="30"/><circle cx="244" cy="174" r="30"/></g>
+<g fill="#7c9870"><path d="M77 28Q75 4 100 18Q96 34 77 28"/><path d="M244 28Q242 4 267 18Q263 34 244 28"/><path d="M77 146Q75 122 100 136Q96 152 77 146"/><path d="M244 146Q242 122 267 136Q263 152 244 146"/></g>
+<g font-family="Microsoft JhengHei,Noto Sans TC,sans-serif" fill="#657082" font-size="19"><text x="355" y="25">品項與照片分類</text><text x="355" y="82">檢查紀錄</text><text x="355" y="139">異常說明</text></g>
+<g stroke="#e3e6ec" stroke-width="6" stroke-linecap="round"><path d="M355 44H658"/><path d="M355 101H635"/><path d="M355 158H658"/><path d="M355 181H591"/></g>
+</g>
+<g font-family="Microsoft JhengHei,Noto Sans TC,sans-serif"><rect x="383" y="384" width="248" height="31" rx="15" fill="#f5e9eb"/><text x="507" y="406" font-size="16" text-anchor="middle" fill="#95636f">人工確認後匯出報告</text></g>
+</g></svg>

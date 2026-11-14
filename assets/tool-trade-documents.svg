@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+<title id="title">國貿文件整理功能示意</title><desc id="desc">從提單與裝箱單擷取指定欄位，整理成表格並保留人工核對。所有畫面均為虛構資料。</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#e6e8f1"/><stop offset="1" stop-color="#f4e4e7"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dy="12" stdDeviation="18" flood-color="#667089" flood-opacity=".16"/></filter></defs>
+<rect width="900" height="600" fill="url(#bg)"/>
+<g font-family="Microsoft JhengHei,Noto Sans TC,sans-serif" fill="#455368"><text x="48" y="63" font-size="25">文件 → 好核對的表格</text><rect x="711" y="31" width="142" height="43" rx="22" fill="#fff" fill-opacity=".8"/><text x="782" y="60" font-size="20" text-anchor="middle" fill="#976874">功能示意</text></g>
+<g transform="translate(78 120) rotate(3 370 220)" filter="url(#shadow)">
+<rect width="744" height="440" rx="18" fill="#fff"/><path d="M0 42H744" stroke="#e2e5eb"/><g fill="#c5c9d1"><circle cx="23" cy="22" r="4"/><circle cx="38" cy="22" r="4"/><circle cx="53" cy="22" r="4"/></g>
+<g font-family="Microsoft JhengHei,Noto Sans TC,sans-serif" fill="#455368"><text x="28" y="91" font-size="29">進出口文件整理</text><text x="28" y="121" font-size="16" fill="#8c95a2">範例資料・人工核對後使用</text>
+<rect x="28" y="145" width="85" height="43" rx="8" fill="#eeedf4"/><text x="71" y="174" text-anchor="middle" font-size="21">提單</text><rect x="127" y="145" width="109" height="43" rx="8" fill="#eeedf4"/><text x="181" y="174" text-anchor="middle" font-size="21">裝箱單</text><text x="267" y="173" font-size="22" fill="#95636f">→ 資料表</text>
+<g font-size="19"><g fill="#84909e"><text x="28" y="233">欄位</text><text x="243" y="233">整理結果</text><text x="570" y="233">確認</text></g><text x="28" y="286">櫃號</text><text x="243" y="286">範例櫃號</text><text x="570" y="286" fill="#95636f">待核對</text><text x="28" y="343">箱數</text><text x="243" y="343">範例數量</text><text x="570" y="343" fill="#95636f">待核對</text></g></g>
+<g stroke="#e3e6ec"><path d="M28 250H710"/><path d="M28 307H710"/><path d="M28 364H710"/></g><rect x="28" y="386" width="271" height="29" rx="14" fill="#f5e9eb"/><text x="163" y="407" text-anchor="middle" font-size="16" font-family="Microsoft JhengHei,Noto Sans TC,sans-serif" fill="#95636f">文件欄位擷取・保留人工確認</text>
+</g></svg>
