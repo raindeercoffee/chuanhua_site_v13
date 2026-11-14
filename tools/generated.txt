@@ -43,6 +43,7 @@ services/index.html
 services/marketing-planning/campaigns/index.html
 services/marketing-planning/index.html
 services/tools/index.html
+services/tools/photo-report/index.html
 services/tools/tool-types/index.html
 services/website/index.html
 services/website/maintenance/index.html

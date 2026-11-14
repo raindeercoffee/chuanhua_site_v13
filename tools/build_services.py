@@ -240,7 +240,8 @@ def application_cards(service: dict) -> str:
             f'<p class="svc-app-eyebrow">{esc(app["eyebrow"])}</p><h3>{esc(app["name"])}</h3>'
             f'<p>{esc(app["summary"])}</p><details><summary>看看可以做什麼</summary>'
             f'<ul>{features}</ul><p class="svc-app-note">{esc(app["note"])}</p></details>'
-            f'{quote}</div></article>')
+            + ('<p><a class="svc-app-detail" href="/services/tools/photo-report/">驗貨報告工具：流程與常見問題 →</a></p>' if goal == "photo-report" else '')
+            + f'{quote}</div></article>')
     return ('<section class="svc-section svc-applications" aria-labelledby="svc-applications-title">'
             '<h2 id="svc-applications-title">照片報告與文件整理工具</h2>'
             '<p class="svc-app-lead">把照片整理好，把文件資料填清楚，讓每天重複的工作少一點。</p>'
@@ -331,6 +332,9 @@ def render_services(text: str) -> str:
     for service in services:
         path = service_path(service)
         meta = route_meta("service-" + service["slug"], service["name"], service["description"])
+        if service["slug"] == "tools":
+            meta = route_meta("service-tools", "驗貨報告與文件整理工具｜AI 客製工具開發",
+                              "驗貨照片整理、QC 驗貨報告製作與國貿文件填表，依團隊的工作方式規劃客製工具；資料與品質判讀仍由人員確認。")
         routes[path] = meta
         if service["slug"] in {"website", "workflow", "content", "tools"}:
             routes[f'/ai/{service["slug"]}/'] = {**meta, "redirectTo": path}

@@ -13,13 +13,13 @@
 
 from __future__ import annotations
 
-import datetime
 import html
 import json
 import re
 from pathlib import Path
 
 from build_services import load_services, render_services
+from build_photo_report import PATH as PHOTO_PATH, render_photo_report
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://riverflower2025.com"
@@ -358,6 +358,11 @@ def main() -> None:
         write(target, page_for(text, path, meta, articles))
         generated.append(target.relative_to(ROOT).as_posix())
 
+    # 既有驗貨工具的詳情單獨輸出，不複製其他隱藏頁，也不交給布幕路由攔截。
+    photo_target = ROOT / PHOTO_PATH.strip("/") / "index.html"
+    write(photo_target, render_photo_report(text, next(s for s in load_services() if s["slug"] == "tools")))
+    generated.append(photo_target.relative_to(ROOT).as_posix())
+
     # 不認得的網址（例：測驗第 3 題、預約第 2 步）由 404.html 接手，網址管理員會擺好畫面
     not_found = replace_once(text, r'<link rel="canonical" href="[^"]*">', '<meta name="robots" content="noindex">')
     write(ROOT / "404.html", not_found)
@@ -374,13 +379,14 @@ def main() -> None:
 
     write(MANIFEST, "\n".join(sorted(generated)) + "\n")
 
-    today = datetime.date.today().isoformat()
     urls = "".join(
-        f"  <url>\n    <loc>{SITE}{path}</loc>\n    <lastmod>{today}</lastmod>\n  </url>\n"
+        f"  <url>\n    <loc>{SITE}{path}</loc>\n  </url>\n"
         # 正式站：所有不是轉址的網址都列入網站地圖。
         for path, meta in routes.items()
         if not meta.get("redirectTo") and (not meta.get("noindex") or path.startswith(("/notes/", "/services/")))
     )
+    # 沒有逐頁的重大更新日期紀錄，因此省略可選的 lastmod，避免每天重建都冒充更新。
+    urls += f"  <url>\n    <loc>{SITE}{PHOTO_PATH}</loc>\n  </url>\n"
     write(ROOT / "sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
 
     print(f"產生 {len(generated)} 個網址頁、404.html、sitemap.xml（共 {len(routes)} 個網址）")
