@@ -234,7 +234,7 @@ def application_cards(service: dict) -> str:
                      "svc-app-quote", f' data-quote-kind="custom" data-quote-goal="{goal}"')
         cards.append(
             f'<article class="svc-app" id="svc-app-{goal}">'
-            f'<div class="svc-app-cover"><img src="/assets/tool-{goal}.svg" '
+            f'<div class="svc-app-cover"><img src="/assets/tool-{goal}.svg?v=20261114-qc" '
             f'alt="{esc(app["name"])}操作畫面示意，使用虛構資料" width="900" height="600" loading="lazy"></div>'
             '<div class="svc-app-body"><span class="svc-app-label">功能示意</span>'
             f'<p class="svc-app-eyebrow">{esc(app["eyebrow"])}</p><h3>{esc(app["name"])}</h3>'
