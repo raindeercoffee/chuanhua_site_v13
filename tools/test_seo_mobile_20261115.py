@@ -69,6 +69,22 @@ def run() -> None:
         assert '<meta http-equiv="refresh"' in html, f"舊連結未轉址：{alias}"
         assert SITE + alias not in sitemap_urls, f"轉址頁不應列入 sitemap：{alias}"
 
+    skip_dirs = {".git", "node_modules", "device-shots", ".scratch"}
+    pages = [p for p in ROOT.rglob("*.html") if not skip_dirs & set(p.relative_to(ROOT).parts)]
+    for page in pages:
+        text = page.read_text(encoding="utf-8")
+        for phrase in ("即將上線", "準備中", "互動展示 →", 'href="/ai/demo/"'):
+            assert phrase not in text, f"網頁仍有施工字或舊互動展示連結「{phrase}」：{page.relative_to(ROOT)}"
+
+    demo_html = (ROOT / "ai/demo/index.html").read_text(encoding="utf-8")
+    assert re.search(r'<meta http-equiv="refresh" content="0;url=/services/tools/"', demo_html), \
+        "舊互動展示網址沒有轉到 AI 客製工具開發頁"
+    assert SITE + "/ai/demo/" not in sitemap_urls, "舊互動展示轉址頁不應列入 sitemap"
+    home = (ROOT / "index.html").read_text(encoding="utf-8")
+    assert 'data-feature="demo"' not in home, "母版仍有互動展示空白區塊"
+    assert home.count('<a class="btn" href="/services/tools/" data-route>看工具示意 →</a>') == 2, \
+        "AI 客製化服務頁的兩顆按鈕沒有改成看工具示意"
+
     print(f"PASS：{len(services)} 個服務、{len(articles)} 篇文章、"
           f"{sum(len(s['children']) for s in services)} 個施工子頁，"
           "QC 獨立頁、轉址、sitemap 與 4 張 SVG 已通過程式檢查")

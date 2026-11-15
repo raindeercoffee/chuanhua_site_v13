@@ -275,7 +275,7 @@ def detail(service: dict, services: list[dict]) -> str:
                '<p>費用會依實際工作範圍調整，以下是需求訪談時會一起確認的事：</p><ul>'
                + "".join(f'<li>{esc(text)}</li>' for text in service["pricingFactors"])
                + '</ul><p class="svc-price-note">實際報價以需求訪談為準</p></div>'
-               + f'<div class="svc-estimator" data-service="{slug}"><p>互動試算即將上線</p></div>'
+               + f'<div class="svc-estimator" data-service="{slug}"><p>項目配置試算載入中</p></div>'
                + maintenance_table(service))
     faq = '<div class="svc-faq">' + "".join(
         f'<details><summary>{esc(item["question"])}</summary><p>{esc(item["answer"])}</p></details>' for item in service["faqs"]) + '</div>'
