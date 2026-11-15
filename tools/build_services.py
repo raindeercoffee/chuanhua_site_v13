@@ -32,7 +32,7 @@ PLANS = (("basic", "基本"), ("advanced", "進階"))
 # 對外文案不催促、不推銷，也不用 AI 腔的對比句；筆記的服務連結段落與詳細說明頁共用這份清單。
 BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
 
-# 詳細說明頁（services[].children[]）的正式內容放在 child["page"]；沒有 page 的子頁維持施工中、不收錄。
+# 詳細說明頁（services[].children[]）的正式內容放在 child["page"]；每個子頁都必須有，缺少就停止產生。
 # page 的格式（欄位都要有文字；數量超出範圍就停止產生）：
 #   "intro":    ["段落", ...]                              1～2 段，比服務主頁更深入的情境說明
 #   "sections": [{"title": "小標",                         2～4 區
@@ -187,10 +187,9 @@ def load_services() -> list[dict]:
                 ):
                     raise ValueError("功能示意卡必須有三項功能說明")
         for child in service["children"]:
-            if not {"slug", "title", "description"} <= set(child) <= {"slug", "title", "description", "page"}:
-                raise ValueError(f'{label}/{child["slug"]} 子頁欄位只能是 slug、title、description、page')
-            if "page" in child:
-                check_child_page(service, child)
+            if set(child) != {"slug", "title", "description", "page"}:
+                raise ValueError(f'{label}/{child.get("slug")} 子頁欄位必須剛好是 slug、title、description、page（page 是正式內容）')
+            check_child_page(service, child)
         child_slugs = [c["slug"] for c in service["children"]]
         if len(set(child_slugs)) != len(child_slugs) or any(not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug) for slug in child_slugs):
             raise ValueError(f"{label} 的子頁代稱不安全或重複")
@@ -409,17 +408,7 @@ def child_content(service: dict, child: dict, feature: str) -> str:
 
 
 def child_page(service: dict, child: dict) -> str:
-    feature = f'service-{service["slug"]}-{child["slug"]}'
-    if "page" in child:
-        return child_content(service, child, feature)
-    return (f'<section class="feature-page svc-page svc-child" data-feature="{feature}" hidden>'
-            '<div class="st-top">' + link(service_path(service), "← 回到" + service["name"], "st-back") + '</div>'
-            + breadcrumb(service, child) + '<header class="svc-head">'
-            f'<h1 id="feature-{feature}-title" tabindex="-1">{esc(child["title"])}</h1><p>{esc(child["description"])}</p></header>'
-            '<div class="svc-construction">' + flower(service, "svc-construction-flower")
-            + '<p class="svc-kicker">施工中</p><h2>這一頁正在細心整理中</h2>'
-            '<p>先留一點空間，讓更完整的說明慢慢長出來。<br>如果你已有想法，歡迎先和川花聊聊。</p>'
-            + link(service_path(service), "回到" + service["name"] + " →", "btn svc-button") + '</div></section>')
+    return child_content(service, child, f'service-{service["slug"]}-{child["slug"]}')
 
 
 def route_meta(feature: str, title: str, description: str) -> dict:
@@ -507,11 +496,7 @@ def render_services(text: str) -> str:
         for child in service["children"]:
             child_meta = route_meta(
                 f'service-{service["slug"]}-{child["slug"]}', child["title"] + "｜" + service["name"], child["description"])
-            if "page" in child:
-                child_meta["schema"] = child_schema(service, child, path + child["slug"] + "/")
-            else:
-                # 還沒寫正式內容的子頁是「施工中」佔位頁，訪客可用，但暫時不要送 Google 收錄。
-                child_meta["noindex"] = True
+            child_meta["schema"] = child_schema(service, child, path + child["slug"] + "/")
             routes[path + child["slug"] + "/"] = child_meta
     payload = json.dumps(routes, ensure_ascii=False, indent=2).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
     return re.sub(r'<script type="application/json" id="route-meta">.*?</script>',

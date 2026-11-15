@@ -1,4 +1,4 @@
-"""施工分支 SEO 與手機示意圖回歸測試。執行前先 python tools/build_routes.py。"""
+"""全站 SEO、手機示意圖與「零施工中」總關卡。執行前先 python tools/build_routes.py。"""
 from __future__ import annotations
 
 import json
@@ -15,7 +15,7 @@ def assert_contains(path: Path, value: str, what: str) -> None:
     assert value in text, f"{what}: {path}"
 
 
-# 已寫好正式內容的詳細說明頁；後續任務卡寫完一頁就把網址加進來。
+# 9 個詳細說明頁都要是正式內容；服務資料多了或少了子頁，這份名單也要一起改。
 READY_CHILDREN = {
     "/services/website/maintenance/",
     "/services/content/content-types/",
@@ -29,6 +29,8 @@ READY_CHILDREN = {
 }
 BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
 UNFINISHED = ("施工中", "準備中", "即將上線", "正在細心整理中")
+# 網站地圖網址數：35 個既有網址＋9 個詳細說明頁（/ai/demo/ 已退場成轉址，不算）。
+SITEMAP_COUNT = 44
 
 
 def feature_section(html: str, feature: str) -> str:
@@ -71,6 +73,9 @@ def run() -> None:
     sitemap_urls = [node.text for node in ET.fromstring(sitemap).iter()
                     if node.tag.endswith("}loc") or node.tag == "loc"]
     assert len(sitemap_urls) == len(set(sitemap_urls)), "網站地圖含重複網址"
+    assert len(sitemap_urls) == SITEMAP_COUNT, f"網站地圖網址數應為 {SITEMAP_COUNT}，實際 {len(sitemap_urls)}"
+    child_paths = {f"/services/{s['slug']}/{c['slug']}/" for s in services for c in s["children"]}
+    assert child_paths == READY_CHILDREN, f"詳細說明頁名單不一致：{sorted(child_paths ^ READY_CHILDREN)}"
 
     for service in services:
         path = f"/services/{service['slug']}/"
@@ -84,11 +89,7 @@ def run() -> None:
         for child in service["children"]:
             child_path = path + child["slug"] + "/"
             child_html = (ROOT / child_path.strip("/") / "index.html").read_text(encoding="utf-8")
-            if child_path in READY_CHILDREN:
-                check_ready_child(service, child, child_path, child_html, sitemap_urls)
-                continue
-            assert SITE + child_path not in sitemap_urls, f"施工頁混入 sitemap：{child_path}"
-            assert 'name="robots" content="noindex, follow"' in child_html, f"施工頁未設 noindex：{child_path}"
+            check_ready_child(service, child, child_path, child_html, sitemap_urls)
 
     for article in articles:
         path = "/notes/" + article["slug"] + "/"
@@ -113,7 +114,7 @@ def run() -> None:
 
     css = (ROOT / "assets/services.css").read_text(encoding="utf-8")
     assert ".svc-app-cover img{aspect-ratio:3/4" in css, "手機圖片比例未設置"
-    assert "20261115-seo-rwd" in (ROOT / "index.html").read_text(encoding="utf-8"), "CSS 快取版本未更新"
+    assert "20261115-no-construction" in (ROOT / "index.html").read_text(encoding="utf-8"), "CSS 快取版本未更新"
 
     for alias in ("/ai/website/", "/ai/workflow/", "/ai/content/", "/ai/tools/",
                   "/services/marketing-planning/", "/services/brand-strategy/"):
@@ -123,10 +124,15 @@ def run() -> None:
 
     skip_dirs = {".git", "node_modules", "device-shots", ".scratch"}
     pages = [p for p in ROOT.rglob("*.html") if not skip_dirs & set(p.relative_to(ROOT).parts)]
+    # 網頁以外，前台會載入的程式、樣式和內容資料也一起掃，避免執行時才冒出施工字。
+    pages += [p for folder in ("assets", "content") for p in (ROOT / folder).rglob("*")
+              if p.suffix in {".js", ".css", ".json"}]
+    pages.append(ROOT / "sitemap.xml")
+    assert len(pages) > 50, "掃到的網頁太少，路徑可能錯了"
     for page in pages:
         text = page.read_text(encoding="utf-8")
-        for phrase in ("即將上線", "準備中", "互動展示 →", 'href="/ai/demo/"'):
-            assert phrase not in text, f"網頁仍有施工字或舊互動展示連結「{phrase}」：{page.relative_to(ROOT)}"
+        for phrase in UNFINISHED + ("svc-construction", "互動展示 →", 'href="/ai/demo/"'):
+            assert phrase not in text, f"網站仍有施工字或舊互動展示連結「{phrase}」：{page.relative_to(ROOT)}"
 
     demo_html = (ROOT / "ai/demo/index.html").read_text(encoding="utf-8")
     assert re.search(r'<meta http-equiv="refresh" content="0;url=/services/tools/"', demo_html), \
@@ -138,9 +144,8 @@ def run() -> None:
         "AI 客製化服務頁的兩顆按鈕沒有改成看工具示意"
 
     print(f"PASS：{len(services)} 個服務、{len(articles)} 篇文章、"
-          f"{len(READY_CHILDREN)} 個正式說明頁、"
-          f"{sum(len(s['children']) for s in services) - len(READY_CHILDREN)} 個施工子頁，"
-          "QC 獨立頁、轉址、sitemap 與 4 張 SVG 已通過程式檢查")
+          f"{len(READY_CHILDREN)} 個正式說明頁、0 個施工中，"
+          f"網站地圖 {len(sitemap_urls)} 個網址；QC 獨立頁、轉址與 4 張 SVG 已通過程式檢查")
 
 
 if __name__ == "__main__":

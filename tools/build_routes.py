@@ -228,7 +228,7 @@ def render_notes(text: str, articles: list[dict]) -> str:
         routes[path] = {"layer": "feature", "feature": "note-" + article["id"],
                         "title": article["title"] + "｜開花筆記｜川花", "desc": article["description"],
                         "schema": route_schema(path, articles)}
-    # 保留各路由明確指定的 noindex（例如仍在施工的服務子頁）。
+    # 保留各路由明確指定的 noindex（目前沒有頁面使用，留給日後不想被收錄的頁面）。
     return replace_once(text, r'<script type="application/json" id="route-meta">.*?</script>',
                         '<script type="application/json" id="route-meta">\n' + safe_json(routes) + '\n</script>')
 
@@ -385,7 +385,7 @@ def main() -> None:
 
     urls = "".join(
         f"  <url>\n    <loc>{SITE}{path}</loc>\n  </url>\n"
-        # 僅列入可索引頁面，排除施工中佔位頁與重新導向網址。
+        # 僅列入可索引頁面，排除標成 noindex 的頁面與重新導向網址。
         for path, meta in routes.items()
         if not meta.get("redirectTo") and not meta.get("noindex")
     )
