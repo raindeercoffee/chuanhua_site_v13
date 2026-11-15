@@ -18,7 +18,7 @@ import json
 import re
 from pathlib import Path
 
-from build_services import load_services, render_services
+from build_services import BANNED, load_services, render_services
 from build_photo_report import PATH as PHOTO_PATH, render_photo_report
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,7 +30,7 @@ NOTE_IDS = ["06", "07", "10", "01", "02", "03", "04", "05", "08"]
 NOTE_SCHEMA_ID = "note-schema"
 NOTE_CATEGORIES = ("流程自動化", "品牌內容", "AI 導入", "網站建置")
 # 文末連到服務的那段話要像朋友順口提起：不催促、不推銷，也不用 AI 腔的對比句。
-SERVICE_NOTE_BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
+SERVICE_NOTE_BANNED = BANNED
 SERVICE_TOKEN = re.compile(r"\{([a-z-]+)\}")
 
 
@@ -228,7 +228,7 @@ def render_notes(text: str, articles: list[dict]) -> str:
         routes[path] = {"layer": "feature", "feature": "note-" + article["id"],
                         "title": article["title"] + "｜開花筆記｜川花", "desc": article["description"],
                         "schema": route_schema(path, articles)}
-    # 保留各路由明確指定的 noindex（例如仍在施工的服務子頁）。
+    # 保留各路由明確指定的 noindex（目前沒有頁面使用，留給日後不想被收錄的頁面）。
     return replace_once(text, r'<script type="application/json" id="route-meta">.*?</script>',
                         '<script type="application/json" id="route-meta">\n' + safe_json(routes) + '\n</script>')
 
@@ -385,7 +385,7 @@ def main() -> None:
 
     urls = "".join(
         f"  <url>\n    <loc>{SITE}{path}</loc>\n  </url>\n"
-        # 僅列入可索引頁面，排除施工中佔位頁與重新導向網址。
+        # 僅列入可索引頁面，排除標成 noindex 的頁面與重新導向網址。
         for path, meta in routes.items()
         if not meta.get("redirectTo") and not meta.get("noindex")
     )

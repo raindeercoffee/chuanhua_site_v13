@@ -29,6 +29,73 @@ def unique_object(pairs: list[tuple]) -> dict:
 
 
 PLANS = (("basic", "基本"), ("advanced", "進階"))
+# 對外文案不催促、不推銷，也不用 AI 腔的對比句；筆記的服務連結段落與詳細說明頁共用這份清單。
+BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
+
+# 詳細說明頁（services[].children[]）的正式內容放在 child["page"]；每個子頁都必須有，缺少就停止產生。
+# page 的格式（欄位都要有文字；數量超出範圍就停止產生）：
+#   "intro":    ["段落", ...]                              1～2 段，比服務主頁更深入的情境說明
+#   "sections": [{"title": "小標",                         2～4 區
+#                 "lead": "區塊開頭一段話",                 選填
+#                 "cards": [{"title": "", "description": ""}, ...],   每區 3～6 張小卡
+#                 "table": "maintenance"}]                 選填：在小卡後放該服務既有的月維護比較表
+#   "guide":    {"title": "怎麼選／怎麼開始的小標", "text": "一段建議",
+#                "items": ["清單", ...]}                    items 選填，2～6 項
+#   "faqs":     [{"question": "", "answer": ""}, ...]      2～4 題
+# 頁尾行動（回到服務主頁、填寫需求詢價、找川花聊聊）由產生器固定加上，不用寫在資料裡。
+PAGE_TABLES = {"maintenance"}
+
+
+def check_text(value: object, label: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{label} 必須有文字")
+    if any(word in value for word in BANNED):
+        raise ValueError(f"{label} 用了禁用詞：" + "、".join(w for w in BANNED if w in value))
+    return value
+
+
+def check_list(value: object, label: str, low: int, high: int) -> list:
+    if not isinstance(value, list) or not low <= len(value) <= high:
+        raise ValueError(f"{label} 必須有 {low}～{high} 項")
+    return value
+
+
+def check_fields(value: object, label: str, required: set, optional: set = frozenset()) -> dict:
+    if not isinstance(value, dict) or not required <= set(value) <= required | optional:
+        raise ValueError(f"{label} 欄位必須是 " + "、".join(sorted(required))
+                         + ("（可加 " + "、".join(sorted(optional)) + "）" if optional else ""))
+    return value
+
+
+def check_child_page(service: dict, child: dict) -> None:
+    label = f'{service["slug"]}/{child["slug"]}.page'
+    page = check_fields(child["page"], label, {"intro", "sections", "guide", "faqs"})
+    for i, text in enumerate(check_list(page["intro"], f"{label}.intro", 1, 2)):
+        check_text(text, f"{label}.intro[{i}]")
+    for i, section in enumerate(check_list(page["sections"], f"{label}.sections", 2, 4)):
+        where = f"{label}.sections[{i}]"
+        check_fields(section, where, {"title", "cards"}, {"lead", "table"})
+        check_text(section["title"], f"{where}.title")
+        if "lead" in section:
+            check_text(section["lead"], f"{where}.lead")
+        if "table" in section and section["table"] not in PAGE_TABLES:
+            raise ValueError(f"{where}.table 只能是 " + "、".join(sorted(PAGE_TABLES)))
+        for j, item in enumerate(check_list(section["cards"], f"{where}.cards", 3, 6)):
+            check_fields(item, f"{where}.cards[{j}]", {"title", "description"})
+            check_text(item["title"], f"{where}.cards[{j}].title")
+            check_text(item["description"], f"{where}.cards[{j}].description")
+    guide = check_fields(page["guide"], f"{label}.guide", {"title", "text"}, {"items"})
+    check_text(guide["title"], f"{label}.guide.title")
+    check_text(guide["text"], f"{label}.guide.text")
+    if "items" in guide:
+        for i, text in enumerate(check_list(guide["items"], f"{label}.guide.items", 2, 6)):
+            check_text(text, f"{label}.guide.items[{i}]")
+    for i, item in enumerate(check_list(page["faqs"], f"{label}.faqs", 2, 4)):
+        check_fields(item, f"{label}.faqs[{i}]", {"question", "answer"})
+        check_text(item["question"], f"{label}.faqs[{i}].question")
+        check_text(item["answer"], f"{label}.faqs[{i}].answer")
+    for field in ("title", "description"):
+        check_text(child[field], f'{service["slug"]}/{child["slug"]}.{field}')
 
 
 def check_maintenance(service: dict) -> None:
@@ -119,6 +186,10 @@ def load_services() -> list[dict]:
                     not isinstance(item, str) or not item.strip() for item in app["features"]
                 ):
                     raise ValueError("功能示意卡必須有三項功能說明")
+        for child in service["children"]:
+            if set(child) != {"slug", "title", "description", "page"}:
+                raise ValueError(f'{label}/{child.get("slug")} 子頁欄位必須剛好是 slug、title、description、page（page 是正式內容）')
+            check_child_page(service, child)
         child_slugs = [c["slug"] for c in service["children"]]
         if len(set(child_slugs)) != len(child_slugs) or any(not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug) for slug in child_slugs):
             raise ValueError(f"{label} 的子頁代稱不安全或重複")
@@ -275,7 +346,7 @@ def detail(service: dict, services: list[dict]) -> str:
                '<p>費用會依實際工作範圍調整，以下是需求訪談時會一起確認的事：</p><ul>'
                + "".join(f'<li>{esc(text)}</li>' for text in service["pricingFactors"])
                + '</ul><p class="svc-price-note">實際報價以需求訪談為準</p></div>'
-               + f'<div class="svc-estimator" data-service="{slug}"><p>互動試算即將上線</p></div>'
+               + f'<div class="svc-estimator" data-service="{slug}"><p>項目配置試算載入中</p></div>'
                + maintenance_table(service))
     faq = '<div class="svc-faq">' + "".join(
         f'<details><summary>{esc(item["question"])}</summary><p>{esc(item["answer"])}</p></details>' for item in service["faqs"]) + '</div>'
@@ -298,16 +369,46 @@ def detail(service: dict, services: list[dict]) -> str:
             + "".join(card(other) for other in related) + '</div></nav></section>')
 
 
-def child_page(service: dict, child: dict) -> str:
-    feature = f'service-{service["slug"]}-{child["slug"]}'
-    return (f'<section class="feature-page svc-page svc-child" data-feature="{feature}" hidden>'
+def child_content(service: dict, child: dict, feature: str) -> str:
+    """詳細說明頁正式版：引言 → 2～4 個小卡區塊 → 怎麼選 → 常見問題 → 頁尾行動。"""
+    page = child["page"]
+    header_plant = service["flower"].rsplit("/", 1)[-1].removesuffix(".png")
+    plants = iter(plant for plant in PLANTS if plant != header_plant)
+
+    def section(key: str, body: str, title: str = "") -> str:
+        heading = f'<h2>{esc(title)}</h2>' if title else ""
+        return (f'<section class="svc-section svc-section-{key}" id="{feature}-{key}">'
+                f'{plant_mark(next(plants), "svc-section-mark")}{heading}{body}</section>')
+
+    parts = [section("intro", "".join(f'<p class="svc-intro">{esc(text)}</p>' for text in page["intro"]))]
+    for index, block in enumerate(page["sections"], 1):
+        body = f'<p class="svc-intro">{esc(block["lead"])}</p>' if "lead" in block else ""
+        body += '<ul class="svc-items">' + "".join(
+            f'<li><h3>{esc(item["title"])}</h3><p>{esc(item["description"])}</p></li>' for item in block["cards"]) + '</ul>'
+        if block.get("table") == "maintenance":
+            body += maintenance_table(service)
+        parts.append(section(f"part{index}", body, block["title"]))
+    guide = page["guide"]
+    items = "<ul>" + "".join(f'<li>{esc(text)}</li>' for text in guide["items"]) + "</ul>" if "items" in guide else ""
+    parts.append(section("guide", f'<div class="svc-pricing svc-guide"><p>{esc(guide["text"])}</p>{items}</div>', guide["title"]))
+    parts.append(section("faq", '<div class="svc-faq">' + "".join(
+        f'<details><summary>{esc(item["question"])}</summary><p>{esc(item["answer"])}</p></details>'
+        for item in page["faqs"]) + '</div>', "常見問題"))
+    quote_kind = "website" if service["slug"] == "website" else "custom"
+    parts.append(section("contact", '<p class="svc-intro">看完還有想確認的地方，歡迎帶著你的情況來聊聊。</p><div class="svc-actions">'
+                         + link(service_path(service), "回到" + service["name"] + " →", "btn svc-button svc-button-soft")
+                         + link("/ai/quote/", "填寫需求詢價 →", "btn svc-button", f' data-quote-kind="{quote_kind}"')
+                         + link("/contact/", "找川花聊聊 →", "btn svc-button svc-button-soft") + '</div>', "下一步"))
+    return (f'<section class="feature-page svc-page svc-child svc-child-page" data-feature="{feature}" hidden>'
             '<div class="st-top">' + link(service_path(service), "← 回到" + service["name"], "st-back") + '</div>'
-            + breadcrumb(service, child) + '<header class="svc-head">'
+            + breadcrumb(service, child) + '<header class="svc-head svc-head-detail">' + flower(service, "svc-head-flower")
+            + f'<p class="svc-kicker">{esc(service["name"])}</p>'
             f'<h1 id="feature-{feature}-title" tabindex="-1">{esc(child["title"])}</h1><p>{esc(child["description"])}</p></header>'
-            '<div class="svc-construction">' + flower(service, "svc-construction-flower")
-            + '<p class="svc-kicker">施工中</p><h2>這一頁正在細心整理中</h2>'
-            '<p>先留一點空間，讓更完整的說明慢慢長出來。<br>如果你已有想法，歡迎先和川花聊聊。</p>'
-            + link(service_path(service), "回到" + service["name"] + " →", "btn svc-button") + '</div></section>')
+            f'<div class="svc-layout"><div class="svc-body">{"".join(parts)}</div></div></section>')
+
+
+def child_page(service: dict, child: dict) -> str:
+    return child_content(service, child, f'service-{service["slug"]}-{child["slug"]}')
 
 
 def route_meta(feature: str, title: str, description: str) -> dict:
@@ -337,6 +438,20 @@ def service_schema(service: dict, path: str) -> list[dict]:
             {"@type": "ListItem", "position": 1, "name": "川花", "item": SITE + "/"},
             {"@type": "ListItem", "position": 2, "name": "服務項目", "item": SITE + "/services/"},
             {"@type": "ListItem", "position": 3, "name": service["name"], "item": url}]}
+    ]
+
+
+def child_schema(service: dict, child: dict, path: str) -> list[dict]:
+    url = SITE + path
+    return [
+        {"@context": "https://schema.org", "@type": "WebPage", "@id": url + "#webpage",
+         "name": child["title"], "description": child["description"], "url": url,
+         "about": {"@id": SITE + service_path(service) + "#service"}},
+        {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "川花", "item": SITE + "/"},
+            {"@type": "ListItem", "position": 2, "name": "服務項目", "item": SITE + "/services/"},
+            {"@type": "ListItem", "position": 3, "name": service["name"], "item": SITE + service_path(service)},
+            {"@type": "ListItem", "position": 4, "name": child["title"], "item": url}]}
     ]
 
 
@@ -381,8 +496,7 @@ def render_services(text: str) -> str:
         for child in service["children"]:
             child_meta = route_meta(
                 f'service-{service["slug"]}-{child["slug"]}', child["title"] + "｜" + service["name"], child["description"])
-            # 子頁仍是「施工中」的佔位頁，訪客可用，但暫時不要送 Google 收錄。
-            child_meta["noindex"] = True
+            child_meta["schema"] = child_schema(service, child, path + child["slug"] + "/")
             routes[path + child["slug"] + "/"] = child_meta
     payload = json.dumps(routes, ensure_ascii=False, indent=2).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
     return re.sub(r'<script type="application/json" id="route-meta">.*?</script>',
