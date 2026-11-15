@@ -109,7 +109,8 @@ def check_prices(services: list[dict], book: dict) -> None:
             assert value == base, f"{where}的起價寫 NT${value:,}，價目表是 NT${base:,}"
     quote = re.search(r"const startQuote=.*?startQuote\(\);", home, re.S)
     assert quote, "找不到詢價頁程式"
-    assert not re.search(r"price:\s*\d", quote.group(0)), "詢價頁又自己寫了價格，應該從價目表讀"
+    literal = re.search(r"(?<![\w.])\d{4,}(?!\w)", quote.group(0))
+    assert not literal, f"詢價頁又自己寫了數字 {literal and literal.group(0)}，價格應該從價目表讀"
     assert "AI 搜尋內容整理" not in home, "已拿掉的加購又出現了"
     assert "品牌文案整理" in items, "價目表少了品牌文案整理"
 

@@ -4235,7 +4235,7 @@ $$('[data-topic-tabs]').forEach(list=>{
   const PLAN_KEY='ch-plan-v1';
   function carriedPlan(){
     try{const p=JSON.parse(sessionStorage.getItem(PLAN_KEY)||'null');
-      return p&&p.v===1&&Array.isArray(p.rows)&&Date.now()-p.at<3600000?p:null;}catch(_){return null}
+      return p&&p.v===1&&Array.isArray(p.rows)&&Date.now()-p.at<60*60*1000?p:null;}catch(_){return null}
   }
   const money=n=>'NT$'+n.toLocaleString('zh-TW');
   const websiteDefault=()=>({step:1,plan:null,pages:1,addons:new Set()});
