@@ -6,6 +6,8 @@ import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from build_services import BANNED as SERVICE_BANNED
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://riverflower2025.com"
 
@@ -27,7 +29,7 @@ READY_CHILDREN = {
     "/services/brand-marketing/touchpoints/",
     "/services/website/types/",
 }
-BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
+BANNED = SERVICE_BANNED  # 和產生器共用同一份禁用詞清單
 UNFINISHED = ("施工中", "準備中", "即將上線", "正在細心整理中")
 # 網站地圖網址數：35 個既有網址＋9 個詳細說明頁（/ai/demo/ 已退場成轉址，不算）。
 SITEMAP_COUNT = 44
