@@ -1,0 +1,31 @@
+name: SEO and mobile image regression
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - "tools/build_services.py"
+      - "tools/build_routes.py"
+      - "tools/build_photo_report.py"
+      - "tools/test_seo_mobile_20261115.py"
+      - "content/**"
+      - "assets/services.css"
+      - "assets/tool-*.svg"
+      - "index.html"
+      - ".github/workflows/ci-seo-mobile.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build static routes and sitemap
+        run: python tools/build_routes.py
+      - name: Check SEO, mobile illustrations and navigation
+        run: python tools/test_seo_mobile_20261115.py
