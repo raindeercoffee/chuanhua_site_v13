@@ -1,0 +1,45 @@
+# 三種蘋果裝置小考：iPhone、iPad、Mac 筆電。
+# 在 GitHub 的蘋果電腦上，用 Safari 同款引擎把網站地圖每一頁都打開檢查：
+# 不會左右滑、沒有破圖、手機／平板／筆電示意圖版本正確、網頁程式沒出錯。
+# 只有「讀」的權限，不會改網站、不會自動發布；照片放在每次執行結果的附件裡。
+name: 蘋果裝置小考（iPhone／iPad／Mac）
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: devices-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  devices:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 安裝 Safari 同款試穿瀏覽器
+        run: |
+          python -m pip install --disable-pip-version-check "playwright==1.62.0"
+          python -m playwright install webkit
+      - name: 產生網址頁
+        run: python tools/build_routes.py
+      - name: 跑三種裝置小考
+        run: python tools/test_devices.py
+      - name: 上傳各裝置照片
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: device-shots
+          path: device-shots/
+          if-no-files-found: ignore
+          retention-days: 14
