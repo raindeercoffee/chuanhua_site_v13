@@ -126,7 +126,7 @@
 .svc-app details[open] summary::after{content:'−'}
 .svc-app ul{padding-left:20px;color:var(--ink-soft);font-size:14px;line-height:1.95;margin:2px 0 12px}
 .svc-app li+li{margin-top:6px}
-.svc-app-features{display:block;list-style:disc;padding:0 0 0 19px;color:var(--ink-soft);font-size:14px;line-height:1.95;margin:16px 0 10px}
+.svc-app ul.svc-app-features{display:block;list-style:disc;padding:0 0 0 19px;color:var(--ink-soft);font-size:14px;line-height:1.95;margin:16px 0 10px}
 .svc-app-features li+li{margin-top:7px}
 .svc-app .svc-app-note{color:var(--pink-deep);font-size:13px;line-height:1.9;margin:12px 0 20px}
 .svc-app-quote{display:flex;align-items:center;min-height:48px;padding:13px 0;color:var(--river-deep);font-size:13px;line-height:1.8;text-decoration:none;border-top:1px solid var(--line)}
