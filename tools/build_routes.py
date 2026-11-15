@@ -228,9 +228,7 @@ def render_notes(text: str, articles: list[dict]) -> str:
         routes[path] = {"layer": "feature", "feature": "note-" + article["id"],
                         "title": article["title"] + "｜開花筆記｜川花", "desc": article["description"],
                         "schema": route_schema(path, articles)}
-    # 正式站：每個網址都可被收錄，清掉任何殘留的 noindex 標記。
-    for meta in routes.values():
-        meta.pop("noindex", None)
+    # 保留各路由明確指定的 noindex（例如仍在施工的服務子頁）。
     return replace_once(text, r'<script type="application/json" id="route-meta">.*?</script>',
                         '<script type="application/json" id="route-meta">\n' + safe_json(routes) + '\n</script>')
 
@@ -285,9 +283,13 @@ def page_for(text: str, path: str, meta: dict, articles: list[dict] | None = Non
     title = html.escape(meta["title"], quote=True)
     desc = html.escape(meta["desc"], quote=True)
     url = SITE + meta.get("redirectTo", path)
-    if path in {"/services/marketing-planning/", "/services/brand-strategy/"}:
-        target = "/services/brand-marketing/"
-        text = replace_once(text, r"</head>", f'<meta http-equiv="refresh" content="0;url={target}">\n<script>location.replace({json.dumps(target)});</script>\n</head>')
+    if meta.get("redirectTo"):
+        target = meta["redirectTo"]
+        if not re.fullmatch(r"/[a-z0-9/-]+/", target) or target == path:
+            raise ValueError(f"{path}: invalid redirect destination")
+        text = replace_once(text, r"</head>",
+                            f'<meta http-equiv="refresh" content="0;url={target}">\n'
+                            f'<script>location.replace({json.dumps(target)});</script>\n</head>')
     text = replace_once(text, r"<title>[^<]*</title>", f"<title>{title}</title>")
     text = replace_once(text, r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{desc}">')
     text = replace_once(text, r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{title}">')
@@ -299,7 +301,9 @@ def page_for(text: str, path: str, meta: dict, articles: list[dict] | None = Non
     is_article = any(note_path(a) == path for a in (articles or []))
     text = replace_once(text, r'<meta property="og:type" content="[^"]*">',
                         '<meta property="og:type" content="' + ("article" if is_article else "website") + '">')
-    schema = meta.get("schema", []) if path == "/notes/" or is_article else []
+    # 服務、服務總覽、文章都有各自的結構化資料；不要在別的頁面輸出不相關 schema。
+    has_service_schema = path.startswith("/services/") and not meta.get("redirectTo")
+    schema = meta.get("schema", []) if path == "/notes/" or is_article or has_service_schema else []
     if not isinstance(schema, list):
         raise ValueError(f"{path} 的 schema 必須是陣列")
     if schema:
@@ -381,9 +385,9 @@ def main() -> None:
 
     urls = "".join(
         f"  <url>\n    <loc>{SITE}{path}</loc>\n  </url>\n"
-        # 正式站：所有不是轉址的網址都列入網站地圖。
+        # 僅列入可索引頁面，排除施工中佔位頁與重新導向網址。
         for path, meta in routes.items()
-        if not meta.get("redirectTo") and (not meta.get("noindex") or path.startswith(("/notes/", "/services/")))
+        if not meta.get("redirectTo") and not meta.get("noindex")
     )
     # 沒有逐頁的重大更新日期紀錄，因此省略可選的 lastmod，避免每天重建都冒充更新。
     urls += f"  <url>\n    <loc>{SITE}{PHOTO_PATH}</loc>\n  </url>\n"

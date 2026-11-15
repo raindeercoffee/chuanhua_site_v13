@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ""
+SITE = "https://riverflower2025.com"
 GROUPS = ("品牌行銷", "AI 與數位工具")
 SECTIONS = (("intro", "服務介紹"), ("contents", "服務內容"), ("process", "交付流程"),
             ("pricing", "報價與試算"), ("contact", "聯絡我們"), ("faq", "常見問題"))
@@ -234,12 +235,14 @@ def application_cards(service: dict) -> str:
                      "svc-app-quote", f' data-quote-kind="custom" data-quote-goal="{goal}"')
         cards.append(
             f'<article class="svc-app" id="svc-app-{goal}">'
-            f'<div class="svc-app-cover"><img src="/assets/tool-{goal}.svg?v=20261114-qc" '
-            f'alt="{esc(app["name"])}操作畫面示意，使用虛構資料" width="900" height="600" loading="lazy"></div>'
+            f'<div class="svc-app-cover"><picture>'
+            f'<source media="(max-width: 640px)" srcset="/assets/tool-{goal}-mobile.svg?v=20261115-rwd" type="image/svg+xml">'
+            f'<img src="/assets/tool-{goal}.svg?v=20261115-rwd" '
+            f'alt="{esc(app["name"])}的虛構操作示意，實際內容須人工核對" width="900" height="600" loading="lazy"></picture></div>'
             '<div class="svc-app-body"><span class="svc-app-label">功能示意</span>'
             f'<p class="svc-app-eyebrow">{esc(app["eyebrow"])}</p><h3>{esc(app["name"])}</h3>'
-            f'<p>{esc(app["summary"])}</p><details><summary>看看可以做什麼</summary>'
-            f'<ul>{features}</ul><p class="svc-app-note">{esc(app["note"])}</p></details>'
+            f'<p>{esc(app["summary"])}</p><ul class="svc-app-features">{features}</ul>'
+            f'<details><summary>使用前請留意</summary><p class="svc-app-note">{esc(app["note"])}</p></details>'
             + ('<p><a class="svc-app-detail" href="/services/tools/photo-report/">驗貨報告工具：流程與常見問題 →</a></p>' if goal == "photo-report" else '')
             + f'{quote}</div></article>')
     return ('<section class="svc-section svc-applications" aria-labelledby="svc-applications-title">'
@@ -311,6 +314,32 @@ def route_meta(feature: str, title: str, description: str) -> dict:
     return {"layer": "feature", "feature": feature, "title": title + "｜川花", "desc": description}
 
 
+SEO_TITLES = {
+    "ads": "數位廣告投放｜Meta・Google・LINE 廣告｜川花",
+    "brand-marketing": "品牌整合行銷｜定位、內容與活動企劃｜川花",
+    "ads-audit": "廣告帳戶健檢｜廣告分析與追蹤設定｜川花",
+    "website": "品牌官網製作｜網站規劃與手機版設計｜川花",
+    "workflow": "AI 工作流程自動化｜表單與資料整理｜川花",
+    "content": "AI 文案與內容生成｜品牌語氣與社群文案｜川花",
+    "tools": "驗貨報告與文件整理工具｜AI 客製工具開發｜川花",
+    "ad-ops": "加速下廣告｜廣告批次上稿與檢查工具｜川花",
+}
+
+
+def service_schema(service: dict, path: str) -> list[dict]:
+    url = SITE + path
+    return [
+        {"@context": "https://schema.org", "@type": "Service", "@id": url + "#service",
+         "name": service["name"], "description": service["description"],
+         "serviceType": service["name"], "url": url, "areaServed": "TW",
+         "provider": {"@type": "Organization", "@id": SITE + "/#organization", "name": "川花有限公司"}},
+        {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "川花", "item": SITE + "/"},
+            {"@type": "ListItem", "position": 2, "name": "服務項目", "item": SITE + "/services/"},
+            {"@type": "ListItem", "position": 3, "name": service["name"], "item": url}]}
+    ]
+
+
 def render_services(text: str) -> str:
     services = load_services()
     start, end = "<!-- SERVICES:START -->", "<!-- SERVICES:END -->"
@@ -329,18 +358,32 @@ def render_services(text: str) -> str:
     # 本產生器只管理服務樹；筆記、詢價與其他既有路由原樣保留。
     routes = {path: meta for path, meta in routes.items() if not path.startswith("/services/")}
     routes["/services/"] = route_meta("services", "服務項目｜品牌行銷・AI 與數位工具", "川花的八項服務，從品牌行銷、數位廣告到官網製作與 AI 工具，依你的需要一步步了解。")
+    routes["/services/"]["schema"] = [{
+        "@context": "https://schema.org", "@type": "CollectionPage", "name": "川花服務項目",
+        "url": SITE + "/services/", "description": routes["/services/"]["desc"],
+        "mainEntity": {"@type": "ItemList", "numberOfItems": len(services), "itemListElement": [
+            {"@type": "ListItem", "position": i, "name": service["name"],
+             "url": SITE + service_path(service)} for i, service in enumerate(services, 1)]}
+    }]
+    if set(SEO_TITLES) != {service["slug"] for service in services}:
+        raise ValueError("SEO 標題必須與所有服務一一對應")
     for service in services:
         path = service_path(service)
         meta = route_meta("service-" + service["slug"], service["name"], service["description"])
+        meta["title"] = SEO_TITLES[service["slug"]]
+        meta["desc"] = service["name"] + "： " + service["summary"] + " " + service["description"]
         if service["slug"] == "tools":
-            meta = route_meta("service-tools", "驗貨報告與文件整理工具｜AI 客製工具開發",
-                              "驗貨照片整理、QC 驗貨報告製作與國貿文件填表，依團隊的工作方式規劃客製工具；資料與品質判讀仍由人員確認。")
+            meta["desc"] = "驗貨照片整理、QC 驗貨報告製作與國貿文件填表，依團隊的工作方式規劃客製工具；資料與品質判讀仍由人員確認。"
+        meta["schema"] = service_schema(service, path)
         routes[path] = meta
         if service["slug"] in {"website", "workflow", "content", "tools"}:
             routes[f'/ai/{service["slug"]}/'] = {**meta, "redirectTo": path}
         for child in service["children"]:
-            routes[path + child["slug"] + "/"] = route_meta(
+            child_meta = route_meta(
                 f'service-{service["slug"]}-{child["slug"]}', child["title"] + "｜" + service["name"], child["description"])
+            # 子頁仍是「施工中」的佔位頁，訪客可用，但暫時不要送 Google 收錄。
+            child_meta["noindex"] = True
+            routes[path + child["slug"] + "/"] = child_meta
     payload = json.dumps(routes, ensure_ascii=False, indent=2).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
     return re.sub(r'<script type="application/json" id="route-meta">.*?</script>',
                   lambda _: '<script type="application/json" id="route-meta">\n' + payload + '\n</script>', text, count=1, flags=re.S)
