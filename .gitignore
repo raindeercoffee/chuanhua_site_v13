@@ -9,3 +9,6 @@ node_modules/
 assets/preview_burgundy_flowers*
 
 tools/__pycache__/
+
+# 裝置小考照片（只在本機或 GitHub 附件看）
+device-shots/
