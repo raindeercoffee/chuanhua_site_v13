@@ -37,9 +37,6 @@
     <loc>https://riverflower2025.com/ai/</loc>
   </url>
   <url>
-    <loc>https://riverflower2025.com/ai/demo/</loc>
-  </url>
-  <url>
     <loc>https://riverflower2025.com/notes/</loc>
   </url>
   <url>
@@ -58,25 +55,52 @@
     <loc>https://riverflower2025.com/services/ads/</loc>
   </url>
   <url>
+    <loc>https://riverflower2025.com/services/ads/platforms/</loc>
+  </url>
+  <url>
     <loc>https://riverflower2025.com/services/brand-marketing/</loc>
+  </url>
+  <url>
+    <loc>https://riverflower2025.com/services/brand-marketing/touchpoints/</loc>
   </url>
   <url>
     <loc>https://riverflower2025.com/services/ads-audit/</loc>
   </url>
   <url>
+    <loc>https://riverflower2025.com/services/ads-audit/report/</loc>
+  </url>
+  <url>
     <loc>https://riverflower2025.com/services/website/</loc>
+  </url>
+  <url>
+    <loc>https://riverflower2025.com/services/website/types/</loc>
+  </url>
+  <url>
+    <loc>https://riverflower2025.com/services/website/maintenance/</loc>
   </url>
   <url>
     <loc>https://riverflower2025.com/services/workflow/</loc>
   </url>
   <url>
+    <loc>https://riverflower2025.com/services/workflow/integrations/</loc>
+  </url>
+  <url>
     <loc>https://riverflower2025.com/services/content/</loc>
+  </url>
+  <url>
+    <loc>https://riverflower2025.com/services/content/content-types/</loc>
   </url>
   <url>
     <loc>https://riverflower2025.com/services/tools/</loc>
   </url>
   <url>
+    <loc>https://riverflower2025.com/services/tools/tool-types/</loc>
+  </url>
+  <url>
     <loc>https://riverflower2025.com/services/ad-ops/</loc>
+  </url>
+  <url>
+    <loc>https://riverflower2025.com/services/ad-ops/sheet-spec/</loc>
   </url>
   <url>
     <loc>https://riverflower2025.com/notes/small-business-website-inquiry-design/</loc>
