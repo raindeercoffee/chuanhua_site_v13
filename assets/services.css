@@ -112,7 +112,8 @@
 .svc-app-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
 .svc-app{min-width:0;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--card)}
 .svc-app-cover{background:#eeeaf1;overflow:hidden}
-.svc-app-cover img{width:100%;height:auto;display:block;aspect-ratio:3/2}
+.svc-app-cover picture{display:block}
+.svc-app-cover img{width:100%;height:auto;display:block;aspect-ratio:3/2;object-fit:cover}
 .svc-app-body{padding:26px}
 .svc-app-label{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--ink-soft);margin-bottom:16px}
 .svc-app-eyebrow{color:var(--pink-deep);font-size:12px;letter-spacing:1px;margin-bottom:8px}
@@ -125,11 +126,13 @@
 .svc-app details[open] summary::after{content:'−'}
 .svc-app ul{padding-left:20px;color:var(--ink-soft);font-size:14px;line-height:1.95;margin:2px 0 12px}
 .svc-app li+li{margin-top:6px}
+.svc-app-features{display:block;list-style:disc;padding:0 0 0 19px;color:var(--ink-soft);font-size:14px;line-height:1.95;margin:16px 0 10px}
+.svc-app-features li+li{margin-top:7px}
 .svc-app .svc-app-note{color:var(--pink-deep);font-size:13px;line-height:1.9;margin:12px 0 20px}
 .svc-app-quote{display:flex;align-items:center;min-height:48px;padding:13px 0;color:var(--river-deep);font-size:13px;line-height:1.8;text-decoration:none;border-top:1px solid var(--line)}
 .svc-app-quote:hover{text-decoration:underline;text-underline-offset:4px}
 .svc-app summary:focus-visible,.svc-app-quote:focus-visible{outline:2px solid var(--pink-deep);outline-offset:4px}
-@media(max-width:640px){.svc-app-grid{grid-template-columns:minmax(0,1fr);gap:22px}.svc-app-body{padding:22px}.svc-app h3{font-size:22px}.svc-app-body>p:not(.svc-app-eyebrow){min-height:0}}
+@media(max-width:640px){.svc-app-grid{grid-template-columns:minmax(0,1fr);gap:22px}.svc-app-body{padding:22px}.svc-app h3{font-size:22px}.svc-app-body>p:not(.svc-app-eyebrow){min-height:0}.svc-app-cover img{aspect-ratio:3/4;object-fit:cover}.svc-app-features{font-size:15px}.svc-app .svc-app-note{margin-bottom:15px}}
 
 /* 服務內頁：延續開花教室的白卡、淡色圓角與植物標記。 */
 #feature[data-page^="service"]{background:radial-gradient(ellipse 75% 23% at 85% 16%,rgba(213,224,238,.72),transparent 72%),radial-gradient(ellipse 70% 25% at 6% 54%,rgba(237,216,221,.53),transparent 72%),radial-gradient(ellipse 72% 25% at 85% 84%,rgba(211,222,237,.65),transparent 72%),linear-gradient(180deg,#fbf9f5,#f5f1ec 48%,#e7edf4)}
