@@ -15,6 +15,47 @@ def assert_contains(path: Path, value: str, what: str) -> None:
     assert value in text, f"{what}: {path}"
 
 
+# 已寫好正式內容的詳細說明頁；後續任務卡寫完一頁就把網址加進來。
+READY_CHILDREN = {
+    "/services/website/maintenance/",
+}
+BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
+UNFINISHED = ("施工中", "準備中", "即將上線", "正在細心整理中")
+
+
+def feature_section(html: str, feature: str) -> str:
+    """取出某一張布幕（feature-page）的內容；布幕裡還有小區塊，所以找到下一張布幕為止。"""
+    match = re.search(r'<section class="feature-page[^"]*" data-feature="' + re.escape(feature) + r'"[^>]*>(.*?)</section>'
+                      r'(?=\s*(?:<section class="feature-page|<!-- SERVICES:END))', html, re.S)
+    assert match, f"找不到布幕：{feature}"
+    return match.group(1)
+
+
+def check_ready_child(service: dict, child: dict, path: str, html: str, sitemap_urls: list[str]) -> None:
+    url = SITE + path
+    assert url in sitemap_urls, f"說明頁沒有出現在 sitemap：{path}"
+    assert 'name="robots" content="noindex' not in html, f"說明頁仍被 noindex：{path}"
+    assert f'<link rel="canonical" href="{url}">' in html, f"說明頁 canonical 錯誤：{path}"
+    title = f'<title>{child["title"]}｜{service["name"]}｜川花</title>'
+    assert title in html, f"說明頁標題錯誤：{path}"
+    assert '"@type": "BreadcrumbList"' in html and f'"item": "{url}"' in html, f"說明頁沒有麵包屑結構化資料：{path}"
+    body = feature_section(html, f'service-{service["slug"]}-{child["slug"]}')
+    text = re.sub(r"<[^>]+>", "", body)
+    for word in UNFINISHED:
+        assert word not in text, f"說明頁還有「{word}」：{path}"
+    for word in BANNED:
+        assert word not in text, f"說明頁用了禁用詞「{word}」：{path}"
+    assert body.count('class="svc-intro"') >= 1, f"說明頁沒有引言：{path}"
+    assert body.count('<ul class="svc-items">') >= 2, f"說明頁少於 2 個段落區塊：{path}"
+    assert body.count("<details>") >= 2, f"說明頁常見問題少於 2 題：{path}"
+    for href, label in ((f"/services/{service['slug']}/", f"回到{service['name']}"),
+                        ("/ai/quote/", "填寫需求詢價"), ("/contact/", "找川花聊聊")):
+        assert f'href="{href}"' in body and label in body, f"說明頁缺少行動按鈕「{label}」：{path}"
+    if path == "/services/website/maintenance/":
+        assert '<table class="svc-maint-table">' in body, "年度維護方案頁沒有月維護比較表"
+        assert "NT$3,000／月" in body and "NT$8,000／月" in body, "年度維護方案頁價格不對"
+
+
 def run() -> None:
     services = json.loads((ROOT / "content/services.json").read_text(encoding="utf-8"))["services"]
     articles = json.loads((ROOT / "content/notes.json").read_text(encoding="utf-8"))["articles"]
@@ -35,6 +76,9 @@ def run() -> None:
         for child in service["children"]:
             child_path = path + child["slug"] + "/"
             child_html = (ROOT / child_path.strip("/") / "index.html").read_text(encoding="utf-8")
+            if child_path in READY_CHILDREN:
+                check_ready_child(service, child, child_path, child_html, sitemap_urls)
+                continue
             assert SITE + child_path not in sitemap_urls, f"施工頁混入 sitemap：{child_path}"
             assert 'name="robots" content="noindex, follow"' in child_html, f"施工頁未設 noindex：{child_path}"
 
@@ -70,7 +114,8 @@ def run() -> None:
         assert SITE + alias not in sitemap_urls, f"轉址頁不應列入 sitemap：{alias}"
 
     print(f"PASS：{len(services)} 個服務、{len(articles)} 篇文章、"
-          f"{sum(len(s['children']) for s in services)} 個施工子頁，"
+          f"{len(READY_CHILDREN)} 個正式說明頁、"
+          f"{sum(len(s['children']) for s in services) - len(READY_CHILDREN)} 個施工子頁，"
           "QC 獨立頁、轉址、sitemap 與 4 張 SVG 已通過程式檢查")
 
 

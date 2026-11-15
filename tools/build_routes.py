@@ -18,7 +18,7 @@ import json
 import re
 from pathlib import Path
 
-from build_services import load_services, render_services
+from build_services import BANNED, load_services, render_services
 from build_photo_report import PATH as PHOTO_PATH, render_photo_report
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,7 +30,7 @@ NOTE_IDS = ["06", "07", "10", "01", "02", "03", "04", "05", "08"]
 NOTE_SCHEMA_ID = "note-schema"
 NOTE_CATEGORIES = ("流程自動化", "品牌內容", "AI 導入", "網站建置")
 # 文末連到服務的那段話要像朋友順口提起：不催促、不推銷，也不用 AI 腔的對比句。
-SERVICE_NOTE_BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
+SERVICE_NOTE_BANNED = BANNED
 SERVICE_TOKEN = re.compile(r"\{([a-z-]+)\}")
 
 
