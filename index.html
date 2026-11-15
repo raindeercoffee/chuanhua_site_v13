@@ -144,9 +144,10 @@ if (!['/'].includes(location.pathname)) document.documentElement.setAttribute('d
   },
   "/ai/demo/": {
     "layer": "feature",
-    "feature": "demo",
-    "title": "AI 工具互動展示｜川花 RIVER FLOWER",
-    "desc": "互動展示功能準備中。"
+    "feature": "service-tools",
+    "redirectTo": "/services/tools/",
+    "title": "AI 客製工具開發｜川花 RIVER FLOWER",
+    "desc": "依團隊的工作方式，打造用得順手的 AI 小工具。"
   },
   "/notes/": {
     "layer": "feature",
@@ -2920,7 +2921,7 @@ body p, body h1, body h2, body h3, body h4, body span, body li, body article { -
       </div>
       <div class="feature-actions">
 
-        <a class="btn" href="/ai/demo/" data-route>互動展示 →</a>
+        <a class="btn" href="/services/tools/" data-route>看工具示意 →</a>
         <a class="btn" href="/ai/quote/" data-route data-quote-kind="custom">需求詢價 →</a>
       </div>
     </section>
@@ -2958,14 +2959,9 @@ body p, body h1, body h2, body h3, body h4, body span, body li, body article { -
           <a class="btn service-detail-cta" href="/ai/quote/" data-route data-quote-kind="custom">看如何開花 →</a>
       </div>
       <div class="feature-actions">
-        <a class="btn" href="/ai/demo/" data-route>互動展示 →</a>
+        <a class="btn" href="/services/tools/" data-route>看工具示意 →</a>
         <a class="btn" href="/ai/quote/" data-route data-quote-kind="custom">需求詢價 →</a>
       </div>
-    </section>
-    <section class="feature-page" data-feature="demo" hidden>
-      <div class="st-top"><a class="st-back" href="/ai/" data-route>← 回到 AI 客製化服務</a></div>
-      <header class="st-head"><h1 id="feature-demo-title" tabindex="-1">AI 工具互動展示</h1><p>互動展示功能準備中。</p></header>
-      <div class="feature-body"><div class="feature-placeholder" aria-label="互動展示預留區"></div></div>
     </section>
     <section class="feature-page" data-feature="notes" hidden>
       <div class="st-top"><a class="st-back" href="/courses/" data-route>← 回到河邊</a></div>
