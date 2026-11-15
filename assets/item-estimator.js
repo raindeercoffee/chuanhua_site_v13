@@ -2,7 +2,8 @@
 (function (root, factory) {
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
-  if (typeof document !== 'undefined') api.mountAll();
+  // 全站唯一的價目表：詢價頁也從這裡讀價格，不另外存一份。
+  if (typeof document !== 'undefined') { root.CHEstimator = api; api.mountAll(); }
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
   // 每項格式：名稱、說明、單價、是否預設加入、數量單位（有填才顯示計數）。
@@ -15,7 +16,7 @@
     website: make('品牌官網製作', 'assets/entry-5-xinyi.png', ['網站架構與 5 頁製作', '聯絡表單', '基礎搜尋設定'], [
       item('增加頁面','依內容增加網站頁面',3000,true,'頁','頁面與架構'), item('多頁架構規劃','安排清楚的頁面與導覽層次',6000,false,'','頁面與架構'),
       item('地圖與社群嵌入','讓訪客快速找到品牌',2000,true,'','基礎元件'), item('常見問題展開區','整理訪客常問的問題',3000,true,'','基礎元件'), item('首頁輪播','輪播呈現重點資訊',4000,false,'','基礎元件'),
-      item('最新消息與部落格','建立持續更新的內容區',12000,true,'','內容系統'),
+      item('最新消息與部落格','建立持續更新的內容區',12000,true,'','內容系統'), item('品牌文案整理','依你提供的素材，整理一組網站內容',5000,false,'','內容系統'),
       item('輕動畫','為重要畫面加入細緻動態',5000,true,'','互動與動效'), item('捲動動畫','隨瀏覽節奏呈現內容',6000,false,'','互動與動效'), item('互動試算或測驗','讓訪客依需求互動',15000,false,'','互動與動效'),
       item('串接官方 LINE','引導訪客加入官方帳號',2000,true,'','串接'), item('表單寫入 Google 試算表','將表單資料整理到試算表',5000,false,'','串接'), item('LINE 通知','有新訊息時傳送通知',6000,false,'','串接'),
       item('購物車','加入商品選購與結帳流程',25000,false,'','電商與會員'), item('會員系統','建立會員登入與資料管理',30000,false,'','電商與會員'), item('預約系統','讓訪客選擇時間並送出預約',18000,false,'','電商與會員'),

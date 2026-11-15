@@ -68,6 +68,52 @@ def check_ready_child(service: dict, child: dict, path: str, html: str, sitemap_
         assert "NT$3,000／月" in body and "NT$8,000／月" in body, "年度維護方案頁價格不對"
 
 
+def price_book() -> dict:
+    """讀全站唯一的價目表（服務頁試算 assets/item-estimator.js）。"""
+    js = (ROOT / "assets/item-estimator.js").read_text(encoding="utf-8")
+    base = re.search(r"const make = .*?base: (\d+),", js)
+    maint = re.search(r"commonMaintenance = \{ none: 0, basic: (\d+), full: (\d+) \}", js)
+    assert base and maint, "讀不到價目表的起價或維護費"
+    items: dict[str, set[int]] = {}
+    for name, price in re.findall(r"item\('([^']+)','[^']*',(\d+)", js):
+        items.setdefault(name, set()).add(int(price))
+    assert items, "讀不到價目表的項目"
+    return {"base": int(base.group(1)), "basic": int(maint.group(1)), "full": int(maint.group(2)), "items": items}
+
+
+def check_prices(services: list[dict], book: dict) -> None:
+    """一張價目表：網站上寫出來的每個金額，都要對得上價目表。"""
+    base, items = book["base"], book["items"]
+    for service in services:
+        plans = service["maintenance"]
+        assert plans["basic"]["price"] == book["basic"] and plans["advanced"]["price"] == book["full"],             f"{service['name']} 的月維護價格跟價目表不同"
+    # 一對一諮詢只在合作與諮詢頁出現，不在服務試算裡。
+    allowed = {base, book["basic"], book["full"], 3600} | {p for ps in items.values() for p in ps}
+    allowed.add(base + min(items["最新消息與部落格"]))  # 品牌故事官網＝起價＋部落格
+    home = (ROOT / "index.html").read_text(encoding="utf-8")
+    visible = re.sub(r"<script[^>]*>.*?</script>|<style[^>]*>.*?</style>", " ", home, flags=re.S)
+    visible = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", visible))
+    texts = {"網頁": visible,
+             "服務資料": (ROOT / "content/services.json").read_text(encoding="utf-8"),
+             "文章": (ROOT / "content/notes.json").read_text(encoding="utf-8"),
+             "驗貨頁": (ROOT / "services/tools/photo-report/index.html").read_text(encoding="utf-8")}
+    for where, text in texts.items():
+        for amount in re.findall(r"NT\$ ?([\d,]+)", text):
+            value = int(amount.replace(",", ""))
+            assert value in allowed, f"{where}寫了價目表沒有的金額 NT${amount}"
+        for name, prices in items.items():
+            for amount in re.findall(re.escape(name) + r"[：:｜]\s*(?:每頁 )?NT\$([\d,]+)", text):
+                assert int(amount.replace(",", "")) in prices, f"{where}的「{name}」寫 NT${amount}，價目表是 {sorted(prices)}"
+        for amount in re.findall(r"(?:起價|基本方案)\s*NT\$ ?([\d,]+)|NT\$ ?([\d,]+)\s*起", text):
+            value = int((amount[0] or amount[1]).replace(",", ""))
+            assert value == base, f"{where}的起價寫 NT${value:,}，價目表是 NT${base:,}"
+    quote = re.search(r"const startQuote=.*?startQuote\(\);", home, re.S)
+    assert quote, "找不到詢價頁程式"
+    assert not re.search(r"price:\s*\d", quote.group(0)), "詢價頁又自己寫了價格，應該從價目表讀"
+    assert "AI 搜尋內容整理" not in home, "已拿掉的加購又出現了"
+    assert "品牌文案整理" in items, "價目表少了品牌文案整理"
+
+
 def run() -> None:
     services = json.loads((ROOT / "content/services.json").read_text(encoding="utf-8"))["services"]
     articles = json.loads((ROOT / "content/notes.json").read_text(encoding="utf-8"))["articles"]
@@ -78,6 +124,7 @@ def run() -> None:
     assert len(sitemap_urls) == SITEMAP_COUNT, f"網站地圖網址數應為 {SITEMAP_COUNT}，實際 {len(sitemap_urls)}"
     child_paths = {f"/services/{s['slug']}/{c['slug']}/" for s in services for c in s["children"]}
     assert child_paths == READY_CHILDREN, f"詳細說明頁名單不一致：{sorted(child_paths ^ READY_CHILDREN)}"
+    check_prices(services, price_book())
 
     for service in services:
         path = f"/services/{service['slug']}/"
@@ -147,7 +194,7 @@ def run() -> None:
 
     print(f"PASS：{len(services)} 個服務、{len(articles)} 篇文章、"
           f"{len(READY_CHILDREN)} 個正式說明頁、0 個施工中，"
-          f"網站地圖 {len(sitemap_urls)} 個網址；QC 獨立頁、轉址與 4 張 SVG 已通過程式檢查")
+          f"網站地圖 {len(sitemap_urls)} 個網址、價格全對上價目表；QC 獨立頁、轉址與 4 張 SVG 已通過程式檢查")
 
 
 if __name__ == "__main__":
