@@ -24,6 +24,8 @@ READY_CHILDREN = {
     "/services/ad-ops/sheet-spec/",
     "/services/ads/platforms/",
     "/services/ads-audit/report/",
+    "/services/brand-marketing/touchpoints/",
+    "/services/website/types/",
 }
 BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
 UNFINISHED = ("施工中", "準備中", "即將上線", "正在細心整理中")
