@@ -18,6 +18,9 @@ def assert_contains(path: Path, value: str, what: str) -> None:
 # 已寫好正式內容的詳細說明頁；後續任務卡寫完一頁就把網址加進來。
 READY_CHILDREN = {
     "/services/website/maintenance/",
+    "/services/content/content-types/",
+    "/services/tools/tool-types/",
+    "/services/workflow/integrations/",
 }
 BANNED = ("立即", "現在就", "名額", "限時", "下單", "不是", "而是", "與其", "不如", "上稿自動化")
 UNFINISHED = ("施工中", "準備中", "即將上線", "正在細心整理中")
