@@ -261,7 +261,8 @@ def route_schema(path: str, articles: list[dict], description: str = "") -> list
          # 發佈／更新日期寫在 content/notes.json（2026-11-22：補上，給 Google 看「哪天、誰寫的」）
          **({"datePublished": article["datePublished"]} if article.get("datePublished") else {}),
          **({"dateModified": article["dateModified"]} if article.get("dateModified") else {}),
-         "author": {"@type": "Organization", "@id": SITE + "/#organization", "name": "川花有限公司", "url": SITE + "/"},
+         # 作者署名：小麻糬 2026-11-22 指定「川花小編」
+         "author": {"@type": "Person", "name": "川花小編", "worksFor": {"@id": SITE + "/#organization"}},
          "publisher": {"@type": "Organization", "@id": SITE + "/#organization", "name": "川花有限公司"}},
         {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "川花", "item": SITE + "/"},
