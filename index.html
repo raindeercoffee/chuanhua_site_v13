@@ -4401,6 +4401,17 @@ $$('[data-topic-tabs]').forEach(list=>{
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startQuote,{once:true});else startQuote();
 })();
 
+/* 三顆詢價按鈕的點擊紀錄：只送「按了哪顆、在哪一頁」給既有的 Google 分析，不送任何個人資料。 */
+document.addEventListener('click',e=>{
+  if(typeof gtag!=='function')return;
+  const el=e.target.closest('a,button');if(!el)return;
+  const text=(el.textContent||'').trim();
+  const name=el.matches('[data-ps-form]')||text.startsWith('填寫需求詢價')?'填寫需求詢價':el.matches('[data-ps-copy]')?'複製規劃開LINE':text.startsWith('找川花說話')?'找川花說話':'';
+  if(!name)return;
+  const place=el.closest('nav,#nav')?'選單':el.closest('#quote-plan')?'帶來的規劃':el.closest('#quote-wizard')?'詢價頁':el.closest('dialog')?'規劃摘要':'其他';
+  try{gtag('event','ch_cta_click',{cta_name:name,cta_place:place,page_path:location.pathname});}catch(_){}
+},true);
+
 /* ═════════ 主頁互動 ═════════ */
 const nav=$('#nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
