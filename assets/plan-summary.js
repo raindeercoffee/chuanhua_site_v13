@@ -33,7 +33,11 @@
     function close() { if (closed) return; closed = true; if (dialog.open) dialog.close(); dialog.remove(); locked.forEach(({el,overflow}) => {el.style.overflow = overflow;}); if (origin && origin.isConnected && origin.focus) origin.focus({preventScroll:true}); }
     dialog.addEventListener('cancel', e => { e.preventDefault(); close(); });
     dialog.querySelectorAll('[data-ps-close]').forEach(b => b.addEventListener('click', close));
-    dialog.querySelector('[data-ps-form]').addEventListener('click', e => { if (e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) close(); });
+    // 規劃只暫存在這個瀏覽器分頁（關掉就消失），不含個人資料、不送到任何地方；詢價頁讀它來顯示同一份規劃。
+    const savePlan = () => { try { sessionStorage.setItem('ch-plan-v1', JSON.stringify({ v: 1, at: Date.now(), kind: quoteKind || 'custom', service: service.name,
+      rows: [`基本方案｜${formatMoney(result.base)}`, ...service.included.map(text => `${text}｜內含`), ...selected.map(({choice,item,line}) => `${item.name} × ${choice.quantity} ${item.unit || '項'}｜${formatMoney(line.amount)}`)],
+      total: formatMoney(result.subtotal), range: `${formatMoney(result.low)} ～ ${formatMoney(result.high)}`, monthly: state.maintenance === 'none' ? '' : formatMoney(result.monthly) })); } catch (_) {} };
+    dialog.querySelector('[data-ps-form]').addEventListener('click', e => { savePlan(); if (e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) close(); });
     dialog.addEventListener('keydown', e => {
       if (e.key !== 'Tab') return;
       const nodes = [...dialog.querySelectorAll('button:not([disabled]), a[href], textarea:not([hidden])')].filter(el => el.getClientRects().length);

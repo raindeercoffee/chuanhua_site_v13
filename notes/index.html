@@ -2586,6 +2586,9 @@ footer .ft-bottom .back-garden{margin-top:0}
 .quote-summary .quote-breakdown{font-size:14px}
 .quote-summary-note{font-size:13px;line-height:2;margin:22px 0}
 .quote-summary-contact{text-decoration:none;display:inline-flex;min-height:48px;align-items:center}
+#quote-wizard.quote-has-plan>.quote-kinds,#quote-wizard.quote-has-plan>.quote-mobile-price,.quote-has-plan .quote-workspace>:not(.quote-plan){display:none!important}
+.quote-plan-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.quote-plan-reset{min-height:48px}
 #quote-wizard button:focus-visible,#quote-wizard input:focus-visible,#quote-wizard a:focus-visible{outline:2px solid var(--pink-deep);outline-offset:5px}
 .quote-status{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 @media(max-width:760px){.quote-layout{grid-template-columns:1fr;gap:28px}.quote-aside{position:static;padding:24px 20px}.quote-kinds{gap:10px}.quote-kind{padding:10px 16px;font-size:14px}.quote-step-title{font-size:21px}.quote-option{padding:16px}.quote-controls .btn{padding:10px 18px}.quote-mobile-price{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:3;padding:12px 0;margin-bottom:24px;background:var(--sky);border-bottom:1px solid var(--line);color:var(--river-deep)}.quote-mobile-price span{font-size:12px}.quote-mobile-price output{font:600 19px/1.7 var(--serif)}}
@@ -2881,11 +2884,11 @@ footer .notes-link{margin-left:24px}
 body p, body h1, body h2, body h3, body h4, body span, body li, body article { -webkit-user-select: text; user-select: text; }
 </style>
 <link rel="stylesheet" href="/assets/plan-summary.css">
-<script defer src="/assets/plan-summary.js"></script>
+<script defer src="/assets/plan-summary.js?v=20261115-one-price"></script>
 <link rel="stylesheet" href="/assets/flower-captcha.css">
 <script defer src="/assets/flower-captcha.js"></script>
 <link rel="stylesheet" href="/assets/item-estimator.css">
-<script defer src="/assets/item-estimator.js"></script>
+<script defer src="/assets/item-estimator.js?v=20261115-one-price"></script>
 <link rel="stylesheet" href="/assets/services.css?v=20261115-no-construction">
 <script defer src="/assets/services.js"></script>
 <script type="application/ld+json" id="note-schema">
@@ -3793,6 +3796,7 @@ body p, body h1, body h2, body h3, body h4, body span, body li, body article { -
         <div class="quote-mobile-price" id="quote-mobile-price" aria-hidden="true"><span id="quote-mobile-label">官網建置預估</span><output id="quote-mobile-total" aria-live="off">請先選擇方案</output></div>
         <div class="quote-layout">
           <div class="quote-workspace">
+            <div class="quote-plan" id="quote-plan" hidden></div>
             <div class="quote-progress-row"><span id="quote-step">第 1 步 / 4</span><button class="quote-reset" id="quote-reset" type="button">重新種下需求</button></div>
             <progress class="quote-progress" id="quote-progress" max="4" value="1" aria-label="需求探索進度"></progress>
             <h2 class="quote-step-title" id="quote-step-title" tabindex="-1">先選一種網站的模樣</h2>
@@ -4267,23 +4271,29 @@ $$('[data-topic-tabs]').forEach(list=>{
 })();
 
 /* 試算只在瀏覽器整理需求；價格與項目集中在此，不送出資料。 */
-(()=>{
+(()=>{const startQuote=()=>{
   const wizard=document.getElementById('quote-wizard');
   if(!wizard)return;
-  /* 官網價格跟 assets/item-estimator.js 的 website 資料同步：起價 49,000 含 5 頁、「增加頁面」每頁 3,000、
-     與試算器同名的加購同價。改價格時兩邊一起改，tools/test_T1_quote_price.cjs 會檢查。 */
+  /* 價格只從服務頁試算的價目表（assets/item-estimator.js）讀，這裡不另存數字。 */
+  const BOOK=window.CHEstimator&&window.CHEstimator.CONFIG;
+  if(!BOOK||!BOOK.website||!BOOK.tools){
+    wizard.querySelector('.quote-workspace').insertAdjacentHTML('afterbegin','<p class="quote-disclaimer">價格資料暫時沒有載入，請重新整理頁面。</p>');
+    return;
+  }
+  const site=BOOK.website;
+  const priceOf=name=>{const item=site.items.find(i=>i.name===name);if(!item)throw new Error('價目表找不到：'+name);return item.price;};
+  const includedPages=Number(((site.included.find(t=>/\d+\s*頁/.test(t))||'').match(/(\d+)\s*頁/)||[0,5])[1]);
   const CONFIG={
-    pagePrice:3000,maxPages:10,customStart:49000,
+    pagePrice:priceOf('增加頁面'),maxPages:10,customStart:BOOK.tools.base,
     plans:{
-      brand:{title:'品牌形象官網',price:49000,pages:5,description:'安排品牌介紹、服務與聯絡入口，讓訪客循著清楚的路認識你。'},
-      /* 49,000 起價＋試算器「最新消息與部落格」12,000 */
-      story:{title:'品牌故事官網',price:61000,pages:5,description:'在品牌形象官網之外，加上最新消息與部落格，給品牌故事與內容持續生長的空間。'}
+      brand:{title:'品牌形象官網',price:site.base,pages:includedPages,description:'安排品牌介紹、服務與聯絡入口，讓訪客循著清楚的路認識你。'},
+      /* 起價＋價目表的「最新消息與部落格」 */
+      story:{title:'品牌故事官網',price:site.base+priceOf('最新消息與部落格'),pages:includedPages,description:'在品牌形象官網之外，加上最新消息與部落格，給品牌故事與內容持續生長的空間。'}
     },
     addons:{
-      copy:{title:'品牌文案整理',price:5000,description:'依你提供的素材，整理一組網站內容。'},
-      motion:{title:'輕動畫',price:5000,description:'為重要畫面加入細緻動態，讓畫面保有舒服的節奏。'},
-      'line-notify':{title:'LINE 通知',price:6000,description:'聯絡表單有新訊息時，傳送通知給你。'},
-      'ai-search':{title:'AI 搜尋內容整理',price:5000,description:'整理常見問答與基礎結構化內容，不保證搜尋排名。'}
+      copy:{title:'品牌文案整理',price:priceOf('品牌文案整理'),description:'依你提供的素材，整理一組網站內容。'},
+      motion:{title:'輕動畫',price:priceOf('輕動畫'),description:'為重要畫面加入細緻動態，讓畫面保有舒服的節奏。'},
+      'line-notify':{title:'LINE 通知',price:priceOf('LINE 通知'),description:'聯絡表單有新訊息時，傳送通知給你。'}
     },
     goals:{automation:'流程自動化',content:'AI 內容與文案',reports:'資料報表工具','photo-report':'驗貨報告工具','trade-documents':'國貿文件整理',other:'其他客製需求'},
     customFeatures:{content:'AI 內容生成',reports:'報表彙整',notifications:'通知串接',permissions:'使用者權限'},
@@ -4293,6 +4303,13 @@ $$('[data-topic-tabs]').forEach(list=>{
     customDisclaimer:'此為專案起價，並非完整報價。功能與串接需求待評估，實際費用依需求確認；第三方服務費依實際使用另計。'
   };
   const $q=id=>document.getElementById(id);
+  const esc=v=>String(v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  /* 從服務頁試算按「填寫需求詢價」帶過來的規劃（只存在這個分頁，一小時內有效）。 */
+  const PLAN_KEY='ch-plan-v1';
+  function carriedPlan(){
+    try{const p=JSON.parse(sessionStorage.getItem(PLAN_KEY)||'null');
+      return p&&p.v===1&&Array.isArray(p.rows)&&Date.now()-p.at<36e5?p:null;}catch(_){return null}
+  }
   const money=n=>'NT$'+n.toLocaleString('zh-TW');
   const websiteDefault=()=>({step:1,plan:null,pages:1,addons:new Set()});
   const customDefault=()=>({step:1,goal:'automation',tools:0,features:new Set()});
@@ -4336,6 +4353,9 @@ $$('[data-topic-tabs]').forEach(list=>{
     ],disclaimer:CONFIG.disclaimer};
   }
   function render(){
+    const carried=carriedPlan();
+    wizard.classList.toggle('quote-has-plan',!!carried);
+    $q('quote-plan').hidden=!carried;
     const state=branches[kind],plan=CONFIG.plans[branches.website.plan];
     const data=details();
     ['website','custom'].forEach(key=>$q('quote-kind-'+key).setAttribute('aria-pressed',String(key===kind)));
@@ -4368,7 +4388,29 @@ $$('[data-topic-tabs]').forEach(list=>{
     $q('quote-prev').hidden=state.step===1;
     $q('quote-next').hidden=state.step===4;
     $q('quote-next').disabled=kind==='website'&&!plan;
+    if(carried)showCarried(carried);
   }
+  function showCarried(p){
+    const rows=p.rows.map(row=>'<li>'+esc(row)+'</li>').join('');
+    const extra='預估範圍 '+esc(p.range)+(p.monthly?'；每月維護 '+esc(p.monthly):'');
+    $q('quote-plan').innerHTML='<p class="quote-step-note">從「'+esc(p.service)+'」項目配置試算帶過來的規劃</p>'
+      +'<h2 class="quote-step-title" id="quote-plan-title" tabindex="-1">這是你排好的規劃</h2>'
+      +'<div class="quote-summary"><h3>一次費用：'+esc(p.total)+'</h3><ul class="quote-breakdown">'+rows+'</ul>'
+      +'<p class="quote-summary-note">'+extra+'</p><p class="quote-disclaimer">示範數字，正式報價以需求訪談為準。網域、主機及第三方服務費依實際使用另計。</p></div>'
+      +'<p class="quote-summary-note">把這份規劃帶來，和川花聊聊。你可以截圖保留，再一起確認適合的做法。</p>'
+      +'<div class="quote-plan-actions"><a class="btn quote-summary-contact" href="/contact/" data-route>找川花說話 →</a>'
+      +'<button class="btn quote-plan-reset" type="button">重新填寫需求</button></div>';
+    $q('quote-total-label').textContent='你的規劃・一次費用';
+    $q('quote-total').value=p.total;
+    $q('quote-breakdown').innerHTML=rows;
+    $q('quote-disclaimer').textContent='示範數字，正式報價以需求訪談為準。';
+  }
+  wizard.addEventListener('click',e=>{
+    if(!e.target.closest('.quote-plan-reset'))return;
+    try{sessionStorage.removeItem(PLAN_KEY)}catch(_){}
+    render();focusStep();
+    $q('quote-status').textContent='已改成重新填寫需求。';
+  });
   const focusStep=()=>$q('quote-step-title').focus({preventScroll:false});
   function enter(nextKind,nextGoal){
     kind=nextKind==='custom'?'custom':'website';
@@ -4426,7 +4468,21 @@ $$('[data-topic-tabs]').forEach(list=>{
   addEventListener('popstate',enterFromUrl);
   enterFromUrl();
   render();
+};
+/* 價目表在 defer 載入的試算程式裡，等它載好再開始。 */
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startQuote,{once:true});else startQuote();
 })();
+
+/* 三顆詢價按鈕的點擊紀錄：只送「按了哪顆、在哪一頁」給既有的 Google 分析，不送任何個人資料。 */
+document.addEventListener('click',e=>{
+  if(typeof gtag!=='function')return;
+  const el=e.target.closest('a,button');if(!el)return;
+  const text=(el.textContent||'').trim();
+  const name=el.matches('[data-ps-form]')||text.startsWith('填寫需求詢價')?'填寫需求詢價':el.matches('[data-ps-copy]')?'複製規劃開LINE':text.startsWith('找川花說話')?'找川花說話':'';
+  if(!name)return;
+  const place=el.closest('nav,#nav')?'選單':el.closest('#quote-plan')?'帶來的規劃':el.closest('#quote-wizard')?'詢價頁':el.closest('dialog')?'規劃摘要':'其他';
+  try{gtag('event','ch_cta_click',{cta_name:name,cta_place:place,page_path:location.pathname});}catch(_){}
+},true);
 
 /* ═════════ 主頁互動 ═════════ */
 const nav=$('#nav');
