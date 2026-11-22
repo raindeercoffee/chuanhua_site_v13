@@ -67,11 +67,16 @@ def load_notes() -> list[dict]:
     slugs = set()
     service_slugs = {service["slug"] for service in load_services()}
     article_fields = {"id", "slug", "title", "description", "keywords", "category", "sourceFile", "blocks",
-                      "serviceNote"}
+                      "serviceNote", "datePublished", "dateModified"}
     for article in articles:
         label = f"筆記 {article['id']}"
         if set(article) != article_fields:
             raise ValueError(f"{label} 欄位缺漏或多出未知欄位")
+        for key in ("datePublished", "dateModified"):
+            if not isinstance(article[key], str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", article[key]):
+                raise ValueError(f"{label}.{key} 必須是 YYYY-MM-DD 日期")
+        if article["dateModified"] < article["datePublished"]:
+            raise ValueError(f"{label} 更新日期不能早於發佈日期")
         for key in ("slug", "title", "description", "category", "sourceFile"):
             require_text(article[key], f"{label}.{key}")
         slug = article["slug"]
@@ -253,6 +258,10 @@ def route_schema(path: str, articles: list[dict], description: str = "") -> list
         {"@context": "https://schema.org", "@type": "Article", "@id": url + "#article", "name": article["title"], "headline": article["title"],
          "description": article["description"], "url": url, "mainEntityOfPage": {"@type": "WebPage", "@id": url},
          "keywords": article["keywords"],
+         # 發佈／更新日期寫在 content/notes.json（2026-11-22：補上，給 Google 看「哪天、誰寫的」）
+         **({"datePublished": article["datePublished"]} if article.get("datePublished") else {}),
+         **({"dateModified": article["dateModified"]} if article.get("dateModified") else {}),
+         "author": {"@type": "Organization", "@id": SITE + "/#organization", "name": "川花有限公司", "url": SITE + "/"},
          "publisher": {"@type": "Organization", "@id": SITE + "/#organization", "name": "川花有限公司"}},
         {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "川花", "item": SITE + "/"},
