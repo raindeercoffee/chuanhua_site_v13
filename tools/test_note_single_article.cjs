@@ -66,6 +66,14 @@ async function goInside(page, to) {
         assert.ok(layer.includes('aria-hidden="false"'), '布幕 aria-hidden 要是 false：' + layer);
         assert.ok(layer.includes(`aria-labelledby="feature-note-${a.id}-title"`), '布幕名稱要指到這篇標題：' + layer);
       });
+      await check(`${urlOf(a)} 原始碼裡這篇的標題出現在首頁內容之前`, async () => {
+        // 不跑程式的 AI 工具由上往下讀，要先讀到這篇（任務卡 03）
+        const body = html.indexOf('<body');
+        const title = html.indexOf(`>${esc(a.title)}</h1>`, body);
+        const home = ['<div id="garden"', '<nav id="nav"', '<div id="main"'].map(t => html.indexOf(t, body));
+        assert.ok(body > 0 && title > 0 && home.every(i => i > 0), '找不到 body、大標題或首頁內容');
+        assert.ok(title < Math.min(...home), `大標題在第 ${title} 字，首頁內容從第 ${Math.min(...home)} 字開始`);
+      });
       await check(`${urlOf(a)} 標題、描述、正牌網址、文章結構化資料不變`, async () => {
         const title = esc(a.title + '｜開花筆記｜川花');
         assert.ok(html.includes(`<title>${title}</title>`), '標題');

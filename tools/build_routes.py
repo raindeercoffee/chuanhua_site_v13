@@ -364,7 +364,38 @@ def only_this_article(text: str, feature: str) -> str:
     text = replace_once(text, r'<body class="lock">', '<body class="lock feature-open">')
     for tag in ('<div id="garden">', '<nav id="nav">', '<div id="main">'):
         text = replace_once(text, re.escape(tag), tag[:-1] + " inert>")
-    return text
+    return feature_first(text)
+
+
+DIV_TAG = re.compile(r"<div\b|</div>")
+
+
+def feature_first(text: str) -> str:
+    """把布幕整塊（連同它上面那行說明）搬到首頁內容（花園）之前。
+
+    為什麼：不跑程式的工具由上往下讀，要先讀到這篇文章。布幕是蓋在最上層的固定圖層、
+    背景都 inert，所以搬位置不影響畫面和鍵盤順序（任務卡 03 有截圖和 Tab 比對）。
+    """
+    start = re.search(r'(?:<!--[^\n]*-->\n)?<div id="feature"', text)
+    if not start:
+        raise ValueError("找不到布幕")
+    depth, end = 0, start.start()
+    while True:
+        tag = DIV_TAG.search(text, end)
+        if not tag:
+            raise ValueError("布幕沒有結尾")
+        depth += 1 if tag.group(0) == "<div" else -1
+        end = tag.end()
+        if depth == 0:
+            break
+    if text.startswith("\n", end):
+        end += 1
+    block = text[start.start():end]
+    text = text[:start.start()] + text[end:]
+    garden = re.search(r'(?:<!--[^\n]*-->\n)?<div id="garden"', text)
+    if not garden or garden.start() > start.start():
+        raise ValueError("花園應該在布幕前面")
+    return text[:garden.start()] + block + "\n" + text[garden.start():]
 
 
 def write(path: Path, content: str) -> None:
