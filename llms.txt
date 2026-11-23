@@ -8,3 +8,17 @@
 ## 服務
 - 數位廣告投放:Meta、Google、LINE 廣告
 - 品牌整合行銷
+
+<!-- NOTES-START：以下由 tools/build_routes.py 依 content/notes.json 自動產生，請勿手改 -->
+## 開花筆記
+
+- [中小企業官網怎麼做？從品牌形象到有效詢價的網站規劃](https://riverflower2025.com/notes/small-business-website-inquiry-design/): 中小企業官網不只要好看，更要讓客戶找得到、看得懂、願意詢價。從頁面動線、案例展示、SEO 到表單與數據追蹤，整理官網規劃重點。
+- [LINE 機器人怎麼做？從自動回覆到官網詢問流程](https://riverflower2025.com/notes/line-chatbot-website-customer-service/): LINE 官方帳號機器人不只是設定自動回覆。從常見問題、關鍵字選單、官網導流到人工接手，了解中小企業如何規劃不讓客戶卡住的 LINE 詢問流程。
+- [企業自製 App 值得嗎？網頁 App、手機 App 怎麼選](https://riverflower2025.com/notes/custom-business-app-web-vs-mobile/): 企業想做自己的 App，不一定要先上架應用程式商店。比較網頁 App、手機 App 與內部小工具的差異，從使用情境、資料整合、維護成本決定怎麼開發。
+- [服飾品牌怎麼用 AI 一天上完 10 支廣告？加速下廣告實戰](https://riverflower2025.com/notes/ai-ad-upload-automation/): 服飾品牌新品週要上一整批廣告？用 AI 加速下廣告，影片自動上傳 Meta 廣告素材庫、編號自動填進上稿 Excel，搬運交給機器，判斷留給人。
+- [AI 寫廣告文案，品牌語氣怎麼守住？服飾品牌實戰做法](https://riverflower2025.com/notes/ai-ad-copy-brand-voice/): AI 寫廣告文案很快，但常常寫得不像自己的品牌。服飾品牌怎麼用語氣規則本、範例和人工微調，讓 AI 文案師批次產出初稿又守住品牌語氣。
+- [發票整理太花時間？AI 拍照記帳怎麼做](https://riverflower2025.com/notes/ai-receipt-photo-bookkeeping/): 發票一張一張手打太花時間？AI 拍照記帳可以自動辨識店家、日期、金額並整理成 Excel，看不清楚的標出來給人工確認。
+- [中小企業導入 AI 前，先問自己 5 個問題](https://riverflower2025.com/notes/sme-ai-adoption-5-questions/): 中小企業導入 AI 不必一開始就買大系統。先問清楚哪個工作最麻煩、資料在哪、誰來確認、怎樣算成功，再決定要不要做 AI 客製化小工具。
+- [AI 客製化工具要多少錢？報價單怎麼看才不吃虧](https://riverflower2025.com/notes/ai-custom-tool-pricing-guide/): AI 客製化工具報價怎麼看？拆解需求評估、開發、維護、AI 用量與主機費、修改次數與驗收，教你簽約前該問哪些問題。
+- [不會寫程式也能做：行銷人的 3 個自動化流程](https://riverflower2025.com/notes/no-code-marketing-automation/): 不會寫程式的行銷人，也能把素材整理、文案初稿、單據記帳交給自動化。三個服飾電商常見流程，教你從哪裡開始、什麼時候該找人幫忙。
+<!-- NOTES-END -->
