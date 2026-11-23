@@ -2941,7 +2941,7 @@ if (!['/'].includes(location.pathname)) document.documentElement.setAttribute('d
   --night:#3A3934; --deep-night:#2A2925;
   --sky:#F6F3EC; --mist:#EEEAE0; --card:#FFFEFB;
   --blue:#96A1C3; --pink:#C99AA1; --pink-deep:#93323F; --pink-light:#E8D6D8;
-  --gold:#E3BE93; --gold-deep:#C4914F; --leaf:#8E9B84;
+  --gold:#E3BE93; --gold-deep:#C4914F; --gold-text:#7D5A2B; --leaf:#8E9B84;
   --ink:#4A4844; --ink-soft:#666259; --line:#E3DDD1;
   --vis-navy:#4A5A7C; --vis-red:#A64B41;
   --serif:"Noto Serif TC","Georgia",serif;
@@ -3010,7 +3010,7 @@ html[data-inner-direct] #feature{transition:none}
 .g-flower.bloomed .g-img{animation:g-rise 1.15s cubic-bezier(.34,1.56,.64,1) forwards}
 @keyframes g-rise{0%{opacity:0;transform:translateY(16px) scale(.5)}55%{opacity:1}100%{opacity:1;transform:translateY(0) scale(1)}}
 .g-label{margin-top:12px;font-size:clamp(11px,1.4vw,14px);letter-spacing:2px;color:#4A4844;opacity:0;transition:opacity .8s ease .2s,color .3s;text-align:center;white-space:nowrap;text-shadow:0 1px 8px rgba(251,248,242,.9)}
-.g-label small{display:block;font-family:var(--eng);font-style:italic;font-size:10px;letter-spacing:2.5px;color:#6E6A63;margin-top:2px}
+.g-label small{display:block;font-family:var(--eng);font-style:italic;font-size:12px;letter-spacing:2.5px;color:#6E6A63;margin-top:2px}
 .g-flower.bloomed .g-label{opacity:1}
 .g-flower:hover .g-imgwrap{animation-play-state:paused}
 .g-flower:hover .g-img{filter:drop-shadow(0 4px 14px rgba(147,50,63,.32))}
@@ -3025,7 +3025,7 @@ html[data-inner-direct] #feature{transition:none}
   0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}
   100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.55)}
 }
-#g-skip{position:absolute;top:1.8rem;right:2.2rem;z-index:7;background:none;border:none;border-bottom:1px solid currentColor;color:rgba(74,72,68,.62);font-family:var(--sans);font-weight:300;font-size:12px;letter-spacing:3px;padding-bottom:3px;cursor:pointer;opacity:0;animation:g-fade 1.2s ease 3s forwards;transition:color .3s}
+#g-skip{position:absolute;top:1.8rem;right:2.2rem;z-index:7;background:none;border:none;border-bottom:1px solid currentColor;color:#6E6A63;font-family:var(--sans);font-weight:400;font-size:13px;letter-spacing:3px;padding-bottom:3px;cursor:pointer;opacity:0;animation:g-fade 1.2s ease 3s forwards;transition:color .3s}
 #g-skip:hover{color:#93323F}
 .g-hint{position:relative;z-index:7;margin-top:26px;font-size:11px;letter-spacing:4px;color:#6E6A63;opacity:0;animation:g-fade 1.4s ease 4.2s forwards;text-shadow:0 1px 6px rgba(251,248,242,.9);transform:translateY(48px)}
 /* 花園波光 */
@@ -3110,14 +3110,14 @@ nav.scrolled{box-shadow:0 4px 24px rgba(90,80,60,.08)}
 .kw:hover{transform:translateY(-3px);border-color:var(--pink)}
 /* 川花的體質(關於我們下方) */
 .nature{margin:8px 0 34px;text-align:center}
-.nature-kicker{font-family:var(--eng);font-style:italic;font-size:13px;letter-spacing:5px;color:var(--gold-deep);margin:0}
+.nature-kicker{font-family:var(--eng);font-style:italic;font-size:13px;letter-spacing:5px;color:var(--gold-text);margin:0}
 .svc-trust{margin-top:56px}
 .svc-trust-actions{justify-content:center}
 .nature-title{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;color:var(--et-h,var(--river-deep));margin:6px 0 30px;line-height:1.6}
 .nature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:980px;margin:0 auto;text-align:left}
 .nature-card{position:relative;background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:18px;padding:26px 28px 24px 72px;box-shadow:0 10px 30px rgba(90,80,60,.07);transition:transform .35s,box-shadow .35s,border-color .35s}
 .nature-card:hover{transform:translateY(-4px);border-color:var(--pink-light);box-shadow:0 16px 36px rgba(90,80,60,.11)}
-.nature-no{position:absolute;left:26px;top:24px;font-family:var(--eng,var(--serif));font-size:24px;font-style:italic;color:var(--gold-deep);line-height:1}
+.nature-no{position:absolute;left:26px;top:24px;font-family:var(--eng,var(--serif));font-size:24px;font-style:italic;color:var(--gold-text);line-height:1}
 .nature-card h4{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--river-deep);margin:0 0 10px;letter-spacing:2px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .nature-card h4 small{font-size:13px;font-weight:400;letter-spacing:1px;color:var(--pink-deep)}
 .nature-card p{color:var(--ink-soft);font-size:14.5px;line-height:1.9;margin:0}
@@ -3142,7 +3142,7 @@ nav.scrolled{box-shadow:0 4px 24px rgba(90,80,60,.08)}
 .srv[href]:focus-visible{outline:2px solid var(--pink-deep);outline-offset:5px}
 .srv h3{font-family:var(--serif);font-size:19px;color:var(--river-deep);margin:8px 0 4px;line-height:1.5}
 .srv h3 small{display:block;font-size:13px;color:var(--river);font-weight:400}
-.srv p{font-size:13.5px;color:var(--ink-soft);font-weight:300;margin-top:10px}
+.srv p{font-size:15px;color:var(--ink-soft);font-weight:400;margin-top:10px}
 .fl-icon{object-fit:contain}
 .srv .fl-icon{position:absolute;top:-11px;right:18px;width:26px;height:26px;object-fit:contain;filter:drop-shadow(0 2px 5px rgba(90,80,60,.18));transform-origin:center;transition:transform .25s cubic-bezier(.22,.61,.36,1)}
 @media (pointer:coarse){.srv.is-touch-pressed{transform:translateY(-4px);box-shadow:0 14px 32px rgba(90,80,60,.16)}.srv.is-touch-pressed .fl-icon{transform:scale(1.06)}}
@@ -3297,7 +3297,7 @@ footer .ft-line{display:inline-block;padding:7px 16px;border:1px solid rgba(147,
 footer .ft-line:hover{background:var(--pink-deep);color:#fff}
 footer .ft-col{display:flex;flex-direction:column;gap:11px}
 footer .ft-col h4{font-family:var(--serif);font-size:14.5px;font-weight:600;color:var(--river-deep);margin:4px 0 6px;letter-spacing:1px}
-footer .ft-col h4 small{display:block;font-family:var(--eng,var(--serif));font-style:italic;font-weight:400;font-size:11px;letter-spacing:3px;color:var(--gold-deep);margin-top:3px}
+footer .ft-col h4 small{display:block;font-family:var(--eng,var(--serif));font-style:italic;font-weight:400;font-size:11px;letter-spacing:3px;color:var(--gold-text);margin-top:3px}
 footer .ft-col a{color:#5E5A53;text-decoration:none;line-height:1.5;transition:color .25s,transform .25s;width:fit-content}
 footer .ft-col a:hover{color:var(--pink-deep);transform:translateX(3px)}
 footer .ft-bottom{max-width:1120px;margin:40px auto 0;padding-top:20px;border-top:1px solid rgba(110,106,99,.22);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:12px;color:#6E6A63}
@@ -3329,6 +3329,13 @@ footer .ft-bottom .back-garden{margin-top:0}
 .feature-page .st-back{display:inline-block;text-decoration:none}
 .feature-page h1{font:400 clamp(28px,4vw,42px)/1.6 var(--serif);color:var(--river-deep);letter-spacing:2px;overflow-wrap:anywhere}
 .feature-page h1:focus{outline:none}
+/* 1123 設計審查：服務頁、筆記列表、詢價頁大標跟文章頁一樣 600，頂端留白跟文章頁一致（返回鍵在 60px） */
+.svc-page h1,[data-feature="notes"] h1,[data-feature="quote"] h1{font-weight:600}
+[data-feature="quote"] h1{text-wrap:balance}
+#feature .st-wrap>.feature-page.svc-page,#feature .st-wrap>[data-feature="notes"],#feature .st-wrap>[data-feature="quote"]{padding-top:0}
+/* 1123 設計審查：月維護比較表的 ✓ 和 — 調深，看得出有／沒有 */
+.svc-maint-table .svc-maint-yes{color:#5E6B52}
+.svc-maint-table .svc-maint-no{color:#8A8378}
 .feature-page .st-head p{max-width:620px;margin-top:18px}
 .feature-body{margin:44px auto 0;max-width:760px}
 .feature-body.service-details{max-width:1020px}
@@ -3369,7 +3376,7 @@ footer .ft-bottom .back-garden{margin-top:0}
 .quote-option input{flex:0 0 auto;width:18px;height:18px;margin-top:5px;accent-color:var(--river)}
 .quote-option-content{display:block;min-width:0;flex:1}
 .quote-option b{display:block;color:var(--river-deep);font:600 16px/1.7 var(--serif)}
-.quote-option small{display:block;font-size:12px;line-height:1.9;margin-top:5px}
+.quote-option small{display:block;font-size:14px;line-height:1.9;margin-top:5px}
 .quote-option .quote-option-price{color:var(--river);font:500 13px/1.8 var(--sans);margin-top:8px}
 .quote-range-label{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;color:var(--river-deep);font-size:15px;margin:24px 0 12px}
 .quote-range-value{font:500 25px/1.5 var(--serif);color:var(--river-deep)}
@@ -3486,7 +3493,7 @@ footer .notes-link{margin-left:24px}
 .st-back{background:none;border:1px solid rgba(110,106,99,.42);border-radius:99px;color:#6E6A63;font-family:var(--sans);font-size:13px;letter-spacing:2px;padding:9px 22px;cursor:pointer;transition:background .3s,color .3s}
 .st-back:hover{background:rgba(147,50,63,.10);color:#4A5A7C}
 .st-head{text-align:center;margin-bottom:14px}
-.st-eyebrow{font-family:var(--eng);font-style:italic;font-size:13px;letter-spacing:6px;color:var(--gold-deep);text-transform:uppercase}
+.st-eyebrow{font-family:var(--eng);font-style:italic;font-size:13px;letter-spacing:6px;color:var(--gold-text);text-transform:uppercase}
 .st-head h2{color:#4A5A7C;margin-top:10px}
 .st-head p{color:#6E6A63;font-size:15px;max-width:520px;margin:6px auto 0}
 #studio .course-grid{margin-top:40px;grid-template-columns:repeat(2,minmax(280px,1fr));gap:24px;max-width:900px;margin-left:auto;margin-right:auto}
@@ -3511,7 +3518,7 @@ footer .notes-link{margin-left:24px}
 .cs-card{position:relative;background:#FFF;border:1px solid #E2DACB;border-radius:22px;box-shadow:0 18px 50px rgba(90,80,60,.16);padding:38px 36px 30px}
 .cs-close{position:absolute;top:5px;right:7px;display:grid;place-items:center;min-width:44px;min-height:44px;background:none;border:none;font-size:18px;color:#6E6A63;cursor:pointer;line-height:1;padding:4px;z-index:2}
 .cs-close:hover{color:#4A5A7C}
-.cs-eyebrow{font-family:var(--eng);font-style:italic;font-size:12px;letter-spacing:4px;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px}
+.cs-eyebrow{font-family:var(--eng);font-style:italic;font-size:12px;letter-spacing:4px;color:var(--gold-text);text-transform:uppercase;margin-bottom:8px}
 .cs-card h3{font-family:var(--serif);font-size:22px;color:#4A5A7C;margin-bottom:6px}
 .cs-sub{font-size:13px;color:#6E6A63;margin-bottom:20px}
 .cs-page{display:none}
@@ -3570,7 +3577,7 @@ footer .notes-link{margin-left:24px}
 .r-hero{text-align:center;background:linear-gradient(180deg,#FBF9F5,#F5F2EA);border:1px solid #E2DACB;border-radius:18px;padding:20px 18px 18px}
 .r-img{width:150px;height:150px;object-fit:contain;margin:0 auto 6px;display:block}
 .r-name{font-family:var(--serif);font-size:26px;color:#4A5A7C;line-height:1.2}
-.r-name .r-en{font-family:var(--eng);font-style:italic;font-size:14px;color:var(--gold-deep);letter-spacing:2px;margin-left:9px}
+.r-name .r-en{font-family:var(--eng);font-style:italic;font-size:14px;color:var(--gold-text);letter-spacing:2px;margin-left:9px}
 .r-school{font-size:12.5px;color:#6E6A63;margin-top:7px;line-height:1.6}
 .r-traits{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:11px}
 .r-traits span{font-size:11.5px;letter-spacing:1px;color:#8B3B49;background:#FFF;border:1px solid #E8D6D8;border-radius:99px;padding:4px 11px}
