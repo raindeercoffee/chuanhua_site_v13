@@ -322,7 +322,20 @@ def application_cards(service: dict) -> str:
             '<div class="svc-app-grid">' + "".join(cards) + '</div></section>')
 
 
-def detail(service: dict, services: list[dict]) -> str:
+def note_links(notes: list[tuple[str, str]], plant: str, prefix: str) -> str:
+    """延伸閱讀：列出 serviceNote 連到這個服務的開花筆記（清單由 build_routes 依 notes.json 交來）。
+
+    沒有文章連到就整塊不出現；以後增減文章，重跑 build_routes 就會跟著變。
+    """
+    if not notes:
+        return ""
+    links = "".join(f'<li>{link(path, title)}</li>' for title, path in notes)
+    return (f'<section class="svc-section svc-section-notes" id="{prefix}notes" tabindex="-1">'
+            f'{plant_mark(plant, "svc-section-mark")}<h2>延伸閱讀：開花筆記</h2>'
+            f'<ul class="svc-notes">{links}</ul></section>')
+
+
+def detail(service: dict, services: list[dict], notes: list[tuple[str, str]] = ()) -> str:
     slug = service["slug"]
     feature = "service-" + slug
     prefix = "svc-" + slug + "-"
@@ -358,6 +371,8 @@ def detail(service: dict, services: list[dict]) -> str:
     sections = "".join(f'<section class="svc-section svc-section-{key}" id="{prefix}{key}" tabindex="-1">'
                        f'{plant_mark(plants[index], "svc-section-mark")}<h2>{label}</h2>{contents[key]}</section>'
                        for index, (key, label) in enumerate(SECTIONS))
+    # 放在常見問題之後；植物用清單最後一株，避開各段與流程步驟（最多 6 步）用過的。
+    sections += note_links(list(notes), plants[-1], prefix)
     related = sorted((other for other in services if other["slug"] != slug), key=lambda other: other["group"] != service["group"])[:3]
     subtitle = f'<p class="svc-kicker">{esc(service["subtitle"])}</p>' if service["subtitle"] else ""
     return (f'<section class="feature-page svc-page svc-detail" data-feature="{feature}" hidden>'
@@ -455,14 +470,18 @@ def child_schema(service: dict, child: dict, path: str) -> list[dict]:
     ]
 
 
-def render_services(text: str) -> str:
+def render_services(text: str, notes: dict[str, list[tuple[str, str]]] | None = None) -> str:
+    """notes：服務代稱 → [(文章標題, 文章網址)]，給服務專屬頁的「延伸閱讀：開花筆記」用。"""
     services = load_services()
+    notes = notes or {}
+    if set(notes) - {service["slug"] for service in services}:
+        raise ValueError("延伸閱讀連到不存在的服務：" + "、".join(sorted(set(notes) - {s["slug"] for s in services})))
     start, end = "<!-- SERVICES:START -->", "<!-- SERVICES:END -->"
     if text.count(start) != 1 or text.count(end) != 1 or text.index(start) >= text.index(end):
         raise ValueError("首頁必須恰有一組順序正確的 SERVICES 標記")
     pages = [overview(services)]
     for service in services:
-        pages += [detail(service, services)]
+        pages += [detail(service, services, notes.get(service["slug"], []))]
         pages += [child_page(service, child) for child in service["children"]]
     text = re.sub(re.escape(start) + r".*?" + re.escape(end),
                   lambda _: start + "\n" + "\n".join(pages) + "\n" + end, text, flags=re.S)

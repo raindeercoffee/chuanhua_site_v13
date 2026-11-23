@@ -5,7 +5,7 @@ const {chromium} = require('C:/Users/Riva/AppData/Roaming/npm/node_modules/playw
 const assert = require('node:assert/strict');
 const BASE = (process.env.TEST_BASE || 'http://127.0.0.1:18951').replace(/\/$/, '');
 
-const EXPECTED_NOTES = 9; // spec N1：下架 09 後剩 9 篇
+const EXPECTED_NOTES = 19; // spec N1：下架 09 後剩 9 篇；2026-11-23 新增 11～20 共 10 篇，共 19 篇
 const REMOVED_SLUG = 'ai-image-video-commercial-use';
 const REMOVED_TITLE = '授權注意事項';
 const SERVICE_SLUGS = ['ads', 'brand-marketing', 'ads-audit', 'website', 'workflow', 'content', 'tools', 'ad-ops'];

@@ -21,4 +21,14 @@
 - [中小企業導入 AI 前，先問自己 5 個問題](https://riverflower2025.com/notes/sme-ai-adoption-5-questions/): 中小企業導入 AI 不必一開始就買大系統。先問清楚哪個工作最麻煩、資料在哪、誰來確認、怎樣算成功，再決定要不要做 AI 客製化小工具。
 - [AI 客製化工具要多少錢？報價單怎麼看才不吃虧](https://riverflower2025.com/notes/ai-custom-tool-pricing-guide/): AI 客製化工具報價怎麼看？拆解需求評估、開發、維護、AI 用量與主機費、修改次數與驗收，教你簽約前該問哪些問題。
 - [不會寫程式也能做：行銷人的 3 個自動化流程](https://riverflower2025.com/notes/no-code-marketing-automation/): 不會寫程式的行銷人，也能把素材整理、文案初稿、單據記帳交給自動化。三個服飾電商常見流程，教你從哪裡開始、什麼時候該找人幫忙。
+- [Meta 廣告素材尺寸怎麼準備？服飾品牌圖片、影片規格一次備齊](https://riverflower2025.com/notes/meta-ad-creative-size-specs/): Meta 廣告素材尺寸與規格整理：動態消息用 4:5、Stories 和 Reels 用 9:16，圖片、影片的檔案格式與大小上限，服飾品牌一次備齊不用重做。
+- [FB 廣告預算怎麼抓？單日預算怎麼設，才不會一天就花超過](https://riverflower2025.com/notes/fb-ad-daily-budget-how-much/): FB 廣告預算怎麼抓？先看懂 Meta 單日預算規則：某天最多多花 75%、一週不超過 7 倍，再用每筆成果成本和學習階段，倒推出每日預算。
+- [廣告 ROAS 是什麼？怎麼算才知道廣告到底有沒有賺到錢](https://riverflower2025.com/notes/ad-roas-meaning-how-to-calculate/): 廣告 ROAS 是什麼？ROAS＝廣告帶來的營收÷廣告花費。附舉例算式、損益兩平 ROAS 怎麼抓，以及 Meta 後台購買 ROAS 跟實際營收對不上的原因。
+- [Meta 廣告受眾怎麼設定？興趣、自訂、排除受眾一次看懂](https://riverflower2025.com/notes/meta-ad-audience-targeting-setup/): Meta 廣告受眾怎麼設定？整理興趣（詳細目標設定）、自訂受眾、類似受眾、排除受眾各自怎麼用，以及高效速成+ 受眾的控制項和建議差在哪裡。
+- [Meta 廣告審核要多久？卡在檢閱中、被拒登時該怎麼處理](https://riverflower2025.com/notes/meta-ad-review-time-rejected/): Meta 廣告審核要多久？依官方說明，通常 24 小時內完成。整理卡在檢閱中、被拒登時怎麼查原因、怎麼修改或申請再次審查，以及送審前的檢查習慣。
+- [LINE 官方帳號費用怎麼算？訊息費、三種方案和加購價一次看懂](https://riverflower2025.com/notes/line-official-account-pricing-message-fee/): LINE 官方帳號費用依官方 2026 年 11 月新價整理：三種方案月費、免費訊息則數、加購價，教你用好友數和群發次數算出該選哪個方案。
+- [形象官網報價怎麼看？官網架設費用拆解，簽約前先問這 6 題](https://riverflower2025.com/notes/brand-website-quote-cost-breakdown/): 形象官網報價差好幾倍，到底差在哪？把官網架設費用拆成規劃、設計、開發、內容、上線和維護六塊，附簽約前該問的六個問題。
+- [AI 自動化流程工具怎麼選？n8n、Make、Zapier，行銷人先看這幾點](https://riverflower2025.com/notes/ai-automation-workflow-tools-how-to-choose/): AI 自動化流程工具怎麼選？客觀整理 n8n、Make、Zapier 的計費方式，以及行銷人挑工具該看的五件事，還有請 AI 寫程式小幫手這條路。
+- [AI 客服機器人接 LINE 要多少錢？三種做法的費用與適合情況](https://riverflower2025.com/notes/ai-customer-service-chatbot-line-cost/): AI 客服機器人接 LINE 有三種做法：官方帳號內建 AI、串 Messaging API、客製開發。拆解各自的 AI 客服費用、限制和適合的店家類型。
+- [AI 文案產生器怎麼挑？免費工具和品牌語氣的取捨一次說清楚](https://riverflower2025.com/notes/ai-copywriting-generator-how-to-choose/): AI 文案產生器那麼多，免費的夠用嗎？整理 AI 文案工具的三種類型、挑選時該看的五件事，以及免費工具和品牌語氣之間怎麼取捨。
 <!-- NOTES-END -->
