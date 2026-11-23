@@ -4200,10 +4200,7 @@ field.addEventListener('click',e=>{
 $('#g-skip').addEventListener('click',()=>enterMain(null));
 
 /* 頁尾「服務項目」：打開服務項目頁後，捲到點選的那一組（品牌行銷／AI 與數位工具） */
-document.addEventListener('click',e=>{
-  const link=e.target.closest('[data-svc-group]');
-  if(!link)return;
-  const target='svc-group-'+link.dataset.svcGroup;
+function scrollToSvcGroup(target){
   let tries=0;
   const go=()=>{
     const el=document.getElementById(target), layer=document.getElementById('feature');
@@ -4211,7 +4208,13 @@ document.addEventListener('click',e=>{
     else if(tries++<30) setTimeout(go,100);
   };
   setTimeout(go,150);
+}
+document.addEventListener('click',e=>{
+  const link=e.target.closest('[data-svc-group]');
+  if(link)scrollToSvcGroup('svc-group-'+link.dataset.svcGroup);
 });
+/* 從沒有服務項目頁的檔案（例：文章頁）整頁跳過來時，網址帶著 #svc-group-xxx */
+if(/^#svc-group-[a-z]+$/.test(location.hash))scrollToSvcGroup(location.hash.slice(1));
 
 /* 回到花園 */
 $('#reGarden').addEventListener('click',e=>{
@@ -5608,6 +5611,8 @@ async function submit(){
   const studio = $id('studio');
   const feature = $id('feature');
   const featurePages = [...feature.querySelectorAll('[data-feature]')];
+  // 這份網頁檔案裡沒有那塊布幕頁（例如文章頁只放自己那一篇）→ 要去那裡就整頁跳轉
+  const missingFeature = path => { const m = META[path]; return !!(m && m.layer==='feature' && !featurePages.some(el=>el.dataset.feature===m.feature)); };
   const featureBackground = [$id('garden'), $id('main'), $id('nav')];
   function syncIndexing(path){
     const route = META[path];
@@ -5748,6 +5753,9 @@ async function submit(){
           if(['photo-report','trade-documents'].includes(routeLink.dataset.quoteGoal))quoteParams.set('goal',routeLink.dataset.quoteGoal);
         }
         const destination=url.pathname+(quoteParams.size?'?'+quoteParams.toString():'');
+        const target=META[path].redirectTo||path;
+        // 頁尾「服務項目」分組連結整頁跳轉時，用 #svc-group-xxx 帶著要停在哪一組
+        if(missingFeature(target)){location.assign(pagePath(target)+(quoteParams.size?'?'+quoteParams.toString():'')+(routeLink.dataset.svcGroup?'#svc-group-'+routeLink.dataset.svcGroup:''));return;}
         if (destination!==location.pathname+location.search) history.pushState({p:path},'',destination);
         apply(path,false,path==='/notes/'&&!feature.classList.contains('open')); return;
       }
@@ -5788,6 +5796,7 @@ async function submit(){
       path = META[path].redirectTo;
       history.replaceState({p:path}, '', pagePath(path));
     }
+    if (!initial && missingFeature(path)){ ++gen; location.replace(pagePath(path)+location.search); return; }
     const my = ++gen;
     const stale = () => my !== gen;
     const pause = async ms => { await wait(ms); return stale(); };

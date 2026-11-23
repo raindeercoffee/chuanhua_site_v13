@@ -12,6 +12,8 @@
 3. 在這個資料夾跑 `python tools/build_routes.py`，產生各網址頁、404.html、sitemap.xml。
 4. 本機檢查：在這個資料夾跑 `python -m http.server 8080 --bind 127.0.0.1`（網站在根目錄），
    再跑小考，例：`TEST_BASE=http://127.0.0.1:8080 node tools/test_1107M_port.cjs`。
+   動到開花筆記或網址頁產生器時，也要跑 `tools/test_note_single_article.cjs`（文章頁只放那一篇）、
+   `tools/test_1107N_notes.cjs`、`tools/test_T4_notes.cjs`。
 5. 推上 master 前先打 git 標籤備份；推上去後 GitHub 小幫手會自動再產生一次網址頁並重新發布。
 
 ## 正式站專用設定（搬家腳本會保留或補回，不要拿掉）

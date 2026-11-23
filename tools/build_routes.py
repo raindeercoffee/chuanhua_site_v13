@@ -325,6 +325,79 @@ def page_for(text: str, path: str, meta: dict, articles: list[dict] | None = Non
     return text
 
 
+FEATURE_PAGE = re.compile(r'[ \t]*<section class="feature-page[^"]*"[^>]*\bdata-feature="([^"]+)"[^>]*>')
+SECTION_TAG = re.compile(r"<section\b|</section>")
+
+
+def only_this_article(text: str, feature: str) -> str:
+    """文章網址的檔案：布幕只留這一篇，而且預先打開。
+
+    為什麼：不跑程式的 AI 工具和 Google 一打開就該讀到這篇，不是整間書店。
+    其他布幕頁不放進這個檔案；網址管理員遇到不在檔案裡的畫面，會改成整頁跳轉。
+    打開的樣子跟網址管理員直接開網址時擺出來的一樣（布幕 open、背景 inert），不會閃一下。
+    """
+    out, pos, kept = [], 0, 0
+    while (match := FEATURE_PAGE.search(text, pos)):
+        out.append(text[pos:match.start()])
+        depth, end = 0, match.start()
+        while True:  # 找這塊布幕頁的結尾（裡面可能還有小 section）
+            tag = SECTION_TAG.search(text, end)
+            if not tag:
+                raise ValueError(f"布幕頁 {match.group(1)} 沒有結尾")
+            depth += 1 if tag.group(0) == "<section" else -1
+            end = tag.end()
+            if depth == 0:
+                break
+        if match.group(1) == feature:
+            kept += 1
+            out.append(re.sub(r"\s+hidden(?=[\s>])", "", match.group(0), count=1) + text[match.end():end])
+        elif text.startswith("\n", end):
+            end += 1  # 整塊拿掉時連同那一行的換行
+        pos = end
+    out.append(text[pos:])
+    if kept != 1:
+        raise ValueError(f"首頁裡的 {feature} 布幕頁應該恰好一塊，找到 {kept} 塊")
+    text = "".join(out)
+    text = replace_once(text, r'<div id="feature"[^>]*>',
+                        f'<div id="feature" class="open" role="dialog" aria-modal="true" aria-hidden="false" '
+                        f'aria-labelledby="feature-{feature}-title" data-page="{feature}">')
+    text = replace_once(text, r'<body class="lock">', '<body class="lock feature-open">')
+    for tag in ('<div id="garden">', '<nav id="nav">', '<div id="main">'):
+        text = replace_once(text, re.escape(tag), tag[:-1] + " inert>")
+    return feature_first(text)
+
+
+DIV_TAG = re.compile(r"<div\b|</div>")
+
+
+def feature_first(text: str) -> str:
+    """把布幕整塊（連同它上面那行說明）搬到首頁內容（花園）之前。
+
+    為什麼：不跑程式的工具由上往下讀，要先讀到這篇文章。布幕是蓋在最上層的固定圖層、
+    背景都 inert，所以搬位置不影響畫面和鍵盤順序（任務卡 03 有截圖和 Tab 比對）。
+    """
+    start = re.search(r'(?:<!--[^\n]*-->\n)?<div id="feature"', text)
+    if not start:
+        raise ValueError("找不到布幕")
+    depth, end = 0, start.start()
+    while True:
+        tag = DIV_TAG.search(text, end)
+        if not tag:
+            raise ValueError("布幕沒有結尾")
+        depth += 1 if tag.group(0) == "<div" else -1
+        end = tag.end()
+        if depth == 0:
+            break
+    if text.startswith("\n", end):
+        end += 1
+    block = text[start.start():end]
+    text = text[:start.start()] + text[end:]
+    garden = re.search(r'(?:<!--[^\n]*-->\n)?<div id="garden"', text)
+    if not garden or garden.start() > start.start():
+        raise ValueError("花園應該在布幕前面")
+    return text[:garden.start()] + block + "\n" + text[garden.start():]
+
+
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8", newline="\n")
@@ -369,7 +442,11 @@ def main() -> None:
         if path == "/":
             continue
         target = ROOT / path.strip("/") / "index.html"
-        write(target, page_for(text, path, meta, articles))
+        page = page_for(text, path, meta, articles)
+        # 文章網址（規則同 page_for 判斷文章頁）：布幕只放這一篇
+        if any(note_path(a) == path for a in articles):
+            page = only_this_article(page, meta["feature"])
+        write(target, page)
         generated.append(target.relative_to(ROOT).as_posix())
 
     # 既有驗貨工具的詳情單獨輸出，不複製其他隱藏頁，也不交給布幕路由攔截。
