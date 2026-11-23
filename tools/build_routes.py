@@ -28,7 +28,7 @@ MANIFEST = ROOT / "tools" / "generated.txt"
 NOTES = ROOT / "content" / "notes.json"
 NOTE_IDS = ["06", "07", "10", "01", "02", "03", "04", "05", "08"]
 NOTE_SCHEMA_ID = "note-schema"
-NOTE_CATEGORIES = ("流程自動化", "品牌內容", "AI 導入", "網站建置")
+NOTE_CATEGORIES = ("廣告投放", "流程自動化", "品牌內容", "AI 導入", "網站建置")
 # 文末連到服務的那段話要像朋友順口提起：不催促、不推銷，也不用 AI 腔的對比句。
 SERVICE_NOTE_BANNED = BANNED
 SERVICE_TOKEN = re.compile(r"\{([a-z-]+)\}")
@@ -145,6 +145,15 @@ def render_service_note(article: dict, names: dict[str, str]) -> str:
         else:
             parts[index] = html.escape(part, quote=True)
     return f'<div class="note-service-link"><p>{"".join(parts)}</p></div>'
+
+
+def service_backlinks(articles: list[dict]) -> dict[str, list[tuple[str, str]]]:
+    """服務代稱 → 連到它的文章（照 notes.json 順序）。唯一來源是每篇 serviceNote 裡的 {服務代稱}。"""
+    backlinks: dict[str, list[tuple[str, str]]] = {}
+    for article in articles:
+        for slug in SERVICE_TOKEN.findall(article["serviceNote"]):
+            backlinks.setdefault(slug, []).append((article["title"], note_path(article)))
+    return backlinks
 
 
 def render_filters(articles: list[dict]) -> str:
@@ -427,9 +436,10 @@ def render_legacy_service_routes(text: str) -> str:
 
 def main() -> None:
     text = SOURCE.read_text(encoding="utf-8")
-    text = render_services(text)
-    text = render_legacy_service_routes(text)
     articles = load_notes()
+    # 文章連到服務頁，服務頁也連回文章（延伸閱讀：開花筆記）
+    text = render_services(text, service_backlinks(articles))
+    text = render_legacy_service_routes(text)
     text = render_notes(text, articles)
     routes = load_routes(text)
     # 根頁永遠維持自己的 metadata，不殘留任一篇文章的搜尋資料。
