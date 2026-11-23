@@ -393,17 +393,42 @@ def main() -> None:
 
     write(MANIFEST, "\n".join(sorted(generated)) + "\n")
 
+    # 只有開花筆記有真的更新日期（notes.json 的 dateModified），所以只替文章頁和筆記總覽寫 lastmod；
+    # 其他頁面沒有逐頁的更新紀錄，照舊省略，避免每天重建都冒充更新。
+    lastmod = {note_path(a): a["dateModified"] for a in articles}
+    lastmod["/notes/"] = max(a["dateModified"] for a in articles)
     urls = "".join(
-        f"  <url>\n    <loc>{SITE}{path}</loc>\n  </url>\n"
+        f"  <url>\n    <loc>{SITE}{path}</loc>\n"
+        + (f"    <lastmod>{lastmod[path]}</lastmod>\n" if path in lastmod else "")
+        + "  </url>\n"
         # 僅列入可索引頁面，排除標成 noindex 的頁面與重新導向網址。
         for path, meta in routes.items()
         if not meta.get("redirectTo") and not meta.get("noindex")
     )
-    # 沒有逐頁的重大更新日期紀錄，因此省略可選的 lastmod，避免每天重建都冒充更新。
     urls += f"  <url>\n    <loc>{SITE}{PHOTO_PATH}</loc>\n  </url>\n"
     write(ROOT / "sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
 
-    print(f"產生 {len(generated)} 個網址頁、404.html、sitemap.xml（共 {len(routes)} 個網址）")
+    write_llms(articles)
+
+    print(f"產生 {len(generated)} 個網址頁、404.html、sitemap.xml、llms.txt（共 {len(routes)} 個網址）")
+
+
+LLMS = ROOT / "llms.txt"
+LLMS_START = "<!-- NOTES-START：以下由 tools/build_routes.py 依 content/notes.json 自動產生，請勿手改 -->"
+LLMS_END = "<!-- NOTES-END -->"
+
+
+def write_llms(articles: list[dict]) -> None:
+    """把 llms.txt（給 AI 看的網站簡介）裡的「開花筆記」清單換成目前所有文章；其他段落手寫、不動。"""
+    lines = [f"- [{a['title']}]({SITE}{note_path(a)}): {a['description']}" for a in articles]
+    section = f"{LLMS_START}\n## 開花筆記\n\n" + "\n".join(lines) + f"\n{LLMS_END}"
+    text = LLMS.read_text(encoding="utf-8")
+    pattern = re.compile(re.escape(LLMS_START) + r".*?" + re.escape(LLMS_END), re.S)
+    if pattern.search(text):
+        text = pattern.sub(lambda _: section, text)
+    else:
+        text = text.rstrip("\n") + "\n\n" + section
+    write(LLMS, text.rstrip("\n") + "\n")
 
 
 if __name__ == "__main__":
