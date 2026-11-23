@@ -26,7 +26,7 @@ SITE = "https://riverflower2025.com"
 SOURCE = ROOT / "index.html"
 MANIFEST = ROOT / "tools" / "generated.txt"
 NOTES = ROOT / "content" / "notes.json"
-NOTE_IDS = ["06", "07", "10", "01", "02", "03", "04", "05", "08"]
+NOTE_IDS = ["06", "07", "10", "01", "02", "03", "04", "05", "08", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
 NOTE_SCHEMA_ID = "note-schema"
 NOTE_CATEGORIES = ("廣告投放", "流程自動化", "品牌內容", "AI 導入", "網站建置")
 # 文末連到服務的那段話要像朋友順口提起：不催促、不推銷，也不用 AI 腔的對比句。

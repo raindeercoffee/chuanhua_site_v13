@@ -31,8 +31,8 @@ READY_CHILDREN = {
 }
 BANNED = SERVICE_BANNED  # 和產生器共用同一份禁用詞清單
 UNFINISHED = ("施工中", "準備中", "即將上線", "正在細心整理中")
-# 網站地圖網址數：35 個既有網址＋9 個詳細說明頁（/ai/demo/ 已退場成轉址，不算）。
-SITEMAP_COUNT = 44
+# 網站地圖網址數：35 個既有網址＋9 個詳細說明頁（/ai/demo/ 已退場成轉址，不算）＋2026-11-23 新增 10 篇開花筆記。
+SITEMAP_COUNT = 54
 
 
 def feature_section(html: str, feature: str) -> str:
